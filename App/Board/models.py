@@ -22,7 +22,7 @@ CATEGORY_SELECT = (
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     avatar = ResizedImageField(size=[360, 360], verbose_name=u'Аватар', blank=True)
-    city = models.CharField(max_length=20, choices=CITY_SELECT, default='Не выбрано', verbose_name=u'Город', blank=True)
+    city = models.CharField(max_length=20, choices=CITY_SELECT, default='Не выбрано', verbose_name=u'Город')
     phone = models.CharField(max_length=20, verbose_name=u'Телефон', blank=True)
 
 
@@ -44,6 +44,7 @@ class Advertisement(models.Model):
     photo = ResizedImageField(size=[500, 500], verbose_name=u'Фото', blank=True)
     description = models.TextField(verbose_name=u'Описание')
     category = models.TextField(max_length=100, choices=CATEGORY_SELECT, default='Не выбрано', verbose_name=u'Категория')
+    city = models.CharField(max_length=20, choices=CITY_SELECT, default='Не выбрано', verbose_name=u'Город')
     public_date = models.DateField(auto_now=True, verbose_name=u'Дата публикации')
     active = models.BooleanField(default=True, verbose_name=u'Активное объявление')
     moderated = models.BooleanField(default=False, verbose_name=u'Прошел модерацию')
