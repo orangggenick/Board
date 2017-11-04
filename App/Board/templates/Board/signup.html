@@ -1,0 +1,75 @@
+{% extends 'Board/main.html' %}
+{% load widget_tweaks %}
+{% block content %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Регистрация</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-5">
+                <form role="form" action="/signup" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="username">Логин *</label>
+                        {% render_field user_form.username class="form-control" id="username" placeholder="Введите логин" %}
+                        {% if user_form.username.errors %}
+                            <div class="errors">{{ user_form.username.errors }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        <label for="password1">Пароль *</label>
+                        {% render_field user_form.password1 type="password" class="form-control" id="password1" placeholder="Введите пароль" %}
+                        {% if user_form.password1.errors %}
+                            <div class="errors">{{ user_form.username.errors }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        <label for="password2">Подтверждение пароля *</label>
+                        {% render_field user_form.password2 type="password" class="form-control" id="password2" placeholder="Подтвердите пароль" %}
+                        {% if user_form.password2.errors %}
+                            <div class="errors">{{ user_form.password2.errors }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        <label for="first_name">Ваше имя *</label>
+                        {% render_field profile_form.first_name type="password" class="form-control" id="first_name" placeholder="Введите Ваше имя" %}
+                        {% if user_form.first_name.errors %}
+                            <div class="errors">{{ user_form.first_name.errors }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        <label for="city">Ваш город *</label>
+                        {% render_field profile_form.city class="form-control" id="city" %}
+                        {% if user_form.city.errors %}
+                            <div class="errors">{{ user_form.city.errors }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Ваш телефон</label>
+                        {% render_field profile_form.phone class="form-control" id="phone" placeholder="Введите Ваш телефон" %}
+                        {% if user_form.phone.errors %}
+                            <div class="errors">{{ user_form.phone.errors }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        <label for="avatar">Фото Вашего профиля</label>
+                        {% render_field profile_form.avatar class="form-control-file" id="avatar" type="file" %}
+                        {% if user_form.avatar.errors %}
+                            <div class="errors">{{ user_form.avatar.errors }}</div>
+                        {% endif %}
+                    </div>
+                    <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
+                </form>
+            </div>
+            <div class="col-md-4">
+                <h2>Внимание</h2>
+                <p>Поля, отмеченные * обязательны для заполнения</p>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

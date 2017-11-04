@@ -7,13 +7,13 @@ from Board.models import Profile, Advertisement
 class UserForm(ModelForm):
     class Meta:
         model = User
-        fields = ['username', 'first_name', 'email']
+        fields = ['username', 'first_name', 'email', 'password']
 
 
 class ProfileForm(ModelForm):
     class Meta:
         model = Profile
-        fields = ['avatar', 'city', 'phone']
+        fields = ['avatar', 'city', 'phone', 'first_name']
 
 
 class AdvertisementForm(ModelForm):
