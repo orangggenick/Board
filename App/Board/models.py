@@ -5,10 +5,7 @@ from django.dispatch import receiver
 from django_resized import ResizedImageField
 
 CITY_SELECT = (
-    ('Омск', 'Омск'),
-    ('Тара', 'Тара'),
-    ('Тюмень', 'Тюмень'),
-    ('Новосибирск', 'Новосибирск'),
+
 )
 
 CATEGORY_SELECT = (
@@ -42,3 +39,9 @@ class Advertisement(models.Model):
     active = models.BooleanField(default=True, verbose_name=u'Активное объявление')
     moderated = models.BooleanField(default=False, verbose_name=u'Прошел модерацию')
 
+
+class City(models.Model):
+    name = models.CharField(max_length=100, verbose_name=u'Название')
+
+    def __str__(self):
+        return self.name

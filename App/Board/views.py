@@ -5,7 +5,7 @@ from django.shortcuts import render, redirect, render_to_response
 from django.template.context_processors import csrf
 
 from Board.forms import UserForm, ProfileForm
-from Board.models import Advertisement
+from Board.models import Advertisement, City
 
 
 def home(request):
@@ -28,9 +28,9 @@ def signup(request):
                 profile_form.save()
                 return redirect('/')
         else:
-            return render(request, 'Board/signup.html', {'user_form': user_form, 'profile_form': profile_form})
+            return render(request, 'Board/signup.html', {'user_form': user_form, 'profile_form': profile_form, 'cities':City.objects.all()})
     else:
-        return render(request, 'Board/signup.html', {'user_form': user_form, 'profile_form': profile_form})
+        return render(request, 'Board/signup.html', {'user_form': user_form, 'profile_form': profile_form, 'cities':City.objects.all()})
 
 
 def login(request):
