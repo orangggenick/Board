@@ -22,7 +22,7 @@ CATEGORY_SELECT = (
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=30, verbose_name=u'Имя')
-    avatar = ResizedImageField(size=[360, 360], verbose_name=u'Аватар', blank=True)
+    avatar = ResizedImageField(size=[360, 360], crop=['middle', 'center'], verbose_name=u'Аватар', blank=True)
     city = models.CharField(max_length=20, choices=CITY_SELECT, default='Не выбрано', verbose_name=u'Город')
     phone = models.CharField(max_length=20, verbose_name=u'Телефон', blank=True)
 

@@ -1,0 +1,16 @@
+{% extends 'Board/main.html' %}
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Профиль пользователя {{ user.username }}</h1>
+            {{ user.profile.first_name }}
+            <img src="{{ user.profile.avatar.url }}">
+            {{ user.date_joined.date }}
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

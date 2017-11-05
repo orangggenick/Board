@@ -1,32 +1,48 @@
 <!DOCTYPE html>
+{% load staticfiles %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/united/bootstrap.min.css" rel="stylesheet" integrity="sha384-pVJelSCJ58Og1XDc2E95RVYHZDPb9AVyXsI8NoVpB2xmtxoZKJePbMfE4mlXw7BJ" crossorigin="anonymous">
+    <link href={% static "style.css" %} rel="stylesheet" type="text/css">
 </head>
 <body>
 
 <div class="navbar navbar-inverse" role="navigation">
-      <div class="container">
+    <div class="container">
         <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">Доска объявлений</a>
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Доска объявлений</a>
         </div>
         <div class="collapse navbar-collapse">
-          <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Главная</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
-          </ul>
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Главная</a></li>
+            </ul>
+            <ul class="nav navbar-nav pull-right">
+                {% if user.is_authenticated %}
+                <li>
+                    <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">{{ user.profile.first_name }} <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="profile/{{ user.id }}">Профиль</a></li>
+                        <li><a href="#">Подать объявление</a></li>
+                        <li class="divider"></li>
+                        <li><a href="/logout">Выйти</a></li>
+                    </ul>
+                </li>
+                {% else %}
+                    <li><a href="/login">Войти</a></li>
+                    <li><a href="/signup">Регистрация</a></li>
+                {% endif %}
+            </ul>
         </div><!--/.nav-collapse -->
-      </div>
     </div>
+</div>
 
 {% block content %}{% endblock %}
 
