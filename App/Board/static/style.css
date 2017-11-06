@@ -1,5 +1,5 @@
 .mt0{
-    margin-top: 0px;
+    margin-top: 0;
 }
 
 .mt5{
@@ -16,4 +16,17 @@
 
 .mt20{
     margin-top: 20px;
+}
+
+.text-left{
+    text-align: left !important;
+}
+
+@media (min-width: 768px) {
+    .dl-horizontal dt{
+        width: 100px;
+    }
+    .dl-horizontal dd {
+        margin-left: 110px;
+    }
 }

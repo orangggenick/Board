@@ -3,12 +3,42 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-md-12">
-            <h1>Профиль пользователя {{ user.username }}</h1>
-            {{ user.profile.first_name }}
-            <img src="{{ user.profile.avatar.url }}">
-            {{ user.date_joined.date }}
+        <div class="col-md-9">
+            <h3>Объявления</h3>
+            <div class="row">
+                <div class="col-md-12">
 
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card">
+                <h3 class="card-header">Пользователь {{ user.username }}</h3>
+                {% if user.profile.avatar %}
+                    <img src="{{ user.profile.avatar.url }}" class="img-responsive img-circle mt20" alt="Card image">
+                {% endif %}
+                <div class="card-body mt20">
+                    <dl class="dl-horizontal">
+                        <dt class="text-left"><h5 class="card-title mt0">Имя</h5></dt>
+                        <dd><h5 class="card-subtitle text-muted mt0">{{ user.profile.first_name }}</h5></dd>
+                        <dt class="text-left"><h5 class="card-title mt0">Город</h5></dt>
+                        <dd><h5 class="card-subtitle text-muted mt0">{{ user.profile.city }}</h5></dd>
+                        <dt class="text-left"><h5 class="card-title mt0">E-mail</h5></dt>
+                        <dd><h5 class="card-subtitle text-muted mt0">{{ user.profile.email }}</h5></dd>
+                        <dt class="text-left"><h5 class="card-title mt0">Телефон</h5></dt>
+                        {% if user.profile.phone %}
+                            <dd><h5 class="card-subtitle text-muted mt0">{{ user.profile.phone }}</h5></dd>
+                        {% else %}
+                            <dd><h5 class="card-subtitle text-muted mt0">Не указан</h5></dd>
+                        {% endif %}
+                        <dt class="text-left"><h5 class="card-title mt0">На сайте с</h5></dt>
+                        <dd><h5 class="card-subtitle text-muted mt0">{{ user.date_joined.date }}</h5></dd>
+                    </dl>
+                </div>
+            </div>
+            {% if user.id == request.user.id %}
+                <button type="button" class="btn btn-secondary">Редактировать профиль</button>
+            {% endif %}
         </div>
     </div>
 </div>

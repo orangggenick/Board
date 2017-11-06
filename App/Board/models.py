@@ -22,6 +22,7 @@ class Profile(models.Model):
     avatar = ResizedImageField(size=[360, 360], crop=['middle', 'center'], verbose_name=u'Аватар', blank=True)
     city = models.CharField(max_length=20, choices=CITY_SELECT, default='Не выбрано', verbose_name=u'Город')
     phone = models.CharField(max_length=20, verbose_name=u'Телефон', blank=True)
+    email = models.EmailField(max_length=100, verbose_name=u'E-mail')
 
     def __str__(self):
         return self.user.username
@@ -36,6 +37,7 @@ class Advertisement(models.Model):
     category = models.CharField(max_length=100, choices=CATEGORY_SELECT, default='Не выбрано', verbose_name=u'Категория')
     city = models.CharField(max_length=20, choices=CITY_SELECT, default='Не выбрано', verbose_name=u'Город')
     public_date = models.DateField(auto_now=True, verbose_name=u'Дата публикации')
+    end_date = models.DateField(verbose_name=u'Дата окончания')
     active = models.BooleanField(default=True, verbose_name=u'Активное объявление')
     moderated = models.BooleanField(default=False, verbose_name=u'Прошел модерацию')
 
