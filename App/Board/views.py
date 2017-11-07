@@ -5,8 +5,8 @@ from django.contrib.auth.models import User
 from django.shortcuts import render, redirect, render_to_response
 from django.template.context_processors import csrf
 
-from Board.forms import UserForm, ProfileForm
-from Board.models import Advertisement, City
+from Board.forms import UserForm, ProfileForm, AdvertisementForm
+from Board.models import Advertisement, City, Category
 
 
 def home(request):
@@ -62,8 +62,10 @@ def profile(request, user_id):
         advertisements = Advertisement.objects.filter(author_id=user_id)
         active = advertisements.filter(moderated=True).filter(end_date__gt = datetime.datetime.now())
         end = advertisements.filter(end_date__lte = datetime.datetime.now())
-        waining = advertisements.filter(moderated=False)
-        return render(request, 'Board/profile.html', {'user':User.objects.get(id=user_id), 'active':active, 'end':end, 'waiting':waining})
+        waiting = advertisements.filter(moderated=False)
+        categories = Category.objects.all()
+        form = AdvertisementForm()
+        return render(request, 'Board/profile.html', {'user': User.objects.get(id=user_id), 'active': active, 'end': end, 'waiting': waiting, 'form': form, 'categories': categories})
     else:
         active = Advertisement.objects.filter(author_id=user_id).filter(moderated=True).filter(end_date__gt=datetime.datetime.now())
-        return render(request, 'Board/profile.html', {'user':User.objects.get(id=user_id), 'active': active})
+        return render(request, 'Board/profile.html', {'user': User.objects.get(id=user_id), 'active': active})

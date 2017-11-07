@@ -52,3 +52,10 @@ class City(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Category(models.Model):
+    name = models.CharField(max_length=100, verbose_name=u'Название')
+
+    def __str__(self):
+        return self.name
