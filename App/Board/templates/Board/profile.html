@@ -5,9 +5,81 @@
     <div class="row">
         <div class="col-md-9">
             <h3>Объявления</h3>
-            <div class="row">
-                <div class="col-md-12">
-
+            {% if user.id == request.user.id %}
+                <ul id="myTab" class="nav nav-tabs mt20">
+                    <li class="active"><a href="#active" data-toggle="tab">Активные <span class="badge">{{ active.count }}</span></a></li>
+                    <li class=""><a href="#end" data-toggle="tab">Завершенные <span class="badge">{{ end.count }}</span></a></li>
+                    <li class=""><a href="#waiting" data-toggle="tab">Ожидают модерации <span class="badge">{{ waiting.count }}</span></a></li>
+                </ul>
+            {% endif %}
+            <div class="row mt15">
+                <div id="myTabContent" class="tab-content">
+                    <div class="tab-pane active in" id="active">
+                        {% for advertisement in active reversed %}
+                            <div class="col-sm-4">
+                                <h4>{{ advertisement.header }}</h4>
+                                <img src="{{ advertisement.photo.url }}" class="img-responsive mt15">
+                                {% if advertisement.price %}
+                                    <h5>{{ advertisement.price }} ₽</h5>
+                                {% else %}
+                                    <h5>Цена не указана</h5>
+                                {% endif %}
+                                {% if user.id == request.user.id %}
+                                    {% if advertisement.end_date %}
+                                        <h5>Дата окончания: {{ advertisement.end_date }}</h5>
+                                    {% else %}
+                                        <h5>Бессрочное объявление</h5>
+                                    {% endif %}
+                                {% endif %}
+                                <button type="button" class="btn btn-primary btn-sm">Подробнее</button>
+                                {% if user.id == request.user.id %}
+                                    <button type="button" class="btn btn-secondary btn-sm">Редактировать</button>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                    {% if user.id == request.user.id %}
+                        <div class="tab-pane fade" id="end">
+                            {% for advertisement in end reversed %}
+                                <div class="col-sm-4">
+                                    <h4>{{ advertisement.header }}</h4>
+                                    <img src="{{ advertisement.photo.url }}" class="img-responsive mt15">
+                                    {% if advertisement.price %}
+                                        <h5>{{ advertisement.price }} ₽</h5>
+                                    {% else %}
+                                        <h5>Цена не указана</h5>
+                                    {% endif %}
+                                    {% if advertisement.end_date %}
+                                        <h5>Дата окончания: {{ advertisement.end_date }}</h5>
+                                    {% else %}
+                                        <h5>Бессрочное объявление</h5>
+                                    {% endif %}
+                                    <button type="button" class="btn btn-primary btn-sm">Сделать активным</button>
+                                    <button type="button" class="btn btn-secondary btn-sm">Редактировать</button>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <div class="tab-pane fade" id="waiting">
+                            {% for advertisement in waiting reversed %}
+                                <div class="col-sm-4">
+                                    <h4>{{ advertisement.header }}</h4>
+                                    <img src="{{ advertisement.photo.url }}" class="img-responsive mt15">
+                                    {% if advertisement.price %}
+                                        <h5>{{ advertisement.price }} ₽</h5>
+                                    {% else %}
+                                        <h5>Цена не указана</h5>
+                                    {% endif %}
+                                    {% if advertisement.end_date %}
+                                        <h5>Дата окончания: {{ advertisement.end_date }}</h5>
+                                    {% else %}
+                                        <h5>Бессрочное объявление</h5>
+                                    {% endif %}
+                                    <button type="button" class="btn btn-primary btn-sm">Подробнее</button>
+                                    <button type="button" class="btn btn-secondary btn-sm">Редактировать</button>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
                 </div>
             </div>
         </div>

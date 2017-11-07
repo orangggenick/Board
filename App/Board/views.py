@@ -1,3 +1,4 @@
+import datetime
 from django.contrib import auth
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
@@ -57,4 +58,12 @@ def logout(request):
 
 
 def profile(request, user_id):
-    return render(request, 'Board/profile.html', {'user':User.objects.get(id=user_id), 'advertisements': Advertisement.objects.filter(author_id=user_id)})
+    if int(user_id) == int(request.user.id):
+        advertisements = Advertisement.objects.filter(author_id=user_id)
+        active = advertisements.filter(moderated=True).filter(end_date__gt = datetime.datetime.now())
+        end = advertisements.filter(end_date__lte = datetime.datetime.now())
+        waining = advertisements.filter(moderated=False)
+        return render(request, 'Board/profile.html', {'user':User.objects.get(id=user_id), 'active':active, 'end':end, 'waiting':waining})
+    else:
+        active = Advertisement.objects.filter(author_id=user_id).filter(moderated=True).filter(end_date__gt=datetime.datetime.now())
+        return render(request, 'Board/profile.html', {'user':User.objects.get(id=user_id), 'active': active})

@@ -31,7 +31,7 @@
                 <li>
                     <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">{{ request.user.profile.first_name }} <span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="profile/{{ request.user.id }}">Профиль</a></li>
+                        <li><a href="/profile/{{ request.user.id }}">Профиль</a></li>
                         <li><a href="#">Подать объявление</a></li>
                         <li class="divider"></li>
                         <li><a href="/logout">Выйти</a></li>
