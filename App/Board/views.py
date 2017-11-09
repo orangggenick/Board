@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.shortcuts import render, redirect, render_to_response
 from django.template.context_processors import csrf
 
-from Board.forms import UserForm, ProfileForm, AdvertisementForm
+from Board.forms import ProfileForm, AdvertisementForm
 from Board.models import Advertisement, City, Category
 
 
@@ -69,3 +69,17 @@ def profile(request, user_id):
     else:
         active = Advertisement.objects.filter(author_id=user_id).filter(moderated=True).filter(end_date__gt=datetime.datetime.now())
         return render(request, 'Board/profile.html', {'user': User.objects.get(id=user_id), 'active': active})
+
+
+def add(request):
+    form = AdvertisementForm()
+    if request.POST:
+        form = AdvertisementForm(request.POST, request.FILES)
+        if form.is_valid():
+            buffer = form.save(commit=False)
+            buffer.author_id = auth.get_user(request).id
+            buffer.city = auth.get_user(request).profile.city
+            form.save()
+            return redirect('/profile/'+str(auth.get_user(request).id))
+        else:
+            return render(request, 'Board/add.html', {'form': form, 'categories': Category.objects.all()})

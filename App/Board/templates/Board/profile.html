@@ -20,7 +20,9 @@
                         {% for advertisement in active reversed %}
                             <div class="col-sm-4">
                                 <h4>{{ advertisement.header }}</h4>
-                                <img src="{{ advertisement.photo.url }}" class="img-responsive mt15">
+                                {% if advertisement.photo %}
+                                    <img src="{{ advertisement.photo.url }}" class="img-responsive mt15">
+                                {% endif %}
                                 {% if advertisement.price %}
                                     <h5>{{ advertisement.price }} ₽</h5>
                                 {% else %}
@@ -45,7 +47,9 @@
                             {% for advertisement in end reversed %}
                                 <div class="col-sm-4">
                                     <h4>{{ advertisement.header }}</h4>
-                                    <img src="{{ advertisement.photo.url }}" class="img-responsive mt15">
+                                    {% if advertisement.photo %}
+                                        <img src="{{ advertisement.photo.url }}" class="img-responsive mt15">
+                                    {% endif %}
                                     {% if advertisement.price %}
                                         <h5>{{ advertisement.price }} ₽</h5>
                                     {% else %}
@@ -65,7 +69,9 @@
                             {% for advertisement in waiting reversed %}
                                 <div class="col-sm-4">
                                     <h4>{{ advertisement.header }}</h4>
-                                    <img src="{{ advertisement.photo.url }}" class="img-responsive mt15">
+                                    {% if advertisement.photo %}
+                                        <img src="{{ advertisement.photo.url }}" class="img-responsive mt15">
+                                    {% endif %}
                                     {% if advertisement.price %}
                                         <h5>{{ advertisement.price }} ₽</h5>
                                     {% else %}
@@ -83,7 +89,7 @@
                         </div>
                         <div class="tab-pane fade" id="add">
                              <div class="col-md-12">
-                                 <form role="form" action="" method="post" enctype="multipart/form-data">
+                                 <form role="form" action="/add" method="post" enctype="multipart/form-data">
                                      {% csrf_token %}
                                      <div class="row">
                                          <div class="col-md-6">

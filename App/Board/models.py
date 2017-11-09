@@ -21,7 +21,7 @@ class Profile(models.Model):
     first_name = models.CharField(max_length=30, verbose_name=u'Имя')
     avatar = ResizedImageField(size=[360, 360], crop=['middle', 'center'], verbose_name=u'Аватар', blank=True)
     city = models.CharField(max_length=20, choices=CITY_SELECT, default='Не выбрано', verbose_name=u'Город')
-    phone = models.CharField(max_length=20, verbose_name=u'Телефон', blank=True)
+    phone = models.CharField(max_length=20, verbose_name=u'Телефон', blank=True, null=True)
     email = models.EmailField(max_length=100, verbose_name=u'E-mail')
 
     def __str__(self):
@@ -31,15 +31,15 @@ class Profile(models.Model):
 class Advertisement(models.Model):
     author_id = models.IntegerField(verbose_name=u'ID автора')
     header = models.CharField(max_length=140, verbose_name=u'Заголовок')
-    price = models.IntegerField(verbose_name=u'Цена', blank=True)
+    price = models.IntegerField(verbose_name=u'Цена', blank=True, null=True)
     photo = ResizedImageField(size=[500, 500], verbose_name=u'Фото', blank=True)
     description = models.TextField(verbose_name=u'Описание')
     objects_in_box = models.IntegerField(verbose_name=u'Колиество товара в коробке')
     boxes_count = models.IntegerField(verbose_name=u'Колиество коробок')
-    category = models.CharField(max_length=100, choices=CATEGORY_SELECT, default='Не выбрано', verbose_name=u'Категория')
-    city = models.CharField(max_length=20, choices=CITY_SELECT, default='Не выбрано', verbose_name=u'Город')
+    category = models.CharField(max_length=100, default='Не выбрано', verbose_name=u'Категория')
+    city = models.CharField(max_length=20, default='Не выбрано', verbose_name=u'Город')
     public_date = models.DateField(auto_now=True, verbose_name=u'Дата публикации')
-    end_date = models.DateField(verbose_name=u'Дата окончания', blank=True)
+    end_date = models.DateField(verbose_name=u'Дата окончания', blank=True, null=True)
     active = models.BooleanField(default=True, verbose_name=u'Активное объявление')
     moderated = models.BooleanField(default=False, verbose_name=u'Прошел модерацию')
 
