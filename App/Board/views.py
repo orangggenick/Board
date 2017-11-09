@@ -83,3 +83,5 @@ def add(request):
             return redirect('/profile/'+str(auth.get_user(request).id))
         else:
             return render(request, 'Board/add.html', {'form': form, 'categories': Category.objects.all()})
+    else:
+        return render(request, 'Board/add.html', {'form': form, 'categories': Category.objects.all()})
