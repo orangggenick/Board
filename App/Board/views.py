@@ -10,7 +10,8 @@ from Board.models import Advertisement, City, Category
 
 
 def home(request):
-    return render(request, 'Board/home.html')
+    advertisements = Advertisement.objects.filter(moderated=True).filter(end_date__gt=datetime.datetime.now())
+    return render(request, 'Board/home.html', {'advertisements': advertisements})
 
 
 def signup(request):

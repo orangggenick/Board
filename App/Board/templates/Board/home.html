@@ -4,14 +4,25 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <div class="jumbotron">
-                <h1 class="display-3">Потерял чего?</h1>
-                <p>Воспользуйтесь поиском по 100500 объявлениям</p>
-                <div class="form-group">
-                    <input class="form-control form-control-lg" type="text" id="inputLarge">
+            <h3>Последние объявления</h3>
+        </div>
+    </div>
+    <div class="row mt15">
+            {% for advertisement in advertisements reversed %}
+                <div class="col-sm-4">
+                    <h4>{{ advertisement.header }}</h4>
+                    {% if advertisement.photo %}
+                        <img src="{{ advertisement.photo.url }}" class="img-responsive mt15">
+                    {% endif %}
+                    {% if advertisement.price %}
+                        <h5>{{ advertisement.price }} ₽</h5>
+                    {% else %}
+                        <h5>Цена не указана</h5>
+                    {% endif %}
+                        <h5>Добавлено {{ advertisement.public_date }}</h5>
+                    <button type="button" class="btn btn-primary btn-sm">Подробнее</button>
                 </div>
-                <p><a class="btn btn-primary btn-lg" href="#">Поиск</a></p>
-            </div>
+            {% endfor %}
         </div>
     </div>
 </div>
