@@ -22,6 +22,10 @@
     text-align: left !important;
 }
 
+.text-right{
+    text-align: right !important;
+}
+
 @media (min-width: 768px) {
     .dl-horizontal dt{
         width: 100px;

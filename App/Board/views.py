@@ -15,47 +15,55 @@ def home(request):
 
 
 def signup(request):
-    user_form = UserCreationForm()
-    profile_form = ProfileForm()
-    if request.POST:
-        user_form = UserCreationForm(request.POST)
-        profile_form = ProfileForm(request.POST, request.FILES)
-        if user_form.is_valid():
-            user_form.save()
-            user = auth.authenticate(username=user_form.cleaned_data['username'], password=user_form.cleaned_data['password2'])
-            auth.login(request, user)
-            if profile_form.is_valid():
-                buffer = profile_form.save(commit=False)
-                buffer.user = auth.get_user(request)
-                profile_form.save()
-                return redirect('/')
+    if auth.get_user(request).id is not None:
+        return redirect('/profile/' + str(auth.get_user(request).id))
+    else:
+        user_form = UserCreationForm()
+        profile_form = ProfileForm()
+        if request.POST:
+            user_form = UserCreationForm(request.POST)
+            profile_form = ProfileForm(request.POST, request.FILES)
+            if user_form.is_valid():
+                user_form.save()
+                user = auth.authenticate(username=user_form.cleaned_data['username'], password=user_form.cleaned_data['password2'])
+                auth.login(request, user)
+                if profile_form.is_valid():
+                    buffer = profile_form.save(commit=False)
+                    buffer.user = auth.get_user(request)
+                    profile_form.save()
+                    return redirect('/')
+            else:
+                return render(request, 'Board/signup.html', {'user_form': user_form, 'profile_form': profile_form, 'cities':City.objects.all()})
         else:
             return render(request, 'Board/signup.html', {'user_form': user_form, 'profile_form': profile_form, 'cities':City.objects.all()})
-    else:
-        return render(request, 'Board/signup.html', {'user_form': user_form, 'profile_form': profile_form, 'cities':City.objects.all()})
 
 
 def login(request):
-    args = {}
-    args.update(csrf(request))
-    if request.POST:
-        username = request.POST.get('username', '')
-        password = request.POST.get('password', '')
-        user = auth.authenticate(username=username,password=password)
-        if user is not None:
-            auth.login(request,user)
-            return redirect('/')
-        else:
-            args['login_error'] = "Пользователь не найден!"
-            return render_to_response('Board/login.html', args)
+    if auth.get_user(request).id is not None:
+        return redirect('/profile/' + str(auth.get_user(request).id))
     else:
-
-        return render_to_response('Board/login.html', args)
+        args = {}
+        args.update(csrf(request))
+        if request.POST:
+            username = request.POST.get('username', '')
+            password = request.POST.get('password', '')
+            user = auth.authenticate(username=username,password=password)
+            if user is not None:
+                auth.login(request,user)
+                return redirect('/')
+            else:
+                args['login_error'] = "Пользователь не найден!"
+                return render_to_response('Board/login.html', args)
+        else:
+            return render_to_response('Board/login.html', args)
 
 
 def logout(request):
-    auth.logout(request)
-    return redirect("/")
+    if auth.get_user(request).id is not None:
+        auth.logout(request)
+        return redirect("/")
+    else:
+        return redirect("/")
 
 
 def profile(request, user_id):
@@ -73,16 +81,24 @@ def profile(request, user_id):
 
 
 def add(request):
-    form = AdvertisementForm()
-    if request.POST:
-        form = AdvertisementForm(request.POST, request.FILES)
-        if form.is_valid():
-            buffer = form.save(commit=False)
-            buffer.author_id = auth.get_user(request).id
-            buffer.city = auth.get_user(request).profile.city
-            form.save()
-            return redirect('/profile/'+str(auth.get_user(request).id))
+    if auth.get_user(request).id is not None:
+        form = AdvertisementForm()
+        if request.POST:
+            form = AdvertisementForm(request.POST, request.FILES)
+            if form.is_valid():
+                buffer = form.save(commit=False)
+                buffer.author_id = auth.get_user(request).id
+                form.save()
+                return redirect('/profile/'+str(auth.get_user(request).id))
+            else:
+                return render(request, 'Board/add.html', {'form': form, 'categories': Category.objects.all()})
         else:
             return render(request, 'Board/add.html', {'form': form, 'categories': Category.objects.all()})
     else:
-        return render(request, 'Board/add.html', {'form': form, 'categories': Category.objects.all()})
+        return redirect("/login")
+
+
+def advertisement(request, advertisement_id):
+    advertisement = Advertisement.objects.get(id=advertisement_id)
+    user =  User.objects.get(id=advertisement.author_id)
+    return render(request, 'Board/advertisement.html', {'advertisement': advertisement, 'user': user})

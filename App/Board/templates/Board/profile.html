@@ -22,6 +22,8 @@
                                 <h4>{{ advertisement.header }}</h4>
                                 {% if advertisement.photo %}
                                     <img src="{{ advertisement.photo.url }}" class="img-responsive mt15">
+                                {% else %}
+                                    <img src="{{ advertisement.shop.image.url }}" class="img-responsive mt15">
                                 {% endif %}
                                 {% if advertisement.price %}
                                     <h5>{{ advertisement.price }} ₽</h5>
@@ -35,7 +37,9 @@
                                         <h5>Бессрочное объявление</h5>
                                     {% endif %}
                                 {% endif %}
-                                <button type="button" class="btn btn-primary btn-sm">Подробнее</button>
+                                <a href="/advertisement/{{ advertisement.id }}">
+                                    <button type="button" class="btn btn-primary btn-sm">Подробнее</button>
+                                </a>
                                 {% if user.id == request.user.id %}
                                     <button type="button" class="btn btn-secondary btn-sm">Редактировать</button>
                                 {% endif %}
@@ -49,6 +53,8 @@
                                     <h4>{{ advertisement.header }}</h4>
                                     {% if advertisement.photo %}
                                         <img src="{{ advertisement.photo.url }}" class="img-responsive mt15">
+                                    {% else %}
+                                        <img src="{{ advertisement.shop.image.url }}" class="img-responsive mt15">
                                     {% endif %}
                                     {% if advertisement.price %}
                                         <h5>{{ advertisement.price }} ₽</h5>
@@ -71,6 +77,8 @@
                                     <h4>{{ advertisement.header }}</h4>
                                     {% if advertisement.photo %}
                                         <img src="{{ advertisement.photo.url }}" class="img-responsive mt15">
+                                    {% else %}
+                                        <img src="{{ advertisement.shop.image.url }}" class="img-responsive mt15">
                                     {% endif %}
                                     {% if advertisement.price %}
                                         <h5>{{ advertisement.price }} ₽</h5>
@@ -82,7 +90,9 @@
                                     {% else %}
                                         <h5>Бессрочное объявление</h5>
                                     {% endif %}
-                                    <button type="button" class="btn btn-primary btn-sm">Подробнее</button>
+                                    <a href="/advertisement/{{ advertisement.id }}">
+                                        <button type="button" class="btn btn-primary btn-sm">Подробнее</button>
+                                    </a>
                                     <button type="button" class="btn btn-secondary btn-sm">Редактировать</button>
                                 </div>
                             {% endfor %}
@@ -102,21 +112,19 @@
                                                  {% render_field form.description class="form-control" id="description" placeholder="Введите описание" %}
                                              </div>
                                              <div class="form-group">
-                                                 <label for="objects_in_box">Количество объектов в коробке *</label>
+                                                 <label for="objects_in_box">Количество бонусов *</label>
                                                  <div class="input-group">
-                                                     {% render_field form.objects_in_box class="form-control" id="objects_in_box" placeholder="Введите количество объектов в коробке" %}
-                                                     <div class="input-group-addon">штук</div>
+                                                     {% render_field form.objects_in_box class="form-control" id="objects_in_box" placeholder="Введите количество бонусов" %}
+                                                     <div class="input-group-addon">единиц</div>
                                                  </div>
                                              </div>
                                              <div class="form-group">
-                                                 <label for="boxes_count">Количество коробок *</label>
+                                                 <label for="boxes_count">Количество карточек/купонов *</label>
                                                  <div class="input-group">
-                                                     {% render_field form.boxes_count class="form-control" id="boxes_count" placeholder="Введите количество коробок" %}
+                                                     {% render_field form.boxes_count class="form-control" id="boxes_count" placeholder="Введите количество карточек" %}
                                                      <div class="input-group-addon">штук</div>
                                                  </div>
                                              </div>
-                                         </div>
-                                         <div class="col-md-6">
                                              <div class="form-group">
                                                  <label for="price">Цена</label>
                                                  <div class="input-group">
@@ -124,17 +132,29 @@
                                                      <div class="input-group-addon">₽</div>
                                                 </div>
                                              </div>
+                                         </div>
+                                         <div class="col-md-6">
                                              <div class="form-group">
-                                                 <label for="category">Катерогия *</label>
-                                                 <select name="category" id="category" class="form-control">
-                                                     {% for category in categories %}
-                                                         <option value="{{ category.name }}">{{ category.name }}</option>
-                                                     {% endfor %}
-                                                 </select>
+                                                 <label for="category">Город *</label>
+                                                 {% render_field form.city class="form-control" id="city" placeholder="Выберите город" %}
                                              </div>
                                              <div class="form-group">
-                                                 <label for="end_date">Дата окончания *</label>
-                                                 {% render_field form.end_date class="form-control" id="end_date" placeholder="Укажите дату окончания" %}
+                                                 <label for="category">Катерогия *</label>
+                                                 {% render_field form.category class="form-control" id="category" placeholder="Выберите категорию" %}
+                                             </div>
+                                             <div class="form-group">
+                                                 <label for="category">Магазин *</label>
+                                                 {% render_field form.shop class="form-control" id="shop" placeholder="Выберите магазин" %}
+                                             </div>
+                                             <div class="form-group">
+                                                 <label for="begin_date">Дата начала действия</label>
+                                                 {% render_field form.begin_date class="form-control" id="begin_date" aria-describedby="begin_dateHelp" placeholder="Укажите дату начала" %}
+                                                 <small id="begin_dateHelp" class="form-text text-muted">Если срок действия бонусов не ограничен, оставьте это поле пустым</small>
+                                            </div>
+                                             <div class="form-group">
+                                                 <label for="end_date">Дата окончания действия</label>
+                                                 {% render_field form.end_date class="form-control" id="end_date" aria-describedby="end_dateHelp" placeholder="Укажите дату окончания" %}
+                                                 <small id="end_dateHelp" class="form-text text-muted">Если срок действия бонусов не ограничен, оставьте это поле пустым</small>
                                              </div>
                                              <div class="form-group">
                                                  <label for="photo">Фото</label>
@@ -161,7 +181,7 @@
                         <dt class="text-left"><h5 class="card-title mt0">Имя</h5></dt>
                         <dd><h5 class="card-subtitle text-muted mt0">{{ user.profile.first_name }}</h5></dd>
                         <dt class="text-left"><h5 class="card-title mt0">Город</h5></dt>
-                        <dd><h5 class="card-subtitle text-muted mt0">{{ user.profile.city }}</h5></dd>
+                        <dd><h5 class="card-subtitle text-muted mt0">{{ user.profile.city.name }}</h5></dd>
                         <dt class="text-left"><h5 class="card-title mt0">E-mail</h5></dt>
                         <dd><h5 class="card-subtitle text-muted mt0">{{ user.profile.email }}</h5></dd>
                         <dt class="text-left"><h5 class="card-title mt0">Телефон</h5></dt>

@@ -15,12 +15,33 @@ CATEGORY_SELECT = (
     ('Категория 4', 'Категория 4'),
 )
 
+class City(models.Model):
+    name = models.CharField(max_length=100, verbose_name=u'Название')
+
+    def __str__(self):
+        return self.name
+
+
+class Category(models.Model):
+    name = models.CharField(max_length=100, verbose_name=u'Название')
+
+    def __str__(self):
+        return self.name
+
+
+class Shop(models.Model):
+    name = models.CharField(max_length=100, verbose_name=u'Название')
+    image = ResizedImageField(size=[500, 500], verbose_name=u'Картинка', blank=True)
+
+    def __str__(self):
+        return self.name
+
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=30, verbose_name=u'Имя')
     avatar = ResizedImageField(size=[360, 360], crop=['middle', 'center'], verbose_name=u'Аватар', blank=True)
-    city = models.CharField(max_length=20, choices=CITY_SELECT, default='Не выбрано', verbose_name=u'Город')
+    city = models.ForeignKey(City, verbose_name=u'Город')
     phone = models.CharField(max_length=20, verbose_name=u'Телефон', blank=True, null=True)
     email = models.EmailField(max_length=100, verbose_name=u'E-mail')
 
@@ -34,28 +55,16 @@ class Advertisement(models.Model):
     price = models.IntegerField(verbose_name=u'Цена', blank=True, null=True)
     photo = ResizedImageField(size=[500, 500], verbose_name=u'Фото', blank=True)
     description = models.TextField(verbose_name=u'Описание')
-    objects_in_box = models.IntegerField(verbose_name=u'Колиество товара в коробке')
-    boxes_count = models.IntegerField(verbose_name=u'Колиество коробок')
-    category = models.CharField(max_length=100, default='Не выбрано', verbose_name=u'Категория')
-    city = models.CharField(max_length=20, default='Не выбрано', verbose_name=u'Город')
+    objects_in_box = models.IntegerField(verbose_name=u'Колиество бонусов')
+    boxes_count = models.IntegerField(verbose_name=u'Количество карточек/купонов')
+    category = models.ForeignKey(Category, verbose_name=u'Категория')
+    city = models.ForeignKey(City, verbose_name=u'Город')
+    shop = models.ForeignKey(Shop, verbose_name=u'Магазин')
     public_date = models.DateField(auto_now=True, verbose_name=u'Дата публикации')
-    end_date = models.DateField(verbose_name=u'Дата окончания', blank=True, null=True)
+    begin_date = models.DateField(verbose_name=u'Дата начала действия', blank=True, null=True)
+    end_date = models.DateField(verbose_name=u'Дата окончания действия', blank=True, null=True)
     active = models.BooleanField(default=True, verbose_name=u'Активное объявление')
     moderated = models.BooleanField(default=False, verbose_name=u'Прошел модерацию')
 
     def __str__(self):
         return self.header
-
-
-class City(models.Model):
-    name = models.CharField(max_length=100, verbose_name=u'Название')
-
-    def __str__(self):
-        return self.name
-
-
-class Category(models.Model):
-    name = models.CharField(max_length=100, verbose_name=u'Название')
-
-    def __str__(self):
-        return self.name

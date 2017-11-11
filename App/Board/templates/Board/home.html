@@ -9,18 +9,26 @@
     </div>
     <div class="row mt15">
             {% for advertisement in advertisements reversed %}
-                <div class="col-sm-4">
-                    <h4>{{ advertisement.header }}</h4>
-                    {% if advertisement.photo %}
-                        <img src="{{ advertisement.photo.url }}" class="img-responsive mt15">
-                    {% endif %}
-                    {% if advertisement.price %}
-                        <h5>{{ advertisement.price }} ₽</h5>
-                    {% else %}
-                        <h5>Цена не указана</h5>
-                    {% endif %}
-                        <h5>Добавлено {{ advertisement.public_date }}</h5>
-                    <button type="button" class="btn btn-primary btn-sm">Подробнее</button>
+                <div class="col-sm-6">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            {% if advertisement.photo %}
+                                <img src="{{ advertisement.photo.url }}" class="img-responsive mt15">
+                            {% else %}
+                                <img src="{{ advertisement.shop.image.url }}" class="img-responsive mt15">
+                            {% endif %}
+                        </div>
+                        <div class="col-sm-8">
+                            <h4>{{ advertisement.header }}</h4>
+                            {% if advertisement.price %}
+                                <h5>{{ advertisement.price }} ₽</h5>
+                            {% else %}
+                                <h5>Цена не указана</h5>
+                            {% endif %}
+                                <h5>Добавлено {{ advertisement.public_date }}</h5>
+                            <a href="/advertisement/{{ advertisement.id }}"><button type="button" class="btn btn-primary btn-xs">Подробнее</button></a>
+                        </div>
+                    </div>
                 </div>
             {% endfor %}
         </div>
