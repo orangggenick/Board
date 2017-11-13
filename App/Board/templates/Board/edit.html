@@ -1,0 +1,116 @@
+{% extends 'Board/main.html' %}
+{% load widget_tweaks %}
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h3>Редактировать объявление</h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <form role="form" action="/add" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="header">Заголовок *</label>
+                            {% render_field form.header class="form-control" id="header" placeholder="Введите заголовок" value=advertisement.header %}
+                            {% if form.header.errors %}
+                                <div class="errors">{{ form.header.errors }}</div>
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Описание *</label>
+                            <textarea name="description" cols="40" rows="10" placeholder="Введите описание" id="description" class="form-control" required="">{{ advertisement.description }}</textarea>
+                            {% if form.description.errors %}
+                                <div class="errors">{{ form.description.errors }}</div>
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            <label for="objects_in_box">Количество бонусов *</label>
+                            <div class="input-group">
+                                {% render_field form.objects_in_box class="form-control" id="objects_in_box" placeholder="Введите количество бонусов" value=advertisement.objects_in_box %}
+                                <div class="input-group-addon">единиц</div>
+                            </div>
+                            {% if form.objects_in_box.errors %}
+                                <div class="errors">{{ form.objects_in_box.errors }}</div>
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            <label for="boxes_count">Количество карточек/купонов *</label>
+                            <div class="input-group">
+                                {% render_field form.boxes_count class="form-control" id="boxes_count" placeholder="Введите количество карточек" value=advertisement.boxes_count %}
+                                <div class="input-group-addon">штук</div>
+                            </div>
+                            {% if form.boxes_count.errors %}
+                                <div class="errors">{{ form.boxes_count.errors }}</div>
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            <label for="price">Цена</label>
+                            <div class="input-group">
+                                {% render_field form.price class="form-control" id="price" placeholder="Введите цену" value=advertisement.price %}
+                                <div class="input-group-addon">₽</div>
+                            </div>
+                            {% if form.price.errors %}
+                                <div class="errors">{{ form.price.errors }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="category">Город *</label>
+                            {% render_field form.city class="form-control" id="city" placeholder="Выберите город" value=advertisement.city %}
+                            {% if form.city.errors %}
+                                <div class="errors">{{ form.city.category }}</div>
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            <label for="category">Катерогия *</label>
+                            {% render_field form.category class="form-control" id="category" placeholder="Выберите категорию" %}
+                            {% if form.category.errors %}
+                                <div class="errors">{{ form.shop.category }}</div>
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            <label for="category">Магазин *</label>
+                            {% render_field form.shop class="form-control" id="shop" placeholder="Выберите магазин" %}
+                            {% if form.shop.errors %}
+                                <div class="errors">{{ form.shop.errors }}</div>
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            <label for="begin_date">Дата начала действия</label>
+                            {% render_field form.begin_date class="form-control" id="begin_date" aria-describedby="begin_dateHelp" placeholder="Укажите дату начала" value=advertisement.begin_date %}
+                            <small id="begin_dateHelp" class="form-text text-muted">Если срок действия бонусов не ограничен, оставьте это поле пустым</small>
+                            {% if form.begin_date.errors %}
+                                <div class="errors">{{ form.begin_date.errors }}</div>
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            <label for="end_date">Дата окончания действия</label>
+                            {% render_field form.end_date class="form-control" id="end_date" aria-describedby="end_dateHelp" placeholder="Укажите дату окончания" value=advertisement.end_date %}
+                            <small id="end_dateHelp" class="form-text text-muted">Если срок действия бонусов не ограничен, оставьте это поле пустым</small>
+                            {% if form.end_date.errors %}
+                                <div class="errors">{{ form.end_date.errors }}</div>
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            <label for="photo">Новое фото</label>
+                            {% render_field form.photo class="form-control-file" id="photo" aria-describedby="photoHelp" %}
+                            <small id="photoHelp" class="form-text text-muted">Оставьте это поле пустым, если Вы не хотите менять фотографию</small>
+                            {% if form.photo.errors %}
+                                <div class="errors">{{ form.photo.errors }}</div>
+                            {% endif %}
+                        </div>
+                        <button type="submit" class="btn btn-primary">Сохранить</button>
+                     </div>
+                 </div>
+             </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

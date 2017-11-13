@@ -41,7 +41,9 @@
                                     <button type="button" class="btn btn-primary btn-sm">Подробнее</button>
                                 </a>
                                 {% if user.id == request.user.id %}
-                                    <button type="button" class="btn btn-secondary btn-sm">Редактировать</button>
+                                    <a href="/advertisement/{{ advertisement.id }}/edit">
+                                        <button type="button" class="btn btn-secondary btn-sm black">Редактировать</button>
+                                    </a>
                                 {% endif %}
                             </div>
                         {% endfor %}
@@ -67,7 +69,9 @@
                                         <h5>Бессрочное объявление</h5>
                                     {% endif %}
                                     <button type="button" class="btn btn-primary btn-sm">Сделать активным</button>
-                                    <button type="button" class="btn btn-secondary btn-sm">Редактировать</button>
+                                    <a href="/advertisement/{{ advertisement.id }}/edit">
+                                        <button type="button" class="btn btn-secondary btn-sm black">Редактировать</button>
+                                    </a>
                                 </div>
                             {% endfor %}
                         </div>
@@ -93,7 +97,9 @@
                                     <a href="/advertisement/{{ advertisement.id }}">
                                         <button type="button" class="btn btn-primary btn-sm">Подробнее</button>
                                     </a>
-                                    <button type="button" class="btn btn-secondary btn-sm">Редактировать</button>
+                                    <a href="/advertisement/{{ advertisement.id }}/edit">
+                                        <button type="button" class="btn btn-secondary btn-sm black">Редактировать</button>
+                                    </a>
                                 </div>
                             {% endfor %}
                         </div>

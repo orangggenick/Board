@@ -102,3 +102,13 @@ def advertisement(request, advertisement_id):
     advertisement = Advertisement.objects.get(id=advertisement_id)
     user =  User.objects.get(id=advertisement.author_id)
     return render(request, 'Board/advertisement.html', {'advertisement': advertisement, 'user': user})
+
+
+def edit(request, advertisement_id):
+    if auth.get_user(request).id is not None:
+        advertisement = Advertisement.objects.get(id=advertisement_id)
+        if advertisement.author_id == auth.get_user(request).id:
+            form = AdvertisementForm()
+            return render(request, 'Board/edit.html', {'advertisement': advertisement, 'form': form})
+    else:
+        return redirect("/login")

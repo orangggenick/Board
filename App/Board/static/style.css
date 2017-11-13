@@ -50,6 +50,10 @@
     border-radius: 16px;
 }
 
+.black{
+    color: #111 !important;
+}
+
 @media (min-width: 768px) {
     .dl-horizontal dt{
         width: 100px;
