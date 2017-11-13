@@ -9,24 +9,41 @@
     </div>
     <div class="row mt15">
             {% for advertisement in advertisements reversed %}
-                <div class="col-sm-6">
+                <div class="col-sm-3 mb15">
                     <div class="row">
-                        <div class="col-sm-4">
-                            {% if advertisement.photo %}
-                                <img src="{{ advertisement.photo.url }}" class="img-responsive mt15">
-                            {% else %}
-                                <img src="{{ advertisement.shop.image.url }}" class="img-responsive mt15">
-                            {% endif %}
-                        </div>
                         <div class="col-sm-8">
                             <h4>{{ advertisement.header }}</h4>
+                        </div>
+                        <div class="col-sm-4 text-right">
                             {% if advertisement.price %}
                                 <h5>{{ advertisement.price }} ₽</h5>
                             {% else %}
                                 <h5>Цена не указана</h5>
                             {% endif %}
-                                <h5>Добавлено {{ advertisement.public_date }}</h5>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            {% if advertisement.photo %}
+                                <img src="{{ advertisement.photo.url }}" class="img-responsive rounded">
+                            {% else %}
+                                <img src="{{ advertisement.shop.image.url }}" class="img-responsive rounded">
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            {% if advertisement.begin_date != None and advertisement.end_date != None %}
+                                <h5>Срок действия с  <cite title="Source Title">{{ advertisement.begin_date.day }}.{{ advertisement.begin_date.month }}.{{ advertisement.begin_date.year }}</cite>по <cite title="Source Title">{{ advertisement.end_date.day }}.{{ advertisement.end_date.month }}.{{ advertisement.end_date.year }}</cite></h5>
+                            {% elif advertisement.begin_date != None and advertisement.end_date == None %}
+                                <h5>Действуют с  <cite title="Source Title">{{ advertisement.begin_date.day }}.{{ advertisement.begin_date.month }}.{{ advertisement.begin_date.year }}</cite> бессрочно</h5>
+                            {% elif advertisement.begin_date == None and advertisement.end_date != None %}
+                               <h5>Действуют до  <cite title="Source Title">{{ advertisement.end_date.day }}.{{ advertisement.end_date.month }}.{{ advertisement.end_date.year }}</cite></h5>
+                            {% else %}
+                                <h5>Действуют бессрочно</h5>
+                            {% endif %}
                             <a href="/advertisement/{{ advertisement.id }}"><button type="button" class="btn btn-primary btn-xs">Подробнее</button></a>
+
                         </div>
                     </div>
                 </div>

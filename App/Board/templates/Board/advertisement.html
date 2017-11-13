@@ -20,9 +20,9 @@
             <div class="row">
                 <div class="col-md-8">
                      {% if advertisement.photo %}
-                        <img src="{{ advertisement.photo.url }}" class="img-responsive">
+                        <img src="{{ advertisement.photo.url }}" class="img-responsive rounded mt15">
                      {% else %}
-                         <img src="{{ advertisement.shop.image.url }}" class="img-responsive mt15">
+                         <img src="{{ advertisement.shop.image.url }}" class="img-responsive rounded mt15">
                      {% endif %}
                 </div>
                 <div class="col-md-4">
@@ -53,25 +53,23 @@
                 </div>
             </div>
             <div class="row mt20">
-                <div class="col-md-12">
+                <div class="col-md-12 mb20">
                     <div class="card border-primary">
-                <div class="card-body">
-                  <blockquote class="card-blockquote">
-                      <p>{{ advertisement.boxes_count }} карточки по {{ advertisement.objects_in_box }} бонуса в "{{ advertisement.shop.name }}"</p>
-                      {% if advertisement.begin_date != None and advertisement.end_date != None %}
-                         <footer>Срок действия с  <cite title="Source Title">{{ advertisement.begin_date }}</cite>по <cite title="Source Title">{{ advertisement.end_date }}</cite></footer>
-                      {% elif advertisement.begin_date != None and advertisement.end_date == None %}
-                           <footer>Действуют с  <cite title="Source Title">{{ advertisement.begin_date }}</cite> бессрочно</footer>
-                      {% elif advertisement.begin_date == None and advertisement.end_date != None %}
-                           <footer>Действуют до  <cite title="Source Title">{{ advertisement.end_date }}</cite></footer>
-                      {% else %}
-                           <footer>Действуют бессрочно</footer>
-                      {% endif %}
-
-
-                  </blockquote>
-                </div>
-              </div>
+                        <div class="card-body">
+                            <blockquote class="card-blockquote">
+                                <p>{{ advertisement.boxes_count }} карточки по {{ advertisement.objects_in_box }} бонуса в "{{ advertisement.shop.name }}"</p>
+                                {% if advertisement.begin_date != None and advertisement.end_date != None %}
+                                    <footer>Срок действия с  <cite title="Source Title">{{ advertisement.begin_date.day }}.{{ advertisement.begin_date.month }}.{{ advertisement.begin_date.year }}</cite>по <cite title="Source Title">{{ advertisement.end_date.day }}.{{ advertisement.end_date.month }}.{{ advertisement.end_date.year }}</cite></footer>
+                                {% elif advertisement.begin_date != None and advertisement.end_date == None %}
+                                    <footer>Действуют с  <cite title="Source Title">{{ advertisement.begin_date.day }}.{{ advertisement.begin_date.month }}.{{ advertisement.begin_date.year }}</cite> бессрочно</footer>
+                                {% elif advertisement.begin_date == None and advertisement.end_date != None %}
+                                    <footer>Действуют до  <cite title="Source Title">{{ advertisement.end_date.day }}.{{ advertisement.end_date.month }}.{{ advertisement.end_date.year }}</cite></footer>
+                                {% else %}
+                                    <footer>Действуют бессрочно</footer>
+                                {% endif %}
+                            </blockquote>
+                        </div>
+                    </div>
                     {{ advertisement.description }}
                 </div>
             </div>

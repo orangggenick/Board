@@ -18,12 +18,12 @@
                 <div id="myTabContent" class="tab-content">
                     <div class="tab-pane active in" id="active">
                         {% for advertisement in active reversed %}
-                            <div class="col-sm-4">
+                            <div class="col-sm-4 mb15">
                                 <h4>{{ advertisement.header }}</h4>
                                 {% if advertisement.photo %}
-                                    <img src="{{ advertisement.photo.url }}" class="img-responsive mt15">
+                                    <img src="{{ advertisement.photo.url }}" class="img-responsive rounded mt15">
                                 {% else %}
-                                    <img src="{{ advertisement.shop.image.url }}" class="img-responsive mt15">
+                                    <img src="{{ advertisement.shop.image.url }}" class="img-responsive rounded mt15">
                                 {% endif %}
                                 {% if advertisement.price %}
                                     <h5>{{ advertisement.price }} ₽</h5>
@@ -32,7 +32,7 @@
                                 {% endif %}
                                 {% if user.id == request.user.id %}
                                     {% if advertisement.end_date %}
-                                        <h5>Дата окончания: {{ advertisement.end_date }}</h5>
+                                        <h5>Дата окончания: {{ advertisement.end_date.day }}.{{ advertisement.end_date.month }}.{{ advertisement.end_date.year }}</h5>
                                     {% else %}
                                         <h5>Бессрочное объявление</h5>
                                     {% endif %}
@@ -49,12 +49,12 @@
                     {% if user.id == request.user.id %}
                         <div class="tab-pane fade" id="end">
                             {% for advertisement in end reversed %}
-                                <div class="col-sm-4">
+                                <div class="col-sm-4 mb15">
                                     <h4>{{ advertisement.header }}</h4>
                                     {% if advertisement.photo %}
-                                        <img src="{{ advertisement.photo.url }}" class="img-responsive mt15">
+                                        <img src="{{ advertisement.photo.url }}" class="img-responsive rounded mt15">
                                     {% else %}
-                                        <img src="{{ advertisement.shop.image.url }}" class="img-responsive mt15">
+                                        <img src="{{ advertisement.shop.image.url }}" class="img-responsive rounded mt15">
                                     {% endif %}
                                     {% if advertisement.price %}
                                         <h5>{{ advertisement.price }} ₽</h5>
@@ -62,7 +62,7 @@
                                         <h5>Цена не указана</h5>
                                     {% endif %}
                                     {% if advertisement.end_date %}
-                                        <h5>Дата окончания: {{ advertisement.end_date }}</h5>
+                                        <h5>Дата окончания: {{ advertisement.end_date.day }}.{{ advertisement.end_date.month }}.{{ advertisement.end_date.year }}</h5>
                                     {% else %}
                                         <h5>Бессрочное объявление</h5>
                                     {% endif %}
@@ -73,12 +73,12 @@
                         </div>
                         <div class="tab-pane fade" id="waiting">
                             {% for advertisement in waiting reversed %}
-                                <div class="col-sm-4">
+                                <div class="col-sm-4 mb15">
                                     <h4>{{ advertisement.header }}</h4>
                                     {% if advertisement.photo %}
-                                        <img src="{{ advertisement.photo.url }}" class="img-responsive mt15">
+                                        <img src="{{ advertisement.photo.url }}" class="img-responsive rounded mt15">
                                     {% else %}
-                                        <img src="{{ advertisement.shop.image.url }}" class="img-responsive mt15">
+                                        <img src="{{ advertisement.shop.image.url }}" class="img-responsive rounded mt15">
                                     {% endif %}
                                     {% if advertisement.price %}
                                         <h5>{{ advertisement.price }} ₽</h5>
@@ -86,7 +86,7 @@
                                         <h5>Цена не указана</h5>
                                     {% endif %}
                                     {% if advertisement.end_date %}
-                                        <h5>Дата окончания: {{ advertisement.end_date }}</h5>
+                                        <h5>Дата окончания: {{ advertisement.end_date.day }}.{{ advertisement.end_date.month }}.{{ advertisement.end_date.year }}</h5>
                                     {% else %}
                                         <h5>Бессрочное объявление</h5>
                                     {% endif %}

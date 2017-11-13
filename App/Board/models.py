@@ -31,7 +31,7 @@ class Category(models.Model):
 
 class Shop(models.Model):
     name = models.CharField(max_length=100, verbose_name=u'Название')
-    image = ResizedImageField(size=[500, 500], verbose_name=u'Картинка', blank=True)
+    image = ResizedImageField(size=[473, 297], crop=['middle', 'center'], verbose_name=u'Фото', blank=True)
 
     def __str__(self):
         return self.name
@@ -53,7 +53,7 @@ class Advertisement(models.Model):
     author_id = models.IntegerField(verbose_name=u'ID автора')
     header = models.CharField(max_length=140, verbose_name=u'Заголовок')
     price = models.IntegerField(verbose_name=u'Цена', blank=True, null=True)
-    photo = ResizedImageField(size=[500, 500], verbose_name=u'Фото', blank=True)
+    photo = ResizedImageField(size=[473, 297], crop=['middle', 'center'], verbose_name=u'Фото', blank=True)
     description = models.TextField(verbose_name=u'Описание')
     objects_in_box = models.IntegerField(verbose_name=u'Колиество бонусов')
     boxes_count = models.IntegerField(verbose_name=u'Количество карточек/купонов')
