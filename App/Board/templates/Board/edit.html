@@ -119,7 +119,7 @@
                         </div>
                         <div class="form-group">
                             <label for="end_date">Дата окончания действия</label>
-                            {% if advertisement.begin_date != None %}
+                            {% if advertisement.end_date != Null %}
                                 {% render_field form.end_date class="form-control" id="end_date" aria-describedby="end_dateHelp" placeholder="Укажите дату окончания" value=advertisement.end_date %}
                             {% else %}
                                 {% render_field form.end_date class="form-control" id="end_date" aria-describedby="end_dateHelp" placeholder="Укажите дату окончания" %}
