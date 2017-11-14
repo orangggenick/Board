@@ -4,16 +4,6 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django_resized import ResizedImageField
 
-CITY_SELECT = (
-
-)
-
-CATEGORY_SELECT = (
-    ('Категория 1', 'Категория 1'),
-    ('Категория 2', 'Категория 2'),
-    ('Категория 3', 'Категория 3'),
-    ('Категория 4', 'Категория 4'),
-)
 
 class City(models.Model):
     name = models.CharField(max_length=100, verbose_name=u'Название')

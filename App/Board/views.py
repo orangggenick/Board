@@ -6,7 +6,7 @@ from django.shortcuts import render, redirect, render_to_response
 from django.template.context_processors import csrf
 
 from Board.forms import ProfileForm, AdvertisementForm
-from Board.models import Advertisement, City, Category
+from Board.models import Advertisement, City, Category, Shop
 
 
 def home(request):
@@ -47,9 +47,9 @@ def login(request):
         if request.POST:
             username = request.POST.get('username', '')
             password = request.POST.get('password', '')
-            user = auth.authenticate(username=username,password=password)
+            user = auth.authenticate(username=username, password=password)
             if user is not None:
-                auth.login(request,user)
+                auth.login(request, user)
                 return redirect('/')
             else:
                 args['login_error'] = "Пользователь не найден!"
@@ -107,8 +107,33 @@ def advertisement(request, advertisement_id):
 def edit(request, advertisement_id):
     if auth.get_user(request).id is not None:
         advertisement = Advertisement.objects.get(id=advertisement_id)
+        categories = Category.objects.all()
+        cities = City.objects.all()
+        shops = Shop.objects.all()
         if advertisement.author_id == auth.get_user(request).id:
-            form = AdvertisementForm()
-            return render(request, 'Board/edit.html', {'advertisement': advertisement, 'form': form})
+            if request.POST:
+                form = AdvertisementForm(request.POST, request.FILES)
+                if form.is_valid():
+                    buffer = form.save(commit=False)
+                    advertisement.header = buffer.header
+                    advertisement.description = buffer.description
+                    advertisement.objects_in_box = buffer.objects_in_box
+                    advertisement.boxes_count = buffer.boxes_count
+                    advertisement.price = buffer.price
+                    advertisement.city = buffer.city
+                    advertisement.category = buffer.category
+                    advertisement.shop = buffer.shop
+                    advertisement.begin_date = buffer.begin_date
+                    advertisement.end_date = buffer.end_date
+                    if buffer.photo != None:
+                        advertisement.photo = buffer.photo
+                    advertisement.moderated = False
+                    advertisement.save()
+                    return redirect('/profile/' + str(auth.get_user(request).id))
+                else:
+                    return render(request, 'Board/edit.html',{'advertisement': advertisement, 'categories': categories, 'cities': cities, 'shops': shops, 'form': form})
+            else:
+                form = AdvertisementForm()
+                return render(request, 'Board/edit.html', {'advertisement': advertisement, 'categories': categories, 'cities': cities, 'shops': shops, 'form': form})
     else:
         return redirect("/login")

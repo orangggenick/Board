@@ -10,7 +10,7 @@
     </div>
     <div class="row">
         <div class="col-md-12">
-            <form role="form" action="/add" method="post" enctype="multipart/form-data">
+            <form role="form" action="/advertisement/{{ advertisement.id }}/edit" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="row">
                     <div class="col-md-6">
@@ -61,29 +61,57 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="category">Город *</label>
-                            {% render_field form.city class="form-control" id="city" placeholder="Выберите город" value=advertisement.city %}
+                            <label for="city">Город *</label>
+                            <select name="city" placeholder="Выберите город" id="city" class="form-control" required="">
+                                {% for city in cities %}
+                                    {% if city.id == advertisement.city.id %}
+                                        <option value="{{ advertisement.city.id }}" selected="">{{ advertisement.city.name }}</option>
+                                    {% else %}
+                                        <option value="{{ city.id }}">{{ city.name }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
                             {% if form.city.errors %}
-                                <div class="errors">{{ form.city.category }}</div>
+                                <div class="errors">{{ form.city.errors }}</div>
                             {% endif %}
                         </div>
                         <div class="form-group">
-                            <label for="category">Катерогия *</label>
-                            {% render_field form.category class="form-control" id="category" placeholder="Выберите категорию" %}
+                            <label for="category">Категория *</label>
+                            <select name="category" placeholder="Выберите город" id="city" class="form-control" required="">
+                                {% for category in categories %}
+                                    {% if category.id == advertisement.category.id %}
+                                        <option value="{{ advertisement.category.id }}" selected="">{{ advertisement.category.name }}</option>
+                                    {% else %}
+                                        <option value="{{ category.id }}">{{ category.name }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
                             {% if form.category.errors %}
-                                <div class="errors">{{ form.shop.category }}</div>
+                                <div class="errors">{{ form.category.errors }}</div>
                             {% endif %}
                         </div>
                         <div class="form-group">
-                            <label for="category">Магазин *</label>
-                            {% render_field form.shop class="form-control" id="shop" placeholder="Выберите магазин" %}
+                            <label for="shop">Магазин *</label>
+                            <select name="shop" placeholder="Выберите магазин" id="shop" class="form-control" required="">
+                                {% for shop in shops %}
+                                    {% if shop.id == advertisement.shop.id %}
+                                        <option value="{{ advertisement.shop.id }}" selected="">{{ advertisement.shop.name }}</option>
+                                    {% else %}
+                                        <option value="{{ shop.id }}">{{ shop.name }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
                             {% if form.shop.errors %}
                                 <div class="errors">{{ form.shop.errors }}</div>
                             {% endif %}
                         </div>
                         <div class="form-group">
                             <label for="begin_date">Дата начала действия</label>
-                            {% render_field form.begin_date class="form-control" id="begin_date" aria-describedby="begin_dateHelp" placeholder="Укажите дату начала" value=advertisement.begin_date %}
+                            {% if advertisement.begin_date != None %}
+                                {% render_field form.begin_date class="form-control" id="begin_date" aria-describedby="begin_dateHelp" placeholder="Укажите дату начала"  value=advertisement.begin_date %}
+                            {% else %}
+                                {% render_field form.begin_date class="form-control" id="begin_date" aria-describedby="begin_dateHelp" placeholder="Укажите дату начала" %}
+                            {% endif %}
                             <small id="begin_dateHelp" class="form-text text-muted">Если срок действия бонусов не ограничен, оставьте это поле пустым</small>
                             {% if form.begin_date.errors %}
                                 <div class="errors">{{ form.begin_date.errors }}</div>
@@ -91,7 +119,11 @@
                         </div>
                         <div class="form-group">
                             <label for="end_date">Дата окончания действия</label>
-                            {% render_field form.end_date class="form-control" id="end_date" aria-describedby="end_dateHelp" placeholder="Укажите дату окончания" value=advertisement.end_date %}
+                            {% if advertisement.begin_date != None %}
+                                {% render_field form.end_date class="form-control" id="end_date" aria-describedby="end_dateHelp" placeholder="Укажите дату окончания" value=advertisement.end_date %}
+                            {% else %}
+                                {% render_field form.end_date class="form-control" id="end_date" aria-describedby="end_dateHelp" placeholder="Укажите дату окончания" %}
+                            {% endif %}
                             <small id="end_dateHelp" class="form-text text-muted">Если срок действия бонусов не ограничен, оставьте это поле пустым</small>
                             {% if form.end_date.errors %}
                                 <div class="errors">{{ form.end_date.errors }}</div>
