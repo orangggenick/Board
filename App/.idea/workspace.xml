@@ -91,7 +91,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="edit.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="edit.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Board/templates/Board/edit.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="388">
@@ -101,11 +101,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="home.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="home.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Board/templates/Board/home.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="570">
-              <caret line="38" column="51" lean-forward="false" selection-start-line="38" selection-start-column="51" selection-end-line="38" selection-end-column="51" />
+            <state relative-caret-position="537">
+              <caret line="48" column="102" lean-forward="false" selection-start-line="48" selection-start-column="102" selection-end-line="48" selection-end-column="102" />
               <folding />
             </state>
           </provider>
@@ -157,7 +157,6 @@
         <option value="$PROJECT_DIR$/Board/admin.py" />
         <option value="$PROJECT_DIR$/Board/forms.py" />
         <option value="$PROJECT_DIR$/Board/templates/Board/add.html" />
-        <option value="$PROJECT_DIR$/Board/templates/Board/home.html" />
         <option value="$PROJECT_DIR$/Board/templates/Board/advertisement.html" />
         <option value="$PROJECT_DIR$/Board/templates/Board/main.html" />
         <option value="$PROJECT_DIR$/Board/urls.py" />
@@ -166,6 +165,7 @@
         <option value="$PROJECT_DIR$/Board/models.py" />
         <option value="$PROJECT_DIR$/Board/views.py" />
         <option value="$PROJECT_DIR$/Board/templates/Board/edit.html" />
+        <option value="$PROJECT_DIR$/Board/templates/Board/home.html" />
       </list>
     </option>
   </component>
@@ -735,14 +735,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Board/templates/Board/home.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="570">
-          <caret line="38" column="51" lean-forward="false" selection-start-line="38" selection-start-column="51" selection-end-line="38" selection-end-column="51" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Board/templates/Board/add.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1155">
@@ -783,6 +775,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="388">
           <caret line="121" column="56" lean-forward="false" selection-start-line="121" selection-start-column="56" selection-end-line="121" selection-end-column="56" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Board/templates/Board/home.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="537">
+          <caret line="48" column="102" lean-forward="false" selection-start-line="48" selection-start-column="102" selection-end-line="48" selection-end-column="102" />
           <folding />
         </state>
       </provider>
