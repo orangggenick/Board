@@ -12,7 +12,7 @@
                 <div class="col-sm-3 mb15">
                     <div class="row">
                         <div class="col-xs-8">
-                            <h4>{{ advertisement.header }}</h4>
+                            <h4>{{ advertisement.header|slice:":17" }}{% if advertisement.header|length > 17 %}...{% endif %}</h4>
                         </div>
                         <div class="col-xs-4 text-right">
                             {% if advertisement.price %}

@@ -4,13 +4,14 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect, render_to_response
 from django.template.context_processors import csrf
+from django.db.models import Q
 
 from Board.forms import ProfileForm, AdvertisementForm
 from Board.models import Advertisement, City, Category, Shop
 
 
 def home(request):
-    advertisements = Advertisement.objects.filter(moderated=True).filter(end_date__gt=datetime.datetime.now())
+    advertisements = Advertisement.objects.filter(moderated=True).filter(Q(end_date__gt=datetime.datetime.now()) | Q(end_date=None))
     return render(request, 'Board/home.html', {'advertisements': advertisements})
 
 
@@ -32,6 +33,8 @@ def signup(request):
                     buffer.user = auth.get_user(request)
                     profile_form.save()
                     return redirect('/')
+                else:
+                    return render(request, 'Board/signup.html', {'user_form': user_form, 'profile_form': profile_form})
             else:
                 return render(request, 'Board/signup.html', {'user_form': user_form, 'profile_form': profile_form, 'cities':City.objects.all()})
         else:
@@ -69,14 +72,14 @@ def logout(request):
 def profile(request, user_id):
     if int(user_id) == int(request.user.id):
         advertisements = Advertisement.objects.filter(author_id=user_id)
-        active = advertisements.filter(moderated=True).filter(end_date__gt = datetime.datetime.now())
+        active = advertisements.filter(moderated=True).filter(Q(end_date__gt=datetime.datetime.now()) | Q(end_date=None))
         end = advertisements.filter(end_date__lte = datetime.datetime.now())
         waiting = advertisements.filter(moderated=False)
         categories = Category.objects.all()
         form = AdvertisementForm()
         return render(request, 'Board/profile.html', {'user': User.objects.get(id=user_id), 'active': active, 'end': end, 'waiting': waiting, 'form': form, 'categories': categories})
     else:
-        active = Advertisement.objects.filter(author_id=user_id).filter(moderated=True).filter(end_date__gt=datetime.datetime.now())
+        active = Advertisement.objects.filter(author_id=user_id).filter(moderated=True).filter(Q(end_date__gt=datetime.datetime.now()) | Q(end_date=None))
         return render(request, 'Board/profile.html', {'user': User.objects.get(id=user_id), 'active': active})
 
 
