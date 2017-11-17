@@ -38,6 +38,26 @@
     margin-bottom: 20px;
 }
 
+.mr0{
+    margin-right: 0;
+}
+
+.mr5{
+    margin-right: 5px;
+}
+
+.mr10{
+    margin-right: 10px;
+}
+
+.mr15{
+    margin-right: 15px;
+}
+
+.mr20{
+    margin-right: 20px;
+}
+
 .text-left{
     text-align: left !important;
 }

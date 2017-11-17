@@ -7,13 +7,13 @@ from django.shortcuts import render, redirect, render_to_response
 from django.template.context_processors import csrf
 from django.db.models import Q
 
-from Board.forms import ProfileForm, AdvertisementForm
+from Board.forms import ProfileForm, AdvertisementForm, SearchForm
 from Board.models import Advertisement, City, Category, Shop
 
 
 def home(request):
     advertisements = Advertisement.objects.filter(moderated=True).filter(Q(end_date__gt=datetime.datetime.now()) | Q(end_date=None))
-    return render(request, 'Board/home.html', {'advertisements': advertisements})
+    return render(request, 'Board/home.html', {'advertisements': advertisements, 'form': SearchForm()})
 
 
 def signup(request):
@@ -153,3 +153,21 @@ def edit(request, advertisement_id):
             raise PermissionDenied
     else:
         return redirect("/login")
+
+
+def search(request):
+    if request.POST:
+        form = SearchForm(request.POST)
+        if form.is_valid():
+            buffer = form.save(commit=False)
+            print(buffer.city)
+            advertisements = Advertisement.objects.filter(moderated=True).filter(Q(end_date__gt=datetime.datetime.now()) | Q(end_date=None))
+            if buffer.city is not None:
+                advertisements = advertisements.filter(city=buffer.city)
+            if buffer.category is not None:
+                advertisements = advertisements.filter(category=buffer.category)
+            if buffer.shop is not None:
+                advertisements = advertisements.filter(shop=buffer.shop)
+            return render(request, 'Board/search.html', {'advertisements': advertisements, 'form': form})
+        return redirect('/')
+    return redirect('/')

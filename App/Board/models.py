@@ -58,3 +58,9 @@ class Advertisement(models.Model):
 
     def __str__(self):
         return self.header
+
+
+class Search(models.Model):
+    category = models.ForeignKey(Category, verbose_name=u'Категория', blank=True, null=True)
+    city = models.ForeignKey(City, verbose_name=u'Город', blank=True, null=True)
+    shop = models.ForeignKey(Shop, verbose_name=u'Магазин', blank=True, null=True)

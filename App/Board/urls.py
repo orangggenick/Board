@@ -2,7 +2,7 @@ from django.conf import settings
 from django.conf.urls import url, include
 from django.conf.urls.static import static
 
-from Board.views import home, signup, logout, login, profile, add, advertisement, edit
+from Board.views import home, signup, logout, login, profile, add, advertisement, edit, search
 
 urlpatterns = [
     url(r'^$', home, name='home'),
@@ -13,4 +13,5 @@ urlpatterns = [
     url(r'add', add, name='add'),
     url(r'advertisement/(?P<advertisement_id>\d+)$', advertisement, name='advertisement'),
     url(r'advertisement/(?P<advertisement_id>\d+)/edit$', edit, name='edit'),
+    url(r'search$', search, name='search'),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

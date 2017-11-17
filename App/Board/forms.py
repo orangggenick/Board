@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django.forms import ModelForm
 
-from Board.models import Profile, Advertisement
+from Board.models import Profile, Advertisement, Search
 
 
 class UserForm(ModelForm):
@@ -20,3 +20,9 @@ class AdvertisementForm(ModelForm):
     class Meta:
         model = Advertisement
         exclude = ['author_id', 'public_date', 'active', 'moderated']
+
+
+class SearchForm(ModelForm):
+    class Meta:
+        model = Search
+        fields = '__all__'

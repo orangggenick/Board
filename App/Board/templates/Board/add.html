@@ -64,14 +64,14 @@
                             <label for="category">Город *</label>
                             {% render_field form.city class="form-control" id="city" placeholder="Выберите город" %}
                             {% if form.city.errors %}
-                                <div class="errors">{{ form.city.category }}</div>
+                                <div class="errors">{{ form.city.errors }}</div>
                             {% endif %}
                         </div>
                         <div class="form-group">
                             <label for="category">Катерогия *</label>
                             {% render_field form.category class="form-control" id="category" placeholder="Выберите категорию" %}
                             {% if form.category.errors %}
-                                <div class="errors">{{ form.shop.category }}</div>
+                                <div class="errors">{{ form.shop.errors }}</div>
                             {% endif %}
                         </div>
                         <div class="form-group">
