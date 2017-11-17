@@ -40,7 +40,11 @@
     <div class="row">
         <div class="col-md-12">
             <h3>Результаты поиска</h3>
-            <h5>Найдено {{ advertisements.count }} объявлений</h5>
+            {% if advertisements.count  != 0%}
+                <h5>Найдено {{ advertisements.count }} объявлений</h5>
+            {% else %}
+                <h5>По Вашему запросу ничего не найдено</h5>
+            {% endif %}
         </div>
     </div>
     <div class="row mt5">

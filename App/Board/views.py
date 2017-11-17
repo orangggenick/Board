@@ -3,6 +3,7 @@ from django.contrib import auth
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.core.exceptions import PermissionDenied
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import render, redirect, render_to_response
 from django.template.context_processors import csrf
 from django.db.models import Q
@@ -12,7 +13,15 @@ from Board.models import Advertisement, City, Category, Shop
 
 
 def home(request):
-    advertisements = Advertisement.objects.filter(moderated=True).filter(Q(end_date__gt=datetime.datetime.now()) | Q(end_date=None))
+    advertisements = Advertisement.objects.filter(moderated=True).filter(Q(end_date__gt=datetime.datetime.now()) | Q(end_date=None)).order_by('public_date')
+    paginator = Paginator(advertisements, 1)
+    page = request.GET.get('page')
+    try:
+        advertisements = paginator.page(page)
+    except PageNotAnInteger:
+        advertisements = paginator.page(1)
+    except EmptyPage:
+        advertisements = paginator.page(paginator.num_pages)
     return render(request, 'Board/home.html', {'advertisements': advertisements, 'form': SearchForm()})
 
 

@@ -47,11 +47,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Board/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="261">
-              <caret line="86" column="95" lean-forward="false" selection-start-line="86" selection-start-column="95" selection-end-line="86" selection-end-column="95" />
+            <state relative-caret-position="49">
+              <caret line="15" column="143" lean-forward="false" selection-start-line="15" selection-start-column="143" selection-end-line="15" selection-end-column="143" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
               </folding>
@@ -81,11 +81,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="models.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Board/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="687">
-              <caret line="65" column="81" lean-forward="false" selection-start-line="65" selection-start-column="81" selection-end-line="65" selection-end-column="81" />
+            <state relative-caret-position="492">
+              <caret line="52" column="15" lean-forward="false" selection-start-line="52" selection-start-column="4" selection-end-line="52" selection-end-column="15" />
               <folding />
             </state>
           </provider>
@@ -104,8 +104,8 @@
       <file leaf-file-name="home.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Board/templates/Board/home.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="657">
-              <caret line="44" column="23" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="96" selection-end-column="14" />
+            <state relative-caret-position="437">
+              <caret line="73" column="177" lean-forward="false" selection-start-line="73" selection-start-column="177" selection-end-line="73" selection-end-column="177" />
               <folding />
             </state>
           </provider>
@@ -114,8 +114,8 @@
       <file leaf-file-name="search.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Board/templates/Board/search.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="630">
-              <caret line="42" column="61" lean-forward="false" selection-start-line="42" selection-start-column="61" selection-end-line="42" selection-end-column="61" />
+            <state relative-caret-position="385">
+              <caret line="46" column="20" lean-forward="false" selection-start-line="46" selection-start-column="20" selection-end-line="46" selection-end-column="20" />
               <folding />
             </state>
           </provider>
@@ -166,9 +166,9 @@
         <option value="$PROJECT_DIR$/Board/templates/Board/add.html" />
         <option value="$PROJECT_DIR$/Board/urls.py" />
         <option value="$PROJECT_DIR$/Board/static/style.css" />
-        <option value="$PROJECT_DIR$/Board/templates/Board/home.html" />
         <option value="$PROJECT_DIR$/Board/templates/Board/search.html" />
         <option value="$PROJECT_DIR$/Board/views.py" />
+        <option value="$PROJECT_DIR$/Board/templates/Board/home.html" />
       </list>
     </option>
   </component>
@@ -711,14 +711,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Board/static/style.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="448">
-          <caret line="57" column="16" lean-forward="false" selection-start-line="57" selection-start-column="16" selection-end-line="57" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Board/forms.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="360">
@@ -729,37 +721,45 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Board/models.py">
+    <entry file="file://$PROJECT_DIR$/Board/static/style.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="687">
-          <caret line="65" column="81" lean-forward="false" selection-start-line="65" selection-start-column="81" selection-end-line="65" selection-end-column="81" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Board/templates/Board/home.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="657">
-          <caret line="44" column="23" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="96" selection-end-column="14" />
+        <state relative-caret-position="448">
+          <caret line="57" column="16" lean-forward="false" selection-start-line="57" selection-start-column="16" selection-end-line="57" selection-end-column="16" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Board/templates/Board/search.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="630">
-          <caret line="42" column="61" lean-forward="false" selection-start-line="42" selection-start-column="61" selection-end-line="42" selection-end-column="61" />
+        <state relative-caret-position="385">
+          <caret line="46" column="20" lean-forward="false" selection-start-line="46" selection-start-column="20" selection-end-line="46" selection-end-column="20" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Board/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="261">
-          <caret line="86" column="95" lean-forward="false" selection-start-line="86" selection-start-column="95" selection-end-line="86" selection-end-column="95" />
+        <state relative-caret-position="49">
+          <caret line="15" column="143" lean-forward="false" selection-start-line="15" selection-start-column="143" selection-end-line="15" selection-end-column="143" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Board/templates/Board/home.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="437">
+          <caret line="73" column="177" lean-forward="false" selection-start-line="73" selection-start-column="177" selection-end-line="73" selection-end-column="177" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Board/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="492">
+          <caret line="52" column="15" lean-forward="false" selection-start-line="52" selection-start-column="4" selection-end-line="52" selection-end-column="15" />
+          <folding />
         </state>
       </provider>
     </entry>

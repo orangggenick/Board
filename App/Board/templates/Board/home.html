@@ -43,53 +43,71 @@
         </div>
     </div>
     <div class="row mt5">
-            {% for advertisement in advertisements reversed %}
-                <div class="col-sm-3 mb15">
-                    <div class="row">
-                        <div class="col-xs-8">
-                            <h4>{{ advertisement.header|slice:":17" }}{% if advertisement.header|length > 17 %}...{% endif %}</h4>
-                        </div>
-                        <div class="col-xs-4 text-right">
-                            {% if advertisement.price %}
-                                <h5>{{ advertisement.price }} ₽</h5>
-                            {% elif advertisement.price == 0 %}
-                                <h5>Бесплатно</h5>
-                            {% else %}
-                                <h5>Цена не указана</h5>
-                            {% endif %}
-                        </div>
+        {% for advertisement in advertisements %}
+            <div class="col-sm-3 mb15">
+                <div class="row">
+                    <div class="col-xs-8">
+                        <h4>{{ advertisement.header|slice:":17" }}{% if advertisement.header|length > 17 %}...{% endif %}</h4>
                     </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            {% if advertisement.photo %}
-                                <img src="{{ advertisement.photo.url }}" class="img-responsive rounded border">
-                            {% else %}
-                                <img src="{{ advertisement.shop.image.url }}" class="img-responsive rounded border">
-                            {% endif %}
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            {% if advertisement.begin_date != None and advertisement.end_date != None %}
-                                <h5>С  <cite title="Source Title">{{ advertisement.begin_date.day }}.{{ advertisement.begin_date.month }}.{{ advertisement.begin_date.year }}</cite>по <cite title="Source Title">{{ advertisement.end_date.day }}.{{ advertisement.end_date.month }}.{{ advertisement.end_date.year }}</cite></h5>
-                            {% elif advertisement.begin_date != None and advertisement.end_date == None %}
-                                <h5>Действуют с  <cite title="Source Title">{{ advertisement.begin_date.day }}.{{ advertisement.begin_date.month }}.{{ advertisement.begin_date.year }}</cite> бессрочно</h5>
-                            {% elif advertisement.begin_date == None and advertisement.end_date != None %}
-                               <h5>Действуют до  <cite title="Source Title">{{ advertisement.end_date.day }}.{{ advertisement.end_date.month }}.{{ advertisement.end_date.year }}</cite></h5>
-                            {% else %}
-                                <h5>Действуют бессрочно</h5>
-                            {% endif %}
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h5 class="mt0 mb5">г. {{ advertisement.city }}</h5>
-                            <h5 class="mt0">Магазин: {{ advertisement.shop.name }}</h5>
-                            <a href="/advertisement/{{ advertisement.id }}"><button type="button" class="btn btn-primary btn-xs">Подробнее</button></a>
-                        </div>
+                    <div class="col-xs-4 text-right">
+                        {% if advertisement.price %}
+                            <h5>{{ advertisement.price }} ₽</h5>
+                        {% elif advertisement.price == 0 %}
+                            <h5>Бесплатно</h5>
+                        {% else %}
+                            <h5>Цена не указана</h5>
+                        {% endif %}
                     </div>
                 </div>
-            {% endfor %}
+                <div class="row">
+                    <div class="col-sm-12">
+                        {% if advertisement.photo %}
+                            <img src="{{ advertisement.photo.url }}" class="img-responsive rounded border">
+                        {% else %}
+                            <img src="{{ advertisement.shop.image.url }}" class="img-responsive rounded border">
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        {% if advertisement.begin_date != None and advertisement.end_date != None %}
+                            <h5>С  <cite title="Source Title">{{ advertisement.begin_date.day }}.{{ advertisement.begin_date.month }}.{{ advertisement.begin_date.year }}</cite> по <cite title="Source Title">{{ advertisement.end_date.day }}.{{ advertisement.end_date.month }}.{{ advertisement.end_date.year }}</cite></h5>
+                        {% elif advertisement.begin_date != None and advertisement.end_date == None %}
+                            <h5>Действуют с  <cite title="Source Title">{{ advertisement.begin_date.day }}.{{ advertisement.begin_date.month }}.{{ advertisement.begin_date.year }}</cite> бессрочно</h5>
+                        {% elif advertisement.begin_date == None and advertisement.end_date != None %}
+                           <h5>Действуют до  <cite title="Source Title">{{ advertisement.end_date.day }}.{{ advertisement.end_date.month }}.{{ advertisement.end_date.year }}</cite></h5>
+                        {% else %}
+                            <h5>Действуют бессрочно</h5>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <h5 class="mt0 mb5">г. {{ advertisement.city }}</h5>
+                        <h5 class="mt0">Магазин: {{ advertisement.shop.name }}</h5>
+                        <a href="/advertisement/{{ advertisement.id }}"><button type="button" class="btn btn-primary btn-xs">Подробнее</button></a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="row mb15 mt15">
+        <div class="col-md-12">
+            <div class="pagination">
+                <span class="step-links">
+                    {% if advertisements.has_previous %}
+                        <a href="?page={{ advertisements.previous_page_number }}">Предыдущая</a>
+                    {% endif %}
+
+                    <span class="current">
+                        Страница {{ advertisements.number }} из {{ advertisements.paginator.num_pages }}.
+                    </span>
+
+                    {% if advertisements.has_next %}
+                        <a href="?page={{ advertisements.next_page_number }}">Следующая</a>
+                    {% endif %}
+                </span>
+            </div>
         </div>
     </div>
 </div>
