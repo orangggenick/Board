@@ -2,6 +2,7 @@ import datetime
 from django.contrib import auth
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from django.core.exceptions import PermissionDenied
 from django.shortcuts import render, redirect, render_to_response
 from django.template.context_processors import csrf
 from django.db.models import Q
@@ -90,9 +91,19 @@ def add(request):
             form = AdvertisementForm(request.POST, request.FILES)
             if form.is_valid():
                 buffer = form.save(commit=False)
-                buffer.author_id = auth.get_user(request).id
-                form.save()
-                return redirect('/profile/'+str(auth.get_user(request).id))
+                if buffer.begin_date is not None and buffer.end_date is not None:
+                    if buffer.begin_date < buffer.end_date:
+                        buffer.author_id = auth.get_user(request).id
+                        form.save()
+                        return redirect('/profile/'+str(auth.get_user(request).id))
+                    else:
+                        form.add_error('end_date', 'Некорректная дата окончания')
+                        return render(request, 'Board/add.html', {'form': form, 'categories': Category.objects.all()})
+                else:
+                    buffer = form.save(commit=False)
+                    buffer.author_id = auth.get_user(request).id
+                    form.save()
+                    return redirect('/profile/' + str(auth.get_user(request).id))
             else:
                 return render(request, 'Board/add.html', {'form': form, 'categories': Category.objects.all()})
         else:
@@ -128,7 +139,7 @@ def edit(request, advertisement_id):
                     advertisement.shop = buffer.shop
                     advertisement.begin_date = buffer.begin_date
                     advertisement.end_date = buffer.end_date
-                    if buffer.photo != None:
+                    if buffer.photo != '':
                         advertisement.photo = buffer.photo
                     advertisement.moderated = False
                     advertisement.save()
@@ -138,5 +149,7 @@ def edit(request, advertisement_id):
             else:
                 form = AdvertisementForm()
                 return render(request, 'Board/edit.html', {'advertisement': advertisement, 'categories': categories, 'cities': cities, 'shops': shops, 'form': form})
+        else:
+            raise PermissionDenied
     else:
         return redirect("/login")

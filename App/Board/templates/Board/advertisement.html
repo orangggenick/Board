@@ -12,18 +12,20 @@
                 </div>
                 <div class="col-sm-5 text-right">
                     {% if advertisement.price %}
-                        <h3>{{ advertisement.price }} ₽</h3>
+                        <h5>{{ advertisement.price }} ₽</h5>
+                    {% elif advertisement.price == 0 %}
+                        <h5>Бесплатно</h5>
                     {% else %}
-                        <h3>Цена не указана</h3>
+                        <h5>Цена не указана</h5>
                     {% endif %}
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-8">
                      {% if advertisement.photo %}
-                        <img src="{{ advertisement.photo.url }}" class="img-responsive rounded mt15">
+                        <img src="{{ advertisement.photo.url }}" class="img-responsive rounded mt15 border">
                      {% else %}
-                         <img src="{{ advertisement.shop.image.url }}" class="img-responsive rounded mt15">
+                         <img src="{{ advertisement.shop.image.url }}" class="img-responsive rounded mt15 border">
                      {% endif %}
                 </div>
                 <div class="col-md-4">
@@ -60,7 +62,7 @@
                             <blockquote class="card-blockquote">
                                 <p>{{ advertisement.boxes_count }} карточки по {{ advertisement.objects_in_box }} бонуса в "{{ advertisement.shop.name }}"</p>
                                 {% if advertisement.begin_date != None and advertisement.end_date != None %}
-                                    <footer>Срок действия с  <cite title="Source Title">{{ advertisement.begin_date.day }}.{{ advertisement.begin_date.month }}.{{ advertisement.begin_date.year }}</cite>по <cite title="Source Title">{{ advertisement.end_date.day }}.{{ advertisement.end_date.month }}.{{ advertisement.end_date.year }}</cite></footer>
+                                    <footer>Срок действия с  <cite title="Source Title">{{ advertisement.begin_date.day }}.{{ advertisement.begin_date.month }}.{{ advertisement.begin_date.year }}</cite> по <cite title="Source Title">{{ advertisement.end_date.day }}.{{ advertisement.end_date.month }}.{{ advertisement.end_date.year }}</cite></footer>
                                 {% elif advertisement.begin_date != None and advertisement.end_date == None %}
                                     <footer>Действуют с  <cite title="Source Title">{{ advertisement.begin_date.day }}.{{ advertisement.begin_date.month }}.{{ advertisement.begin_date.year }}</cite> бессрочно</footer>
                                 {% elif advertisement.begin_date == None and advertisement.end_date != None %}

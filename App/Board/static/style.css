@@ -54,6 +54,10 @@
     color: #111 !important;
 }
 
+.border{
+    border: solid 2px #111;
+}
+
 @media (min-width: 768px) {
     .dl-horizontal dt{
         width: 100px;
