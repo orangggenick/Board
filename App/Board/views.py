@@ -71,14 +71,18 @@ def logout(request):
 
 
 def profile(request, user_id):
-    if int(user_id) == int(request.user.id):
-        advertisements = Advertisement.objects.filter(author_id=user_id)
-        active = advertisements.filter(moderated=True).filter(Q(end_date__gt=datetime.datetime.now()) | Q(end_date=None))
-        end = advertisements.filter(end_date__lte = datetime.datetime.now())
-        waiting = advertisements.filter(moderated=False)
-        categories = Category.objects.all()
-        form = AdvertisementForm()
-        return render(request, 'Board/profile.html', {'user': User.objects.get(id=user_id), 'active': active, 'end': end, 'waiting': waiting, 'form': form, 'categories': categories})
+    if auth.get_user(request).id is not None:
+        if int(user_id) == int(request.user.id):
+            advertisements = Advertisement.objects.filter(author_id=user_id)
+            active = advertisements.filter(moderated=True).filter(Q(end_date__gt=datetime.datetime.now()) | Q(end_date=None))
+            end = advertisements.filter(end_date__lte = datetime.datetime.now())
+            waiting = advertisements.filter(moderated=False)
+            categories = Category.objects.all()
+            form = AdvertisementForm()
+            return render(request, 'Board/profile.html', {'user': User.objects.get(id=user_id), 'active': active, 'end': end, 'waiting': waiting, 'form': form, 'categories': categories})
+        else:
+            active = Advertisement.objects.filter(author_id=user_id).filter(moderated=True).filter(Q(end_date__gt=datetime.datetime.now()) | Q(end_date=None))
+            return render(request, 'Board/profile.html', {'user': User.objects.get(id=user_id), 'active': active})
     else:
         active = Advertisement.objects.filter(author_id=user_id).filter(moderated=True).filter(Q(end_date__gt=datetime.datetime.now()) | Q(end_date=None))
         return render(request, 'Board/profile.html', {'user': User.objects.get(id=user_id), 'active': active})
