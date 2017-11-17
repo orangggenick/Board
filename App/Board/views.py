@@ -14,7 +14,7 @@ from Board.models import Advertisement, City, Category, Shop
 
 def home(request):
     advertisements = Advertisement.objects.filter(moderated=True).filter(Q(end_date__gt=datetime.datetime.now()) | Q(end_date=None)).order_by('public_date')
-    paginator = Paginator(advertisements, 1)
+    paginator = Paginator(advertisements, 24)
     page = request.GET.get('page')
     try:
         advertisements = paginator.page(page)
