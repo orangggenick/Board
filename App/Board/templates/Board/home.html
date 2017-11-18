@@ -71,20 +71,20 @@
                 <div class="row">
                     <div class="col-md-12">
                         {% if advertisement.begin_date != None and advertisement.end_date != None %}
-                            <h5>С  <cite title="Source Title">{{ advertisement.begin_date.day }}.{{ advertisement.begin_date.month }}.{{ advertisement.begin_date.year }}</cite> по <cite title="Source Title">{{ advertisement.end_date.day }}.{{ advertisement.end_date.month }}.{{ advertisement.end_date.year }}</cite></h5>
+                            <h5 class="mb5">с  <cite title="Source Title">{{ advertisement.begin_date.day }}.{{ advertisement.begin_date.month }}.{{ advertisement.begin_date.year }}</cite> по <cite title="Source Title">{{ advertisement.end_date.day }}.{{ advertisement.end_date.month }}.{{ advertisement.end_date.year }}</cite></h5>
                         {% elif advertisement.begin_date != None and advertisement.end_date == None %}
-                            <h5>Действуют с  <cite title="Source Title">{{ advertisement.begin_date.day }}.{{ advertisement.begin_date.month }}.{{ advertisement.begin_date.year }}</cite> бессрочно</h5>
+                            <h5 class="mb5">Действуют с  <cite title="Source Title">{{ advertisement.begin_date.day }}.{{ advertisement.begin_date.month }}.{{ advertisement.begin_date.year }}</cite> бессрочно</h5>
                         {% elif advertisement.begin_date == None and advertisement.end_date != None %}
-                           <h5>Действуют до  <cite title="Source Title">{{ advertisement.end_date.day }}.{{ advertisement.end_date.month }}.{{ advertisement.end_date.year }}</cite></h5>
+                            <h5 class="mb5">Действуют до  <cite title="Source Title">{{ advertisement.end_date.day }}.{{ advertisement.end_date.month }}.{{ advertisement.end_date.year }}</cite></h5>
                         {% else %}
-                            <h5>Действуют бессрочно</h5>
+                            <h5 class="mb5">Действуют бессрочно</h5>
                         {% endif %}
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <h5 class="mt0 mb5">г. {{ advertisement.city }}</h5>
-                        <h5 class="mt0">Магазин: {{ advertisement.shop.name }}</h5>
+                        <h5 class="mt0 mb5"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> {{ advertisement.city }}</h5>
+                        <h5 class="mt0"><span class="glyphicon glyphicon-shopping-cart"></span> {{ advertisement.shop.name }}</h5>
                         <a href="/advertisement/{{ advertisement.id }}"><button type="button" class="btn btn-primary btn-xs">Подробнее</button></a>
                     </div>
                 </div>

@@ -34,7 +34,7 @@
                                 {% endif %}
                                 {% if user.id == request.user.id %}
                                     {% if advertisement.begin_date != None and advertisement.end_date != None %}
-                                        <h5>C  <cite title="Source Title">{{ advertisement.begin_date.day }}.{{ advertisement.begin_date.month }}.{{ advertisement.begin_date.year }}</cite> по <cite title="Source Title">{{ advertisement.end_date.day }}.{{ advertisement.end_date.month }}.{{ advertisement.end_date.year }}</cite></h5>
+                                        <h5>с  <cite title="Source Title">{{ advertisement.begin_date.day }}.{{ advertisement.begin_date.month }}.{{ advertisement.begin_date.year }}</cite> по <cite title="Source Title">{{ advertisement.end_date.day }}.{{ advertisement.end_date.month }}.{{ advertisement.end_date.year }}</cite></h5>
                                     {% elif advertisement.begin_date != None and advertisement.end_date == None %}
                                         <h5>Действуют с  <cite title="Source Title">{{ advertisement.begin_date.day }}.{{ advertisement.begin_date.month }}.{{ advertisement.begin_date.year }}</cite> бессрочно</h5>
                                     {% elif advertisement.begin_date == None and advertisement.end_date != None %}
@@ -100,7 +100,7 @@
                                         <h5>Цена не указана</h5>
                                     {% endif %}
                                     {% if advertisement.begin_date != None and advertisement.end_date != None %}
-                                        <h5>С <cite title="Source Title">{{ advertisement.begin_date.day }}.{{ advertisement.begin_date.month }}.{{ advertisement.begin_date.year }}</cite> по <cite title="Source Title">{{ advertisement.end_date.day }}.{{ advertisement.end_date.month }}.{{ advertisement.end_date.year }}</cite></h5>
+                                        <h5>с <cite title="Source Title">{{ advertisement.begin_date.day }}.{{ advertisement.begin_date.month }}.{{ advertisement.begin_date.year }}</cite> по <cite title="Source Title">{{ advertisement.end_date.day }}.{{ advertisement.end_date.month }}.{{ advertisement.end_date.year }}</cite></h5>
                                     {% elif advertisement.begin_date != None and advertisement.end_date == None %}
                                         <h5>Действуют с  <cite title="Source Title">{{ advertisement.begin_date.day }}.{{ advertisement.begin_date.month }}.{{ advertisement.begin_date.year }}</cite> бессрочно</h5>
                                     {% elif advertisement.begin_date == None and advertisement.end_date != None %}

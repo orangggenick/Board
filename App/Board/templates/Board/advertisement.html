@@ -7,8 +7,7 @@
             <div class="row">
                 <div class="col-sm-7">
                     <h3>{{ advertisement.header }}</h3>
-                    <h5>Размещено {{ advertisement.public_date }}</h5>
-                    <span class="glyphicon glyphicon-map-marker" aria-hidden="true">{{ advertisement.city }}</span>
+                    <h5>Размещено {{ advertisement.public_date.day }}.{{ advertisement.public_date.month }}.{{ advertisement.public_date.year }}</h5>
                 </div>
                 <div class="col-sm-5 text-right">
                     {% if advertisement.price %}
@@ -55,7 +54,13 @@
                     </div>
                 </div>
             </div>
-            <div class="row mt20">
+            <div class="row mt10">
+                <div class="col-md-12">
+                    <h5 class="mt0 mb5"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> {{ advertisement.city }}</h5>
+                    <h5 class="mt0"><span class="glyphicon glyphicon-shopping-cart"></span> {{ advertisement.shop.name }}</h5>
+                </div>
+            </div>
+            <div class="row mt10">
                 <div class="col-md-12 mb20">
                     <div class="card border-primary">
                         <div class="card-body">

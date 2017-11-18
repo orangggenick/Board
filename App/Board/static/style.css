@@ -78,6 +78,10 @@
     border: solid 2px #111;
 }
 
+.errors{
+    color: #F04124;
+}
+
 @media (min-width: 768px) {
     .dl-horizontal dt{
         width: 100px;

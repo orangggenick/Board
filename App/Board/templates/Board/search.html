@@ -41,7 +41,7 @@
         <div class="col-md-12">
             <h3>Результаты поиска</h3>
             {% if advertisements.count  != 0%}
-                <h5>Найдено {{ advertisements.count }} объявлений</h5>
+                <h5>Найдено объявлений: {{ advertisements.count }}</h5>
             {% else %}
                 <h5>По Вашему запросу ничего не найдено</h5>
             {% endif %}
