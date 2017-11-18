@@ -42,7 +42,7 @@ class Profile(models.Model):
 class Advertisement(models.Model):
     author_id = models.IntegerField(verbose_name=u'ID автора')
     header = models.CharField(max_length=140, verbose_name=u'Заголовок')
-    price = models.IntegerField(verbose_name=u'Цена', blank=True, null=True)
+    price = models.PositiveIntegerField(verbose_name=u'Цена', blank=True, null=True)
     photo = ResizedImageField(size=[473, 297], crop=['middle', 'center'], verbose_name=u'Фото', blank=True)
     description = models.TextField(verbose_name=u'Описание')
     objects_in_box = models.IntegerField(verbose_name=u'Колиество бонусов')

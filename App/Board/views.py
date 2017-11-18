@@ -150,8 +150,16 @@ def edit(request, advertisement_id):
                     advertisement.city = buffer.city
                     advertisement.category = buffer.category
                     advertisement.shop = buffer.shop
-                    advertisement.begin_date = buffer.begin_date
-                    advertisement.end_date = buffer.end_date
+                    if buffer.begin_date is not None and buffer.end_date is not None:
+                        if buffer.begin_date < buffer.end_date:
+                            advertisement.begin_date = buffer.begin_date
+                            advertisement.end_date = buffer.end_date
+                        else:
+                            form.add_error('end_date', 'Некорректная дата окончания')
+                            return render(request, 'Board/edit.html', {'form': form, 'categories': categories, 'cities': cities, 'shops': shops, 'advertisement': advertisement})
+                    else:
+                        advertisement.begin_date = buffer.begin_date
+                        advertisement.end_date = buffer.end_date
                     if buffer.photo != '':
                         advertisement.photo = buffer.photo
                     advertisement.moderated = False
