@@ -4,8 +4,25 @@
 
 <div class="container">
     <div class="row">
+        <div class="col-sm-4">
+            <h3>Профиль</h3>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Главная</a></li>
+                {% if user.id == request.user.id %}
+                    <li class="breadcrumb-item active">Мой профиль</li>
+                {% else %}
+                    <li class="breadcrumb-item active">Профиль пользователя {{ user.username }}</li>
+                {% endif %}
+            </ol>
+        </div>
+    </div>
+    <div class="row">
+    {% if user.id == request.user.id %}
+        <div class="col-md-12">
+    {% else %}
         <div class="col-md-9">
-            <h3>Объявления</h3>
+    {% endif %}
+            <h4 class="mt5">Объявления</h4>
             {% if user.id == request.user.id %}
                 <ul id="myTab" class="nav nav-tabs mt20">
                     <li class="active"><a href="#active" data-toggle="tab">Активные <span class="badge">{{ active.count }}</span></a></li>
@@ -18,102 +35,156 @@
                 <div id="myTabContent" class="tab-content">
                     <div class="tab-pane active in" id="active">
                         {% for advertisement in active reversed %}
-                            <div class="col-sm-4 mb15">
-                                <h4>{{ advertisement.header }}</h4>
-                                {% if advertisement.photo %}
-                                    <img src="{{ advertisement.photo.url }}" class="img-responsive rounded mt15 border">
-                                {% else %}
-                                    <img src="{{ advertisement.shop.image.url }}" class="img-responsive rounded mt15 border">
-                                {% endif %}
-                                {% if advertisement.price %}
-                                    <h5>{{ advertisement.price }} ₽</h5>
-                                {% elif advertisement.price == 0 %}
-                                    <h5>Бесплатно</h5>
-                                {% else %}
-                                    <h5>Цена не указана</h5>
-                                {% endif %}
-                                {% if user.id == request.user.id %}
-                                    {% if advertisement.begin_date != None and advertisement.end_date != None %}
-                                        <h5>с  <cite title="Source Title">{{ advertisement.begin_date.day }}.{{ advertisement.begin_date.month }}.{{ advertisement.begin_date.year }}</cite> по <cite title="Source Title">{{ advertisement.end_date.day }}.{{ advertisement.end_date.month }}.{{ advertisement.end_date.year }}</cite></h5>
-                                    {% elif advertisement.begin_date != None and advertisement.end_date == None %}
-                                        <h5>Действуют с  <cite title="Source Title">{{ advertisement.begin_date.day }}.{{ advertisement.begin_date.month }}.{{ advertisement.begin_date.year }}</cite> бессрочно</h5>
-                                    {% elif advertisement.begin_date == None and advertisement.end_date != None %}
-                                       <h5>Действуют до  <cite title="Source Title">{{ advertisement.end_date.day }}.{{ advertisement.end_date.month }}.{{ advertisement.end_date.year }}</cite></h5>
-                                    {% else %}
-                                        <h5>Действуют бессрочно</h5>
-                                    {% endif %}
-                                {% endif %}
-                                <a href="/advertisement/{{ advertisement.id }}">
-                                    <button type="button" class="btn btn-primary btn-sm">Подробнее</button>
-                                </a>
-                                {% if user.id == request.user.id %}
-                                    <a href="/advertisement/{{ advertisement.id }}/edit">
-                                        <button type="button" class="btn btn-secondary btn-sm black">Редактировать</button>
-                                    </a>
-                                {% endif %}
+                            <div class="col-sm-3 mb15">
+                                <div class="row">
+                                    <div class="col-xs-7">
+                                        <h4>{{ advertisement.header|slice:":11" }}{% if advertisement.header|length > 11 %}...{% endif %}</h4>
+                                    </div>
+                                    <div class="col-xs-5 text-right">
+                                        {% if advertisement.price %}
+                                            <h5>{{ advertisement.price }} ₽</h5>
+                                        {% elif advertisement.price == 0 %}
+                                            <h5>Бесплатно</h5>
+                                        {% else %}
+                                            <h5>Не указана</h5>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        {% if advertisement.photo %}
+                                            <img src="{{ advertisement.photo.url }}" class="img-responsive rounded border">
+                                        {% else %}
+                                            <img src="{{ advertisement.shop.image.url }}" class="img-responsive rounded border">
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        {% if advertisement.begin_date != None and advertisement.end_date != None %}
+                                            <h5 class="mb5">с  <cite title="Source Title">{{ advertisement.begin_date.day }}.{{ advertisement.begin_date.month }}.{{ advertisement.begin_date.year }}</cite> по <cite title="Source Title">{{ advertisement.end_date.day }}.{{ advertisement.end_date.month }}.{{ advertisement.end_date.year }}</cite></h5>
+                                        {% elif advertisement.begin_date != None and advertisement.end_date == None %}
+                                            <h5 class="mb5">Действуют с  <cite title="Source Title">{{ advertisement.begin_date.day }}.{{ advertisement.begin_date.month }}.{{ advertisement.begin_date.year }}</cite> бессрочно</h5>
+                                        {% elif advertisement.begin_date == None and advertisement.end_date != None %}
+                                            <h5 class="mb5">Действуют до  <cite title="Source Title">{{ advertisement.end_date.day }}.{{ advertisement.end_date.month }}.{{ advertisement.end_date.year }}</cite></h5>
+                                        {% else %}
+                                            <h5 class="mb5">Действуют бессрочно</h5>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h5 class="mt0 mb5"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> {{ advertisement.city }}</h5>
+                                        <h5 class="mt0"><span class="glyphicon glyphicon-shopping-cart"></span> {{ advertisement.shop.name }}</h5>
+                                        <a href="/advertisement/{{ advertisement.id }}"><button type="button" class="btn btn-primary btn-xs">Подробнее</button></a>
+                                        {% if user.id == request.user.id %}
+                                            <a href="/advertisement/{{ advertisement.id }}/edit">
+                                                <button type="button" class="btn btn-secondary btn-xs black">Редактировать</button>
+                                            </a>
+                                        {% endif %}
+                                    </div>
+                                </div>
                             </div>
                         {% endfor %}
                     </div>
                     {% if user.id == request.user.id %}
                         <div class="tab-pane fade" id="end">
                             {% for advertisement in end reversed %}
-                                <div class="col-sm-4 mb15">
-                                    <h4>{{ advertisement.header }}</h4>
-                                    {% if advertisement.photo %}
-                                        <img src="{{ advertisement.photo.url }}" class="img-responsive rounded mt15 border">
-                                    {% else %}
-                                        <img src="{{ advertisement.shop.image.url }}" class="img-responsive rounded mt15 border">
-                                    {% endif %}
-                                    {% if advertisement.price %}
-                                        <h5>{{ advertisement.price }} ₽</h5>
-                                    {% elif advertisement.price == 0 %}
-                                        <h5>Бесплатно</h5>
-                                    {% else %}
-                                        <h5>Цена не указана</h5>
-                                    {% endif %}
-                                    {% if advertisement.end_date %}
-                                        <h5>Завершено {{ advertisement.end_date.day }}.{{ advertisement.end_date.month }}.{{ advertisement.end_date.year }}</h5>
-                                    {% else %}
-                                        <h5>Бессрочное объявление</h5>
-                                    {% endif %}
-                                    <button type="button" class="btn btn-primary btn-sm">Сделать активным</button>
-                                    <a href="/advertisement/{{ advertisement.id }}/edit">
-                                        <button type="button" class="btn btn-secondary btn-sm black">Редактировать</button>
-                                    </a>
+                                <div class="col-sm-3 mb15">
+                                    <div class="row">
+                                        <div class="col-xs-7">
+                                            <h4>{{ advertisement.header|slice:":11" }}{% if advertisement.header|length > 11 %}...{% endif %}</h4>
+                                        </div>
+                                        <div class="col-xs-5 text-right">
+                                            {% if advertisement.price %}
+                                                <h5>{{ advertisement.price }} ₽</h5>
+                                            {% elif advertisement.price == 0 %}
+                                                <h5>Бесплатно</h5>
+                                            {% else %}
+                                                <h5>Не указана</h5>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            {% if advertisement.photo %}
+                                                <img src="{{ advertisement.photo.url }}" class="img-responsive rounded border">
+                                            {% else %}
+                                                <img src="{{ advertisement.shop.image.url }}" class="img-responsive rounded border">
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <h5 class="mb5">Завершено {{ advertisement.end_date.day }}.{{ advertisement.end_date.month }}.{{ advertisement.end_date.year }}</h5>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <h5 class="mt0 mb5"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> {{ advertisement.city }}</h5>
+                                            <h5 class="mt0"><span class="glyphicon glyphicon-shopping-cart"></span> {{ advertisement.shop.name }}</h5>
+                                            <a href="/advertisement/{{ advertisement.id }}"><button type="button" class="btn btn-primary btn-xs">Подробнее</button></a>
+                                            {% if user.id == request.user.id %}
+                                                <a href="/advertisement/{{ advertisement.id }}/edit">
+                                                    <button type="button" class="btn btn-secondary btn-xs black">Редактировать</button>
+                                                </a>
+                                            {% endif %}
+                                        </div>
+                                    </div>
                                 </div>
                             {% endfor %}
                         </div>
                         <div class="tab-pane fade" id="waiting">
                             {% for advertisement in waiting reversed %}
-                                <div class="col-sm-4 mb15">
-                                    <h4>{{ advertisement.header }}</h4>
-                                    {% if advertisement.photo %}
-                                        <img src="{{ advertisement.photo.url }}" class="img-responsive rounded mt15 border">
-                                    {% else %}
-                                        <img src="{{ advertisement.shop.image.url }}" class="img-responsive rounded mt15 border">
-                                    {% endif %}
-                                    {% if advertisement.price %}
-                                        <h5>{{ advertisement.price }} ₽</h5>
-                                    {% elif advertisement.price == 0 %}
-                                        <h5>Бесплатно</h5>
-                                    {% else %}
-                                        <h5>Цена не указана</h5>
-                                    {% endif %}
-                                    {% if advertisement.begin_date != None and advertisement.end_date != None %}
-                                        <h5>с <cite title="Source Title">{{ advertisement.begin_date.day }}.{{ advertisement.begin_date.month }}.{{ advertisement.begin_date.year }}</cite> по <cite title="Source Title">{{ advertisement.end_date.day }}.{{ advertisement.end_date.month }}.{{ advertisement.end_date.year }}</cite></h5>
-                                    {% elif advertisement.begin_date != None and advertisement.end_date == None %}
-                                        <h5>Действуют с  <cite title="Source Title">{{ advertisement.begin_date.day }}.{{ advertisement.begin_date.month }}.{{ advertisement.begin_date.year }}</cite> бессрочно</h5>
-                                    {% elif advertisement.begin_date == None and advertisement.end_date != None %}
-                                       <h5>Действуют до  <cite title="Source Title">{{ advertisement.end_date.day }}.{{ advertisement.end_date.month }}.{{ advertisement.end_date.year }}</cite></h5>
-                                    {% else %}
-                                        <h5>Действуют бессрочно</h5>
-                                    {% endif %}
-                                    <a href="/advertisement/{{ advertisement.id }}">
-                                        <button type="button" class="btn btn-primary btn-sm">Подробнее</button>
-                                    </a>
-                                    <a href="/advertisement/{{ advertisement.id }}/edit">
-                                        <button type="button" class="btn btn-secondary btn-sm black">Редактировать</button>
-                                    </a>
+                                <div class="col-sm-3 mb15">
+                                    <div class="row">
+                                        <div class="col-xs-7">
+                                            <h4>{{ advertisement.header|slice:":11" }}{% if advertisement.header|length > 11 %}...{% endif %}</h4>
+                                        </div>
+                                        <div class="col-xs-5 text-right">
+                                            {% if advertisement.price %}
+                                                <h5>{{ advertisement.price }} ₽</h5>
+                                            {% elif advertisement.price == 0 %}
+                                                <h5>Бесплатно</h5>
+                                            {% else %}
+                                                <h5>Не указана</h5>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            {% if advertisement.photo %}
+                                                <img src="{{ advertisement.photo.url }}" class="img-responsive rounded border">
+                                            {% else %}
+                                                <img src="{{ advertisement.shop.image.url }}" class="img-responsive rounded border">
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            {% if advertisement.begin_date != None and advertisement.end_date != None %}
+                                                <h5 class="mb5">с  <cite title="Source Title">{{ advertisement.begin_date.day }}.{{ advertisement.begin_date.month }}.{{ advertisement.begin_date.year }}</cite> по <cite title="Source Title">{{ advertisement.end_date.day }}.{{ advertisement.end_date.month }}.{{ advertisement.end_date.year }}</cite></h5>
+                                            {% elif advertisement.begin_date != None and advertisement.end_date == None %}
+                                                <h5 class="mb5">Действуют с  <cite title="Source Title">{{ advertisement.begin_date.day }}.{{ advertisement.begin_date.month }}.{{ advertisement.begin_date.year }}</cite> бессрочно</h5>
+                                            {% elif advertisement.begin_date == None and advertisement.end_date != None %}
+                                                <h5 class="mb5">Действуют до  <cite title="Source Title">{{ advertisement.end_date.day }}.{{ advertisement.end_date.month }}.{{ advertisement.end_date.year }}</cite></h5>
+                                            {% else %}
+                                                <h5 class="mb5">Действуют бессрочно</h5>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <h5 class="mt0 mb5"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> {{ advertisement.city }}</h5>
+                                            <h5 class="mt0"><span class="glyphicon glyphicon-shopping-cart"></span> {{ advertisement.shop.name }}</h5>
+                                            <a href="/advertisement/{{ advertisement.id }}"><button type="button" class="btn btn-primary btn-xs">Подробнее</button></a>
+                                            {% if user.id == request.user.id %}
+                                                <a href="/advertisement/{{ advertisement.id }}/edit">
+                                                    <button type="button" class="btn btn-secondary btn-xs black">Редактировать</button>
+                                                </a>
+                                            {% endif %}
+                                        </div>
+                                    </div>
                                 </div>
                             {% endfor %}
                         </div>
@@ -190,35 +261,37 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-3">
-            <div class="card">
-                <h3 class="card-header">Пользователь {{ user.username }}</h3>
-                {% if user.profile.avatar %}
-                    <img src="{{ user.profile.avatar.url }}" class="img-responsive img-circle mt20" alt="Card image">
-                {% endif %}
-                <div class="card-body mt20">
-                    <dl class="dl-horizontal">
-                        <dt class="text-left"><h5 class="card-title mt0">Имя</h5></dt>
-                        <dd><h5 class="card-subtitle text-muted mt0">{{ user.profile.first_name }}</h5></dd>
-                        <dt class="text-left"><h5 class="card-title mt0">Город</h5></dt>
-                        <dd><h5 class="card-subtitle text-muted mt0">{{ user.profile.city.name }}</h5></dd>
-                        <dt class="text-left"><h5 class="card-title mt0">E-mail</h5></dt>
-                        <dd><h5 class="card-subtitle text-muted mt0">{{ user.profile.email }}</h5></dd>
-                        <dt class="text-left"><h5 class="card-title mt0">Телефон</h5></dt>
-                        {% if user.profile.phone %}
-                            <dd><h5 class="card-subtitle text-muted mt0">{{ user.profile.phone }}</h5></dd>
-                        {% else %}
-                            <dd><h5 class="card-subtitle text-muted mt0">Не указан</h5></dd>
-                        {% endif %}
-                        <dt class="text-left"><h5 class="card-title mt0">На сайте с</h5></dt>
-                        <dd><h5 class="card-subtitle text-muted mt0">{{ user.date_joined.date }}</h5></dd>
-                    </dl>
+        {% if user.id != request.user.id %}
+            <div class="col-md-3">
+                <div class="card">
+                    <h4 class="card-header">Пользователь {{ user.username }}</h4>
+                    {% if user.profile.avatar %}
+                        <img src="{{ user.profile.avatar.url }}" class="img-responsive img-circle mt20" alt="Card image">
+                    {% endif %}
+                    <div class="card-body mt20">
+                        <dl class="dl-horizontal">
+                            <dt class="text-left"><h5 class="card-title mt0">Имя</h5></dt>
+                            <dd><h5 class="card-subtitle text-muted mt0">{{ user.profile.first_name }}</h5></dd>
+                            <dt class="text-left"><h5 class="card-title mt0">Город</h5></dt>
+                            <dd><h5 class="card-subtitle text-muted mt0">{{ user.profile.city.name }}</h5></dd>
+                            <dt class="text-left"><h5 class="card-title mt0">E-mail</h5></dt>
+                            <dd><h5 class="card-subtitle text-muted mt0">{{ user.profile.email }}</h5></dd>
+                            <dt class="text-left"><h5 class="card-title mt0">Телефон</h5></dt>
+                            {% if user.profile.phone %}
+                                <dd><h5 class="card-subtitle text-muted mt0">{{ user.profile.phone }}</h5></dd>
+                            {% else %}
+                                <dd><h5 class="card-subtitle text-muted mt0">Не указан</h5></dd>
+                            {% endif %}
+                            <dt class="text-left"><h5 class="card-title mt0">На сайте с</h5></dt>
+                            <dd><h5 class="card-subtitle text-muted mt0">{{ user.date_joined.date }}</h5></dd>
+                        </dl>
+                    </div>
                 </div>
+                {% if user.id == request.user.id %}
+                    <button type="button" class="btn btn-secondary">Редактировать профиль</button>
+                {% endif %}
             </div>
-            {% if user.id == request.user.id %}
-                <button type="button" class="btn btn-secondary">Редактировать профиль</button>
-            {% endif %}
-        </div>
+        {% endif %}
     </div>
 </div>
 

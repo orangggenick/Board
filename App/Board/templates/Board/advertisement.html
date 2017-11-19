@@ -3,10 +3,19 @@
 
 <div class="container">
     <div class="row">
+        <div class="col-md-offset-2 col-md-4">
+            <h2>Просмотр объявления</h2>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Главная</a></li>
+                <li class="breadcrumb-item active">Просмотр объявления</li>
+            </ol>
+        </div>
+    </div>
+    <div class="row">
         <div class="col-md-offset-2 col-md-8">
             <div class="row">
                 <div class="col-sm-7">
-                    <h3>{{ advertisement.header }}</h3>
+                    <h3 class="mt5">{{ advertisement.header }}</h3>
                     <h5>Размещено {{ advertisement.public_date.day }}.{{ advertisement.public_date.month }}.{{ advertisement.public_date.year }}</h5>
                 </div>
                 <div class="col-sm-5 text-right">
@@ -65,7 +74,7 @@
                     <div class="card border-primary">
                         <div class="card-body">
                             <blockquote class="card-blockquote">
-                                <p>{{ advertisement.boxes_count }} карточки по {{ advertisement.objects_in_box }} бонуса в "{{ advertisement.shop.name }}"</p>
+                                <p>Карточек: {{ advertisement.boxes_count }}, бонусов: {{ advertisement.objects_in_box }}</p>
                                 {% if advertisement.begin_date != None and advertisement.end_date != None %}
                                     <footer>Срок действия с  <cite title="Source Title">{{ advertisement.begin_date.day }}.{{ advertisement.begin_date.month }}.{{ advertisement.begin_date.year }}</cite> по <cite title="Source Title">{{ advertisement.end_date.day }}.{{ advertisement.end_date.month }}.{{ advertisement.end_date.year }}</cite></footer>
                                 {% elif advertisement.begin_date != None and advertisement.end_date == None %}

@@ -58,26 +58,6 @@
     margin-right: 20px;
 }
 
-.ml0{
-    margin-left: 0;
-}
-
-.ml5{
-    margin-left: 5px;
-}
-
-.ml10{
-    margin-left: 10px;
-}
-
-.ml15{
-    margin-left: 15px;
-}
-
-.ml20{
-    margin-left: 20px;
-}
-
 .text-left{
     text-align: left !important;
 }
@@ -95,15 +75,11 @@
 }
 
 .border{
-    border: solid 2px #e7e7e7;
+    border: solid 2px #111;
 }
 
 .errors{
     color: #F04124;
-}
-
-.graybg{
-    background-color: #e7e7e7;
 }
 
 @media (min-width: 768px) {

@@ -5,10 +5,19 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <h3>Редактировать объявление</h3>
+            <h3>Редактировать объявление "{{ advertisement.header }}"</h3>
+            <div class="row">
+                <div class="col-sm-4">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/">Главная</a></li>
+                        <li class="breadcrumb-item active"><a href="/profile/{{ request.user.id }}">Мой профиль</a></li>
+                        <li class="breadcrumb-item active">Редактирование объявления</li>
+                    </ol>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="row">
+    <div class="row mt5">
         <div class="col-md-12">
             <form role="form" action="/advertisement/{{ advertisement.id }}/edit" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
