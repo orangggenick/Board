@@ -117,9 +117,15 @@
                         <div class="form-group">
                             <label for="begin_date">Дата начала действия</label>
                             {% if advertisement.begin_date != None %}
-                                {% render_field form.begin_date class="form-control" id="begin_date" aria-describedby="begin_dateHelp" placeholder="Укажите дату начала"  value=advertisement.begin_date %}
+                                <div class="input-group">
+                                    {% render_field form.begin_date class="form-control" id="begin_date" aria-describedby="begin_dateHelp" placeholder="Укажите дату начала"  value=advertisement.begin_date %}
+                                    <div class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></div>
+                                </div>
                             {% else %}
-                                {% render_field form.begin_date class="form-control" id="begin_date" aria-describedby="begin_dateHelp" placeholder="Укажите дату начала" %}
+                                <div class="input-group">
+                                    {% render_field form.begin_date class="form-control" id="begin_date" aria-describedby="begin_dateHelp" placeholder="Укажите дату начала" %}
+                                    <div class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></div>
+                                </div>
                             {% endif %}
                             <small id="begin_dateHelp" class="form-text text-muted">Если срок действия бонусов не ограничен, оставьте это поле пустым</small>
                             {% if form.begin_date.errors %}
@@ -129,9 +135,15 @@
                         <div class="form-group">
                             <label for="end_date">Дата окончания действия</label>
                             {% if advertisement.end_date != Null %}
-                                {% render_field form.end_date class="form-control" id="end_date" aria-describedby="end_dateHelp" placeholder="Укажите дату окончания" value=advertisement.end_date %}
+                                <div class="input-group">
+                                    {% render_field form.end_date class="form-control" id="end_date" aria-describedby="end_dateHelp" placeholder="Укажите дату окончания" value=advertisement.end_date %}
+                                    <div class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></div>
+                                </div>
                             {% else %}
-                                {% render_field form.end_date class="form-control" id="end_date" aria-describedby="end_dateHelp" placeholder="Укажите дату окончания" %}
+                                <div class="input-group">
+                                    {% render_field form.end_date class="form-control" id="end_date" aria-describedby="end_dateHelp" placeholder="Укажите дату окончания" %}
+                                    <div class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></div>
+                                </div>
                             {% endif %}
                             <small id="end_dateHelp" class="form-text text-muted">Если срок действия бонусов не ограничен, оставьте это поле пустым</small>
                             {% if form.end_date.errors %}

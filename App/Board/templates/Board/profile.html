@@ -35,7 +35,11 @@
                 <div id="myTabContent" class="tab-content">
                     <div class="tab-pane active in" id="active">
                         {% for advertisement in active reversed %}
-                            <div class="col-sm-3 mb15">
+                            {% if user.id == request.user.id %}
+                                <div class="col-sm-3 mb15">
+                            {% else %}
+                                <div class="col-sm-4 mb15">
+                            {% endif %}
                                 <div class="row">
                                     <div class="col-xs-7">
                                         <h4>{{ advertisement.header|slice:":11" }}{% if advertisement.header|length > 11 %}...{% endif %}</h4>
@@ -62,13 +66,13 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         {% if advertisement.begin_date != None and advertisement.end_date != None %}
-                                            <h5 class="mb5">с  <cite title="Source Title">{{ advertisement.begin_date.day }}.{{ advertisement.begin_date.month }}.{{ advertisement.begin_date.year }}</cite> по <cite title="Source Title">{{ advertisement.end_date.day }}.{{ advertisement.end_date.month }}.{{ advertisement.end_date.year }}</cite></h5>
+                                            <h5 class="mb5"><span class="glyphicon glyphicon-calendar"></span> с  <cite title="Source Title">{{ advertisement.begin_date.day }}.{{ advertisement.begin_date.month }}.{{ advertisement.begin_date.year }}</cite> по <cite title="Source Title">{{ advertisement.end_date.day }}.{{ advertisement.end_date.month }}.{{ advertisement.end_date.year }}</cite></h5>
                                         {% elif advertisement.begin_date != None and advertisement.end_date == None %}
-                                            <h5 class="mb5">Действуют с  <cite title="Source Title">{{ advertisement.begin_date.day }}.{{ advertisement.begin_date.month }}.{{ advertisement.begin_date.year }}</cite> бессрочно</h5>
+                                            <h5 class="mb5"><span class="glyphicon glyphicon-calendar"></span> Действуют с  <cite title="Source Title">{{ advertisement.begin_date.day }}.{{ advertisement.begin_date.month }}.{{ advertisement.begin_date.year }}</cite> бессрочно</h5>
                                         {% elif advertisement.begin_date == None and advertisement.end_date != None %}
-                                            <h5 class="mb5">Действуют до  <cite title="Source Title">{{ advertisement.end_date.day }}.{{ advertisement.end_date.month }}.{{ advertisement.end_date.year }}</cite></h5>
+                                            <h5 class="mb5"><span class="glyphicon glyphicon-calendar"></span> Действуют до  <cite title="Source Title">{{ advertisement.end_date.day }}.{{ advertisement.end_date.month }}.{{ advertisement.end_date.year }}</cite></h5>
                                         {% else %}
-                                            <h5 class="mb5">Действуют бессрочно</h5>
+                                            <h5 class="mb5"><span class="glyphicon glyphicon-calendar"></span> Действуют бессрочно</h5>
                                         {% endif %}
                                     </div>
                                 </div>
@@ -116,7 +120,7 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <h5 class="mb5">Завершено {{ advertisement.end_date.day }}.{{ advertisement.end_date.month }}.{{ advertisement.end_date.year }}</h5>
+                                            <h5 class="mb5"><span class="glyphicon glyphicon-calendar"></span> Завершено {{ advertisement.end_date.day }}.{{ advertisement.end_date.month }}.{{ advertisement.end_date.year }}</h5>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -163,13 +167,13 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             {% if advertisement.begin_date != None and advertisement.end_date != None %}
-                                                <h5 class="mb5">с  <cite title="Source Title">{{ advertisement.begin_date.day }}.{{ advertisement.begin_date.month }}.{{ advertisement.begin_date.year }}</cite> по <cite title="Source Title">{{ advertisement.end_date.day }}.{{ advertisement.end_date.month }}.{{ advertisement.end_date.year }}</cite></h5>
+                                                <h5 class="mb5"><span class="glyphicon glyphicon-calendar"></span> с  <cite title="Source Title">{{ advertisement.begin_date.day }}.{{ advertisement.begin_date.month }}.{{ advertisement.begin_date.year }}</cite> по <cite title="Source Title">{{ advertisement.end_date.day }}.{{ advertisement.end_date.month }}.{{ advertisement.end_date.year }}</cite></h5>
                                             {% elif advertisement.begin_date != None and advertisement.end_date == None %}
-                                                <h5 class="mb5">Действуют с  <cite title="Source Title">{{ advertisement.begin_date.day }}.{{ advertisement.begin_date.month }}.{{ advertisement.begin_date.year }}</cite> бессрочно</h5>
+                                                <h5 class="mb5"><span class="glyphicon glyphicon-calendar"></span> Действуют с  <cite title="Source Title">{{ advertisement.begin_date.day }}.{{ advertisement.begin_date.month }}.{{ advertisement.begin_date.year }}</cite> бессрочно</h5>
                                             {% elif advertisement.begin_date == None and advertisement.end_date != None %}
-                                                <h5 class="mb5">Действуют до  <cite title="Source Title">{{ advertisement.end_date.day }}.{{ advertisement.end_date.month }}.{{ advertisement.end_date.year }}</cite></h5>
+                                                <h5 class="mb5"><span class="glyphicon glyphicon-calendar"></span> Действуют до  <cite title="Source Title">{{ advertisement.end_date.day }}.{{ advertisement.end_date.month }}.{{ advertisement.end_date.year }}</cite></h5>
                                             {% else %}
-                                                <h5 class="mb5">Действуют бессрочно</h5>
+                                                <h5 class="mb5"><span class="glyphicon glyphicon-calendar"></span> Действуют бессрочно</h5>
                                             {% endif %}
                                         </div>
                                     </div>
@@ -239,12 +243,18 @@
                                              </div>
                                              <div class="form-group">
                                                  <label for="begin_date">Дата начала действия</label>
-                                                 {% render_field form.begin_date class="form-control" id="begin_date" aria-describedby="begin_dateHelp" placeholder="Укажите дату начала" %}
+                                                 <div class="input-group">
+                                                     {% render_field form.begin_date class="form-control" id="begin_date" aria-describedby="begin_dateHelp" placeholder="Укажите дату начала" %}
+                                                     <div class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></div>
+                                                 </div>
                                                  <small id="begin_dateHelp" class="form-text text-muted">Если срок действия бонусов не ограничен, оставьте это поле пустым</small>
                                             </div>
                                              <div class="form-group">
                                                  <label for="end_date">Дата окончания действия</label>
-                                                 {% render_field form.end_date class="form-control" id="end_date" aria-describedby="end_dateHelp" placeholder="Укажите дату окончания" %}
+                                                 <div class="input-group">
+                                                    {% render_field form.end_date class="form-control" id="end_date" aria-describedby="end_dateHelp" placeholder="Укажите дату окончания" %}
+                                                    <div class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></div>
+                                                 </div>
                                                  <small id="end_dateHelp" class="form-text text-muted">Если срок действия бонусов не ограничен, оставьте это поле пустым</small>
                                              </div>
                                              <div class="form-group">

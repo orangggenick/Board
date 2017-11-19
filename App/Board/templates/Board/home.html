@@ -73,13 +73,13 @@
                 <div class="row">
                     <div class="col-md-12">
                         {% if advertisement.begin_date != None and advertisement.end_date != None %}
-                            <h5 class="mb5">с  <cite title="Source Title">{{ advertisement.begin_date.day }}.{{ advertisement.begin_date.month }}.{{ advertisement.begin_date.year }}</cite> по <cite title="Source Title">{{ advertisement.end_date.day }}.{{ advertisement.end_date.month }}.{{ advertisement.end_date.year }}</cite></h5>
+                            <h5 class="mb5"><span class="glyphicon glyphicon-calendar"></span> с  <cite title="Source Title">{{ advertisement.begin_date.day }}.{{ advertisement.begin_date.month }}.{{ advertisement.begin_date.year }}</cite> по <cite title="Source Title">{{ advertisement.end_date.day }}.{{ advertisement.end_date.month }}.{{ advertisement.end_date.year }}</cite></h5>
                         {% elif advertisement.begin_date != None and advertisement.end_date == None %}
-                            <h5 class="mb5">Действуют с  <cite title="Source Title">{{ advertisement.begin_date.day }}.{{ advertisement.begin_date.month }}.{{ advertisement.begin_date.year }}</cite> бессрочно</h5>
+                            <h5 class="mb5"><span class="glyphicon glyphicon-calendar"></span> Действуют с  <cite title="Source Title">{{ advertisement.begin_date.day }}.{{ advertisement.begin_date.month }}.{{ advertisement.begin_date.year }}</cite> бессрочно</h5>
                         {% elif advertisement.begin_date == None and advertisement.end_date != None %}
-                            <h5 class="mb5">Действуют до  <cite title="Source Title">{{ advertisement.end_date.day }}.{{ advertisement.end_date.month }}.{{ advertisement.end_date.year }}</cite></h5>
+                            <h5 class="mb5"><span class="glyphicon glyphicon-calendar"></span> Действуют до  <cite title="Source Title">{{ advertisement.end_date.day }}.{{ advertisement.end_date.month }}.{{ advertisement.end_date.year }}</cite></h5>
                         {% else %}
-                            <h5 class="mb5">Действуют бессрочно</h5>
+                            <h5 class="mb5"><span class="glyphicon glyphicon-calendar"></span> Действуют бессрочно</h5>
                         {% endif %}
                     </div>
                 </div>

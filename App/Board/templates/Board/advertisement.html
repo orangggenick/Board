@@ -14,15 +14,15 @@
     <div class="row">
         <div class="col-md-offset-2 col-md-8">
             <div class="row">
-                <div class="col-sm-7">
+                <div class="col-sm-5">
                     <h3 class="mt5">{{ advertisement.header }}</h3>
                     <h5>Размещено {{ advertisement.public_date.day }}.{{ advertisement.public_date.month }}.{{ advertisement.public_date.year }}</h5>
                 </div>
-                <div class="col-sm-5 text-right">
+                <div class="col-sm-3 text-right">
                     {% if advertisement.price %}
-                        <h5>{{ advertisement.price }} ₽</h5>
+                        <h4>{{ advertisement.price }} ₽</h4>
                     {% elif advertisement.price == 0 %}
-                        <h5>Бесплатно</h5>
+                        <h4>Бесплатно</h4>
                     {% else %}
                         <h5>Цена не указана</h5>
                     {% endif %}
@@ -36,57 +36,48 @@
                          <img src="{{ advertisement.shop.image.url }}" class="img-responsive rounded mt15 border">
                      {% endif %}
                 </div>
-                <div class="col-md-4">
-                    <div class="card">
-                        <h3 class="card-header mt0">Продавец</h3>
-                        <div class="card-body mt20">
-                            <dl class="dl-horizontal">
-                                <dt class="text-left"><h5 class="card-title mt0">Имя</h5></dt>
-                                <dd><h5 class="card-subtitle text-muted mt0">{{ user.profile.first_name }}</h5></dd>
-                                <dt class="text-left"><h5 class="card-title mt0">Город</h5></dt>
-                                <dd><h5 class="card-subtitle text-muted mt0">{{ user.profile.city }}</h5></dd>
-                                <dt class="text-left"><h5 class="card-title mt0">E-mail</h5></dt>
-                                <dd><h5 class="card-subtitle text-muted mt0">{{ user.profile.email }}</h5></dd>
-                                <dt class="text-left"><h5 class="card-title mt0">Телефон</h5></dt>
+                <div class="col-md-4 mt15">
+                    <div class="card border-primary">
+                        <div class="card-body">
+                            <blockquote class="card-blockquote">
+                                <h4 class="card-header mt15">Информация о продавце</h4>
+                                <h5 class="mt20 mb15">{{ user.profile.first_name }}</h5>
                                 {% if user.profile.phone %}
-                                    <dd><h5 class="card-subtitle text-muted mt0">{{ user.profile.phone }}</h5></dd>
+                                    <h6 class="mt0 mb5 text-muted"><span class="glyphicon glyphicon-earphone"></span> {{ user.profile.phone }}</h6>
                                 {% else %}
-                                    <dd><h5 class="card-subtitle text-muted mt0">Не указан</h5></dd>
+                                   <h6 class="mt0 mb5 text-muted"><span class="glyphicon glyphicon-earphone"></span> Не указан</h6>
                                 {% endif %}
-                                <dt class="text-left"><h5 class="card-title mt0">На сайте с</h5></dt>
-                                <dd><h5 class="card-subtitle text-muted mt0">{{ user.date_joined.date }}</h5></dd>
+                                <h6 class="mt0 mb5 text-muted"><span class="glyphicon glyphicon-envelope"></span> {{ user.profile.email }}</h6>
+                                <h6 class="mt0 mb5 text-muted"><span class="glyphicon glyphicon-plus-sign"></span> {{ user.date_joined.date }}</h6>
                                 <a href="/profile/{{ user.id }}">
                                     <button type="button" class="btn btn-primary btn-xs mt10">Перейти в профиль</button>
                                 </a>
-                            </dl>
+                            </blockquote>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="row mt10">
-                <div class="col-md-12">
+                <div class="col-sm-4">
+                    {% if advertisement.begin_date != None and advertisement.end_date != None %}
+                        <h5 class="mt0 mb5"><span class="glyphicon glyphicon-calendar"></span> с  <cite title="Source Title">{{ advertisement.begin_date.day }}.{{ advertisement.begin_date.month }}.{{ advertisement.begin_date.year }}</cite> по <cite title="Source Title">{{ advertisement.end_date.day }}.{{ advertisement.end_date.month }}.{{ advertisement.end_date.year }}</cite></h5>
+                    {% elif advertisement.begin_date != None and advertisement.end_date == None %}
+                        <h5 class="mt0 mb5"><span class="glyphicon glyphicon-calendar"></span> Действуют с  <cite title="Source Title">{{ advertisement.begin_date.day }}.{{ advertisement.begin_date.month }}.{{ advertisement.begin_date.year }}</cite> бессрочно</h5>
+                    {% elif advertisement.begin_date == None and advertisement.end_date != None %}
+                        <h5 class="mt0 mb5"><span class="glyphicon glyphicon-calendar"></span> Действуют до  <cite title="Source Title">{{ advertisement.end_date.day }}.{{ advertisement.end_date.month }}.{{ advertisement.end_date.year }}</cite></h5>
+                    {% else %}
+                        <h5 class="mt0 mb5"><span class="glyphicon glyphicon-calendar"></span> Действуют бессрочно</h5>
+                    {% endif %}
                     <h5 class="mt0 mb5"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> {{ advertisement.city }}</h5>
                     <h5 class="mt0"><span class="glyphicon glyphicon-shopping-cart"></span> {{ advertisement.shop.name }}</h5>
+                </div>
+                <div class="col-sm-4">
+                    <h5 class="mt0 mb5"><span class="glyphicon glyphicon-credit-card"></span> Карточек: {{ advertisement.boxes_count }}</h5>
+                    <h5 class="mt0 mb5"><span class="glyphicon glyphicon-gift"></span> Бонусов: {{ advertisement.objects_in_box }}</h5>
                 </div>
             </div>
             <div class="row mt10">
                 <div class="col-md-12 mb20">
-                    <div class="card border-primary">
-                        <div class="card-body">
-                            <blockquote class="card-blockquote">
-                                <p>Карточек: {{ advertisement.boxes_count }}, бонусов: {{ advertisement.objects_in_box }}</p>
-                                {% if advertisement.begin_date != None and advertisement.end_date != None %}
-                                    <footer>Срок действия с  <cite title="Source Title">{{ advertisement.begin_date.day }}.{{ advertisement.begin_date.month }}.{{ advertisement.begin_date.year }}</cite> по <cite title="Source Title">{{ advertisement.end_date.day }}.{{ advertisement.end_date.month }}.{{ advertisement.end_date.year }}</cite></footer>
-                                {% elif advertisement.begin_date != None and advertisement.end_date == None %}
-                                    <footer>Действуют с  <cite title="Source Title">{{ advertisement.begin_date.day }}.{{ advertisement.begin_date.month }}.{{ advertisement.begin_date.year }}</cite> бессрочно</footer>
-                                {% elif advertisement.begin_date == None and advertisement.end_date != None %}
-                                    <footer>Действуют до  <cite title="Source Title">{{ advertisement.end_date.day }}.{{ advertisement.end_date.month }}.{{ advertisement.end_date.year }}</cite></footer>
-                                {% else %}
-                                    <footer>Действуют бессрочно</footer>
-                                {% endif %}
-                            </blockquote>
-                        </div>
-                    </div>
                     {{ advertisement.description }}
                 </div>
             </div>

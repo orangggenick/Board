@@ -83,7 +83,10 @@
                         </div>
                         <div class="form-group">
                             <label for="begin_date">Дата начала действия</label>
-                            {% render_field form.begin_date class="form-control" id="begin_date" aria-describedby="begin_dateHelp" placeholder="Укажите дату начала" %}
+                            <div class="input-group">
+                                {% render_field form.begin_date class="form-control" id="begin_date" aria-describedby="begin_dateHelp" placeholder="Укажите дату начала" %}
+                                <div class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></div>
+                            </div>
                             <small id="begin_dateHelp" class="form-text text-muted">Если срок действия бонусов не ограничен, оставьте это поле пустым</small>
                             {% if form.begin_date.errors %}
                                 <div class="errors">{{ form.begin_date.errors }}</div>
@@ -91,7 +94,10 @@
                         </div>
                         <div class="form-group">
                             <label for="end_date">Дата окончания действия</label>
-                            {% render_field form.end_date class="form-control" id="end_date" aria-describedby="end_dateHelp" placeholder="Укажите дату окончания" %}
+                            <div class="input-group">
+                                {% render_field form.end_date class="form-control" id="end_date" aria-describedby="end_dateHelp" placeholder="Укажите дату окончания" %}
+                                <div class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></div>
+                            </div>
                             <small id="end_dateHelp" class="form-text text-muted">Если срок действия бонусов не ограничен, оставьте это поле пустым</small>
                             {% if form.end_date.errors %}
                                 <div class="errors">{{ form.end_date.errors }}</div>
