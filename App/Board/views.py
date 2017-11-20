@@ -68,7 +68,7 @@ def login(request):
             user = auth.authenticate(username=username, password=password)
             if user is not None:
                 auth.login(request, user)
-                return redirect('/')
+                return redirect('/profile/' + str(auth.get_user(request).id))
             else:
                 args['login_error'] = "Пользователь не найден!"
                 return render_to_response('Board/login.html', args)

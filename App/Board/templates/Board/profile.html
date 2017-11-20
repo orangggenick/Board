@@ -4,12 +4,16 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-sm-4">
-            <h3>Профиль</h3>
+        <div class="col-sm-12">
+            {% if user.id == request.user.id %}
+                <h3>Мои объявления</h3>
+            {% else %}
+                <h3>Профиль</h3>
+            {% endif %}
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/">Главная</a></li>
                 {% if user.id == request.user.id %}
-                    <li class="breadcrumb-item active">Мой профиль</li>
+                    <li class="breadcrumb-item active">Мои объявления</li>
                 {% else %}
                     <li class="breadcrumb-item active">Профиль пользователя {{ user.username }}</li>
                 {% endif %}

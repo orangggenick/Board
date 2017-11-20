@@ -115,6 +115,10 @@
     border-color: #008cba !important;
 }
 
+.pointer{
+    cursor: pointer;
+}
+
 @media (min-width: 768px) {
     .dl-horizontal dt{
         width: 100px;

@@ -3,7 +3,7 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-md-offset-2 col-md-4">
+        <div class="col-md-offset-2 col-md-8">
             <h2>Просмотр объявления</h2>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/">Главная</a></li>
@@ -14,18 +14,9 @@
     <div class="row">
         <div class="col-md-offset-2 col-md-8">
             <div class="row">
-                <div class="col-sm-5">
-                    <h3 class="mt5">{{ advertisement.header }}</h3>
+                <div class="col-sm-8">
+                    <h3 class="mt5"><b>{{ advertisement.header }}</b></h3>
                     <h5>Размещено {{ advertisement.public_date.day }}.{{ advertisement.public_date.month }}.{{ advertisement.public_date.year }}</h5>
-                </div>
-                <div class="col-sm-3 text-right">
-                    {% if advertisement.price %}
-                        <h4>{{ advertisement.price }} ₽</h4>
-                    {% elif advertisement.price == 0 %}
-                        <h4>Бесплатно</h4>
-                    {% else %}
-                        <h5>Цена не указана</h5>
-                    {% endif %}
                 </div>
             </div>
             <div class="row">
@@ -50,11 +41,22 @@
                                 <h6 class="mt0 mb5 text-muted"><span class="glyphicon glyphicon-envelope"></span> {{ user.profile.email }}</h6>
                                 <h6 class="mt0 mb5 text-muted"><span class="glyphicon glyphicon-plus-sign"></span> {{ user.date_joined.date }}</h6>
                                 <a href="/profile/{{ user.id }}">
-                                    <button type="button" class="btn btn-primary btn-xs mt10">Перейти в профиль</button>
+                                    <button type="button" class="btn btn-primary btn-xs mt10">Другие объявления<br>пользователя</button>
                                 </a>
                             </blockquote>
                         </div>
                     </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-8">
+                    {% if advertisement.price %}
+                        <h4><b>{{ advertisement.price }} ₽</b></h4>
+                    {% elif advertisement.price == 0 %}
+                        <h4><b>Бесплатно</b></h4>
+                    {% else %}
+                        <h5><b>Цена не указана</b></h5>
+                    {% endif %}
                 </div>
             </div>
             <div class="row mt10">
