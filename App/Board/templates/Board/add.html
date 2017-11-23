@@ -62,9 +62,16 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="category">Город *</label>
-                            {% render_field form.city class="form-control" id="city" placeholder="Выберите город" %}
+                            {% render_field form.city class="form-control" id="city" placeholder="Выберите город" onchange="citySelect(this);" %}
                             {% if form.city.errors %}
                                 <div class="errors">{{ form.city.errors }}</div>
+                            {% endif %}
+                        </div>
+                        <div class="form-group" id="other_city" style="display:none;">
+                            <label for="other_city">Другой город *</label>
+                            {% render_field form.other_city class="form-control" placeholder="Введите название города" %}
+                            {% if form.other_city.errors %}
+                                <div class="errors">{{ form.other_city.errors }}</div>
                             {% endif %}
                         </div>
                         <div class="form-group">
@@ -76,9 +83,16 @@
                         </div>
                         <div class="form-group">
                             <label for="category">Магазин *</label>
-                            {% render_field form.shop class="form-control" id="shop" placeholder="Выберите магазин" %}
+                            {% render_field form.shop class="form-control" id="shop" placeholder="Выберите магазин" onchange="shopSelect(this);" %}
                             {% if form.shop.errors %}
                                 <div class="errors">{{ form.shop.errors }}</div>
+                            {% endif %}
+                        </div>
+                        <div class="form-group" id="other_shop" style="display:none;">
+                            <label for="other_shop">Другой магазин *</label>
+                            {% render_field form.other_shop class="form-control" placeholder="Введите название магазина" %}
+                            {% if form.other_shop.errors %}
+                                <div class="errors">{{ form.other_shop.errors }}</div>
                             {% endif %}
                         </div>
                         <div class="form-group">
@@ -117,5 +131,40 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+function shopSelect(nameSelect)
+{
+    if(nameSelect){
+        if($('#shop option:selected').text() == "Другое"){
+            document.getElementById("other_shop").style.display = "block";
+        }
+        else{
+            document.getElementById("other_shop").style.display = "none";
+        }
+    }
+    else{
+        document.getElementById("other_shop").style.display = "none";
+    }
+}
+
+function citySelect(nameSelect)
+{
+    if(nameSelect){
+        if($('#city option:selected').text() == "Другое"){
+            document.getElementById("other_city").style.display = "block";
+        }
+        else{
+            document.getElementById("other_city").style.display = "none";
+        }
+    }
+    else{
+        document.getElementById("other_city").style.display = "none";
+    }
+}
+
+
+</script>
+
 
 {% endblock %}

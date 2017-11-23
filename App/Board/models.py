@@ -32,8 +32,8 @@ class Profile(models.Model):
     first_name = models.CharField(max_length=30, verbose_name=u'Имя')
     avatar = ResizedImageField(size=[360, 360], crop=['middle', 'center'], verbose_name=u'Аватар', blank=True)
     city = models.ForeignKey(City, verbose_name=u'Город')
-    phone = models.CharField(max_length=20, verbose_name=u'Телефон', blank=True, null=True)
-    email = models.EmailField(max_length=100, verbose_name=u'E-mail')
+    phone = models.CharField(max_length=20, verbose_name=u'Телефон', blank=True, null=True, unique=True)
+    email = models.EmailField(max_length=100, verbose_name=u'E-mail', unique=True)
 
     def __str__(self):
         return self.user.username
@@ -49,7 +49,9 @@ class Advertisement(models.Model):
     boxes_count = models.IntegerField(verbose_name=u'Количество карточек/купонов')
     category = models.ForeignKey(Category, verbose_name=u'Категория')
     city = models.ForeignKey(City, verbose_name=u'Город')
+    other_city = models.CharField(max_length=40, verbose_name=u'Другой город', blank=True, null=True)
     shop = models.ForeignKey(Shop, verbose_name=u'Магазин')
+    other_shop = models.CharField(max_length=40, verbose_name=u'Другой магазин', blank=True, null=True)
     public_date = models.DateField(auto_now=True, verbose_name=u'Дата публикации')
     begin_date = models.DateField(verbose_name=u'Дата начала действия', blank=True, null=True)
     end_date = models.DateField(verbose_name=u'Дата окончания действия', blank=True, null=True)
