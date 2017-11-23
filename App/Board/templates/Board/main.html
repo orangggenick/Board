@@ -25,7 +25,7 @@
         </div>
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="/">Главная</a></li>
+
             </ul>
             <ul class="nav navbar-nav pull-right pointer">
                 {% if request.user.id is not None %}
@@ -51,17 +51,28 @@
 
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="https://jquery-ui.googlecode.com/svn-history/r3982/trunk/ui/i18n/jquery.ui.datepicker-ru.js"></script>
+<script src="{% static "datepicker-ru.js" %}"></script>
 <script>
-  $( function() {
-    $( "#end_date" ).datepicker({
-        dateFormat: "yy-mm-dd"
+    $.datepicker.setDefaults($.datepicker.regional['ru']);
+    $(function() {
+        $("#search_date").datepicker({dateFormat: "yy-mm-dd"});
+        $("#search_date_cal").click(function(){
+            $("#search_date").datepicker("show");
+        });
     });
-  } );
-  $( function() {
-    $( "#begin_date" ).datepicker({
-        dateFormat: "yy-mm-dd"
+    $(function() {
+        $("#end_date").datepicker({dateFormat: "yy-mm-dd"});
+        $("#end_date_cal").click(function(){
+            $("#end_date").datepicker("show");
+        });
     });
-  } );
+    $(function() {
+        $("#begin_date").datepicker({dateFormat: "yy-mm-dd"});
+        $("#begin_date_cal").click(function(){
+            $("#begin_date").datepicker("show");
+        });
+    });
   </script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 

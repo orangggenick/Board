@@ -18,7 +18,7 @@ def custom_404(request):
 
 
 def home(request):
-    advertisements = Advertisement.objects.filter(moderated=True).filter(Q(end_date__gt=datetime.datetime.now()) | Q(end_date=None)).order_by('public_date')
+    advertisements = Advertisement.objects.filter(moderated=True).filter(Q(end_date__gte=datetime.datetime.now()) | Q(end_date=None)).order_by('public_date')
     paginator = Paginator(advertisements, 24)
     page = request.GET.get('page')
     try:
@@ -93,17 +93,17 @@ def profile(request, user_id):
         if auth.get_user(request).id is not None:
             if int(user_id) == int(request.user.id):
                 advertisements = Advertisement.objects.filter(author_id=user_id)
-                active = advertisements.filter(moderated=True).filter(Q(end_date__gt=datetime.datetime.now()) | Q(end_date=None))
-                end = advertisements.filter(end_date__lte = datetime.datetime.now())
+                active = advertisements.filter(moderated=True).filter(Q(end_date__gte=datetime.datetime.now()) | Q(end_date=None))
+                end = advertisements.filter(end_date__lt = datetime.datetime.now())
                 waiting = advertisements.filter(moderated=False)
                 categories = Category.objects.all()
                 form = AdvertisementForm()
                 return render(request, 'Board/profile.html', {'user': User.objects.get(id=user_id), 'active': active, 'end': end, 'waiting': waiting, 'form': form, 'categories': categories})
             else:
-                active = Advertisement.objects.filter(author_id=user_id).filter(moderated=True).filter(Q(end_date__gt=datetime.datetime.now()) | Q(end_date=None))
+                active = Advertisement.objects.filter(author_id=user_id).filter(moderated=True).filter(Q(end_date__gte=datetime.datetime.now()) | Q(end_date=None))
                 return render(request, 'Board/profile.html', {'user': User.objects.get(id=user_id), 'active': active})
         else:
-            active = Advertisement.objects.filter(author_id=user_id).filter(moderated=True).filter(Q(end_date__gt=datetime.datetime.now()) | Q(end_date=None))
+            active = Advertisement.objects.filter(author_id=user_id).filter(moderated=True).filter(Q(end_date__gte=datetime.datetime.now()) | Q(end_date=None))
             return render(request, 'Board/profile.html', {'user': User.objects.get(id=user_id), 'active': active})
 
 
@@ -194,12 +194,17 @@ def search(request):
             buffer = form.save(commit=False)
             print(buffer.city)
             advertisements = Advertisement.objects.filter(moderated=True).filter(Q(end_date__gt=datetime.datetime.now()) | Q(end_date=None))
+            similar = None
             if buffer.city is not None:
                 advertisements = advertisements.filter(city=buffer.city)
             if buffer.category is not None:
                 advertisements = advertisements.filter(category=buffer.category)
             if buffer.shop is not None:
                 advertisements = advertisements.filter(shop=buffer.shop)
-            return render(request, 'Board/search.html', {'advertisements': advertisements, 'form': form})
+            if buffer.date is not None:
+                similar = advertisements.filter((Q(end_date__gte=buffer.date + datetime.timedelta(days=5)) | Q(end_date=None)) & (Q(begin_date__lte=buffer.date + datetime.timedelta(days=5)) | Q(begin_date=None)))
+                advertisements = advertisements.filter((Q(end_date__gte=buffer.date) | Q(end_date=None)) & (Q(begin_date__lte=buffer.date) | Q(begin_date=None)))
+                similar = similar.exclude((Q(end_date__gte=buffer.date) | Q(end_date=None)) & (Q(begin_date__lte=buffer.date) | Q(begin_date=None)))
+            return render(request, 'Board/search.html', {'advertisements': advertisements,  'similar': similar, 'form': form})
         return redirect('/')
     return redirect('/')

@@ -6,15 +6,6 @@
     <div class="row">
         <div class="col-md-12">
             <h3>Редактировать объявление "{{ advertisement.header }}"</h3>
-            <div class="row">
-                <div class="col-sm-12">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="/">Главная</a></li>
-                        <li class="breadcrumb-item active"><a href="/profile/{{ request.user.id }}">Мой профиль</a></li>
-                        <li class="breadcrumb-item active">Редактирование объявления</li>
-                    </ol>
-                </div>
-            </div>
         </div>
     </div>
     <div class="row mt5">
@@ -119,12 +110,12 @@
                             {% if advertisement.begin_date != None %}
                                 <div class="input-group">
                                     {% render_field form.begin_date class="form-control" id="begin_date" aria-describedby="begin_dateHelp" placeholder="Укажите дату начала"  value=advertisement.begin_date %}
-                                    <div class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></div>
+                                    <div class="input-group-addon" id="begin_date_cal"><span class="glyphicon glyphicon-calendar"></span></div>
                                 </div>
                             {% else %}
                                 <div class="input-group">
                                     {% render_field form.begin_date class="form-control" id="begin_date" aria-describedby="begin_dateHelp" placeholder="Укажите дату начала" %}
-                                    <div class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></div>
+                                    <div class="input-group-addon" id="begin_date_cal"><span class="glyphicon glyphicon-calendar"></span></div>
                                 </div>
                             {% endif %}
                             <small id="begin_dateHelp" class="form-text text-muted">Если срок действия бонусов не ограничен, оставьте это поле пустым</small>
@@ -137,12 +128,12 @@
                             {% if advertisement.end_date != Null %}
                                 <div class="input-group">
                                     {% render_field form.end_date class="form-control" id="end_date" aria-describedby="end_dateHelp" placeholder="Укажите дату окончания" value=advertisement.end_date %}
-                                    <div class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></div>
+                                    <div class="input-group-addon" id="end_date_cal"><span class="glyphicon glyphicon-calendar"></span></div>
                                 </div>
                             {% else %}
                                 <div class="input-group">
                                     {% render_field form.end_date class="form-control" id="end_date" aria-describedby="end_dateHelp" placeholder="Укажите дату окончания" %}
-                                    <div class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></div>
+                                    <div class="input-group-addon" id="end_date_cal"><span class="glyphicon glyphicon-calendar"></span></div>
                                 </div>
                             {% endif %}
                             <small id="end_dateHelp" class="form-text text-muted">Если срок действия бонусов не ограничен, оставьте это поле пустым</small>

@@ -8,16 +8,8 @@
             {% if user.id == request.user.id %}
                 <h3>Мои объявления</h3>
             {% else %}
-                <h3>Профиль</h3>
+                <h3>Объявления пользователя {{ user.username }}</h3>
             {% endif %}
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="/">Главная</a></li>
-                {% if user.id == request.user.id %}
-                    <li class="breadcrumb-item active">Мои объявления</li>
-                {% else %}
-                    <li class="breadcrumb-item active">Профиль пользователя {{ user.username }}</li>
-                {% endif %}
-            </ol>
         </div>
     </div>
     <div class="row">
@@ -26,7 +18,6 @@
     {% else %}
         <div class="col-md-9">
     {% endif %}
-            <h4 class="mt5">Объявления</h4>
             {% if user.id == request.user.id %}
                 <ul id="myTab" class="nav nav-tabs mt20">
                     <li class="active"><a href="#active" data-toggle="tab">Активные <span class="badge">{{ active.count }}</span></a></li>
@@ -45,17 +36,8 @@
                                 <div class="col-sm-4 mb15">
                             {% endif %}
                                 <div class="row">
-                                    <div class="col-xs-7">
-                                        <h4>{{ advertisement.header|slice:":11" }}{% if advertisement.header|length > 11 %}...{% endif %}</h4>
-                                    </div>
-                                    <div class="col-xs-5 text-right">
-                                        {% if advertisement.price %}
-                                            <h5>{{ advertisement.price }} ₽</h5>
-                                        {% elif advertisement.price == 0 %}
-                                            <h5>Бесплатно</h5>
-                                        {% else %}
-                                            <h5>Не указана</h5>
-                                        {% endif %}
+                                    <div class="col-xs-12">
+                                       <h4><b>{{ advertisement.header|slice:":22" }}{% if advertisement.header|length > 22 %}...{% endif %}</b></h4>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -69,14 +51,21 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12">
+                                        {% if advertisement.price %}
+                                            <h5><b>{{ advertisement.price }} ₽</b></h5>
+                                        {% elif advertisement.price == 0 %}
+                                            <h5><b>Бесплатно</b></h5>
+                                        {% else %}
+                                            <h5><b>Не указана</b></h5>
+                                        {% endif %}
                                         {% if advertisement.begin_date != None and advertisement.end_date != None %}
                                             <h5 class="mb5"><span class="glyphicon glyphicon-calendar"></span> с  <cite title="Source Title">{{ advertisement.begin_date.day }}.{{ advertisement.begin_date.month }}.{{ advertisement.begin_date.year }}</cite> по <cite title="Source Title">{{ advertisement.end_date.day }}.{{ advertisement.end_date.month }}.{{ advertisement.end_date.year }}</cite></h5>
                                         {% elif advertisement.begin_date != None and advertisement.end_date == None %}
-                                            <h5 class="mb5"><span class="glyphicon glyphicon-calendar"></span> Действуют с  <cite title="Source Title">{{ advertisement.begin_date.day }}.{{ advertisement.begin_date.month }}.{{ advertisement.begin_date.year }}</cite> бессрочно</h5>
+                                            <h5 class="mb5"><span class="glyphicon glyphicon-calendar"></span> Действует с  <cite title="Source Title">{{ advertisement.begin_date.day }}.{{ advertisement.begin_date.month }}.{{ advertisement.begin_date.year }}</cite> бессрочно</h5>
                                         {% elif advertisement.begin_date == None and advertisement.end_date != None %}
-                                            <h5 class="mb5"><span class="glyphicon glyphicon-calendar"></span> Действуют до  <cite title="Source Title">{{ advertisement.end_date.day }}.{{ advertisement.end_date.month }}.{{ advertisement.end_date.year }}</cite></h5>
+                                            <h5 class="mb5"><span class="glyphicon glyphicon-calendar"></span> Действует до  <cite title="Source Title">{{ advertisement.end_date.day }}.{{ advertisement.end_date.month }}.{{ advertisement.end_date.year }}</cite></h5>
                                         {% else %}
-                                            <h5 class="mb5"><span class="glyphicon glyphicon-calendar"></span> Действуют бессрочно</h5>
+                                            <h5 class="mb5"><span class="glyphicon glyphicon-calendar"></span> Действует бессрочно</h5>
                                         {% endif %}
                                     </div>
                                 </div>
@@ -100,17 +89,8 @@
                             {% for advertisement in end reversed %}
                                 <div class="col-sm-3 mb15">
                                     <div class="row">
-                                        <div class="col-xs-7">
-                                            <h4>{{ advertisement.header|slice:":11" }}{% if advertisement.header|length > 11 %}...{% endif %}</h4>
-                                        </div>
-                                        <div class="col-xs-5 text-right">
-                                            {% if advertisement.price %}
-                                                <h5>{{ advertisement.price }} ₽</h5>
-                                            {% elif advertisement.price == 0 %}
-                                                <h5>Бесплатно</h5>
-                                            {% else %}
-                                                <h5>Не указана</h5>
-                                            {% endif %}
+                                        <div class="col-xs-12">
+                                            <h4><b>{{ advertisement.header|slice:":22" }}{% if advertisement.header|length > 22 %}...{% endif %}</b></h4>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -124,6 +104,13 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-md-12">
+                                            {% if advertisement.price %}
+                                                <h5><b>{{ advertisement.price }} ₽</b></h5>
+                                            {% elif advertisement.price == 0 %}
+                                                <h5><b>Бесплатно</b></h5>
+                                            {% else %}
+                                                <h5><b>Не указана</b></h5>
+                                            {% endif %}
                                             <h5 class="mb5"><span class="glyphicon glyphicon-calendar"></span> Завершено {{ advertisement.end_date.day }}.{{ advertisement.end_date.month }}.{{ advertisement.end_date.year }}</h5>
                                         </div>
                                     </div>
@@ -146,17 +133,8 @@
                             {% for advertisement in waiting reversed %}
                                 <div class="col-sm-3 mb15">
                                     <div class="row">
-                                        <div class="col-xs-7">
-                                            <h4>{{ advertisement.header|slice:":11" }}{% if advertisement.header|length > 11 %}...{% endif %}</h4>
-                                        </div>
-                                        <div class="col-xs-5 text-right">
-                                            {% if advertisement.price %}
-                                                <h5>{{ advertisement.price }} ₽</h5>
-                                            {% elif advertisement.price == 0 %}
-                                                <h5>Бесплатно</h5>
-                                            {% else %}
-                                                <h5>Не указана</h5>
-                                            {% endif %}
+                                        <div class="col-xs-12">
+                                            <h4><b>{{ advertisement.header|slice:":22" }}{% if advertisement.header|length > 22 %}...{% endif %}</b></h4>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -170,14 +148,21 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-md-12">
+                                            {% if advertisement.price %}
+                                                <h5><b>{{ advertisement.price }} ₽</b></h5>
+                                            {% elif advertisement.price == 0 %}
+                                                <h5><b>Бесплатно</b></h5>
+                                            {% else %}
+                                                <h5><b>Не указана</b></h5>
+                                            {% endif %}
                                             {% if advertisement.begin_date != None and advertisement.end_date != None %}
                                                 <h5 class="mb5"><span class="glyphicon glyphicon-calendar"></span> с  <cite title="Source Title">{{ advertisement.begin_date.day }}.{{ advertisement.begin_date.month }}.{{ advertisement.begin_date.year }}</cite> по <cite title="Source Title">{{ advertisement.end_date.day }}.{{ advertisement.end_date.month }}.{{ advertisement.end_date.year }}</cite></h5>
                                             {% elif advertisement.begin_date != None and advertisement.end_date == None %}
-                                                <h5 class="mb5"><span class="glyphicon glyphicon-calendar"></span> Действуют с  <cite title="Source Title">{{ advertisement.begin_date.day }}.{{ advertisement.begin_date.month }}.{{ advertisement.begin_date.year }}</cite> бессрочно</h5>
+                                                <h5 class="mb5"><span class="glyphicon glyphicon-calendar"></span> Действует с  <cite title="Source Title">{{ advertisement.begin_date.day }}.{{ advertisement.begin_date.month }}.{{ advertisement.begin_date.year }}</cite> бессрочно</h5>
                                             {% elif advertisement.begin_date == None and advertisement.end_date != None %}
-                                                <h5 class="mb5"><span class="glyphicon glyphicon-calendar"></span> Действуют до  <cite title="Source Title">{{ advertisement.end_date.day }}.{{ advertisement.end_date.month }}.{{ advertisement.end_date.year }}</cite></h5>
+                                                <h5 class="mb5"><span class="glyphicon glyphicon-calendar"></span> Действует до  <cite title="Source Title">{{ advertisement.end_date.day }}.{{ advertisement.end_date.month }}.{{ advertisement.end_date.year }}</cite></h5>
                                             {% else %}
-                                                <h5 class="mb5"><span class="glyphicon glyphicon-calendar"></span> Действуют бессрочно</h5>
+                                                <h5 class="mb5"><span class="glyphicon glyphicon-calendar"></span> Действует бессрочно</h5>
                                             {% endif %}
                                         </div>
                                     </div>
@@ -249,7 +234,7 @@
                                                  <label for="begin_date">Дата начала действия</label>
                                                  <div class="input-group">
                                                      {% render_field form.begin_date class="form-control" id="begin_date" aria-describedby="begin_dateHelp" placeholder="Укажите дату начала" %}
-                                                     <div class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></div>
+                                                     <div class="input-group-addon" id="begin_date_cal"><span class="glyphicon glyphicon-calendar"></span></div>
                                                  </div>
                                                  <small id="begin_dateHelp" class="form-text text-muted">Если срок действия бонусов не ограничен, оставьте это поле пустым</small>
                                             </div>
@@ -257,7 +242,7 @@
                                                  <label for="end_date">Дата окончания действия</label>
                                                  <div class="input-group">
                                                     {% render_field form.end_date class="form-control" id="end_date" aria-describedby="end_dateHelp" placeholder="Укажите дату окончания" %}
-                                                    <div class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></div>
+                                                    <div class="input-group-addon" id="end_date_cal"><span class="glyphicon glyphicon-calendar"></span></div>
                                                  </div>
                                                  <small id="end_dateHelp" class="form-text text-muted">Если срок действия бонусов не ограничен, оставьте это поле пустым</small>
                                              </div>
@@ -277,33 +262,33 @@
         </div>
         {% if user.id != request.user.id %}
             <div class="col-md-3">
-                <div class="card">
-                    <h4 class="card-header">Пользователь {{ user.username }}</h4>
-                    {% if user.profile.avatar %}
-                        <img src="{{ user.profile.avatar.url }}" class="img-responsive img-circle mt20" alt="Card image">
-                    {% endif %}
-                    <div class="card-body mt20">
-                        <dl class="dl-horizontal">
-                            <dt class="text-left"><h5 class="card-title mt0">Имя</h5></dt>
-                            <dd><h5 class="card-subtitle text-muted mt0">{{ user.profile.first_name }}</h5></dd>
-                            <dt class="text-left"><h5 class="card-title mt0">Город</h5></dt>
-                            <dd><h5 class="card-subtitle text-muted mt0">{{ user.profile.city.name }}</h5></dd>
-                            <dt class="text-left"><h5 class="card-title mt0">E-mail</h5></dt>
-                            <dd><h5 class="card-subtitle text-muted mt0">{{ user.profile.email }}</h5></dd>
-                            <dt class="text-left"><h5 class="card-title mt0">Телефон</h5></dt>
+                <div class="card border-primary">
+                    <div class="card-body">
+                        <blockquote class="card-blockquote">
+                            <h4 class="card-header mt15">Информация о продавце</h4>
+                            <div class="row">
+                                <div class="col-sm-8">
+                                    <h5 class="mt15 mb15">{{ user.profile.first_name }}</h5>
+                                </div>
+                                {% if user.profile.avatar %}
+                                    <div class="col-sm-4">
+                                        <img src="{{ user.profile.avatar.url }}" class="img-responsive img-circle">
+                                    </div>
+                                {% endif %}
+                            </div>
                             {% if user.profile.phone %}
-                                <dd><h5 class="card-subtitle text-muted mt0">{{ user.profile.phone }}</h5></dd>
+                                <h6 class="mt0 mb5 text-muted"><span class="glyphicon glyphicon-earphone"></span> {{ user.profile.phone }}</h6>
                             {% else %}
-                                <dd><h5 class="card-subtitle text-muted mt0">Не указан</h5></dd>
+                               <h6 class="mt0 mb5 text-muted"><span class="glyphicon glyphicon-earphone"></span> Не указан</h6>
                             {% endif %}
-                            <dt class="text-left"><h5 class="card-title mt0">На сайте с</h5></dt>
-                            <dd><h5 class="card-subtitle text-muted mt0">{{ user.date_joined.date }}</h5></dd>
-                        </dl>
+                            <h6 class="mt0 mb5 text-muted"><span class="glyphicon glyphicon-envelope"></span> {{ user.profile.email }}</h6>
+                            <h6 class="mt0 mb5 text-muted"><span class="glyphicon glyphicon-plus-sign"></span> {{ user.date_joined.date }}</h6>
+                            <a href="/profile/{{ user.id }}">
+                                <button type="button" class="btn btn-primary btn-xs mt10">Другие объявления<br>пользователя</button>
+                            </a>
+                        </blockquote>
                     </div>
                 </div>
-                {% if user.id == request.user.id %}
-                    <button type="button" class="btn btn-secondary">Редактировать профиль</button>
-                {% endif %}
             </div>
         {% endif %}
     </div>
