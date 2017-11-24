@@ -3,8 +3,8 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-md-2">
-            <- Назад
+        <div class="col-md-2" onclick="goBack()">
+            <a class="pointer noUnderline"><h5><span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span> Назад</h5></a>
         </div>
         <div class="col-md-8">
             <div class="row">
@@ -27,11 +27,11 @@
                             <blockquote class="card-blockquote">
                                 <h4 class="card-header mt15">Информация о продавце</h4>
                                 <div class="row">
-                                    <div class="col-sm-8">
+                                    <div class="col-sm-7">
                                         <h5 class="mt15 mb15">{{ user.profile.first_name }}</h5>
                                     </div>
                                     {% if user.profile.avatar %}
-                                        <div class="col-sm-4">
+                                        <div class="col-sm-5">
                                             <img src="{{ user.profile.avatar.url }}" class="img-responsive img-circle">
                                         </div>
                                     {% endif %}
@@ -65,11 +65,11 @@
             <div class="row mt10">
                 <div class="col-sm-4">
                     {% if advertisement.begin_date != None and advertisement.end_date != None %}
-                        <h5 class="mt0 mb5"><span class="glyphicon glyphicon-calendar"></span> с  <cite title="Source Title">{{ advertisement.begin_date.day }}.{{ advertisement.begin_date.month }}.{{ advertisement.begin_date.year }}</cite> по <cite title="Source Title">{{ advertisement.end_date.day }}.{{ advertisement.end_date.month }}.{{ advertisement.end_date.year }}</cite></h5>
+                        <h5 class="mt0 mb5"><span class="glyphicon glyphicon-calendar"></span> с {{ advertisement.begin_date.day }}.{{ advertisement.begin_date.month }}.{{ advertisement.begin_date.year }} по {{ advertisement.end_date.day }}.{{ advertisement.end_date.month }}.{{ advertisement.end_date.year }}</h5>
                     {% elif advertisement.begin_date != None and advertisement.end_date == None %}
-                        <h5 class="mt0 mb5"><span class="glyphicon glyphicon-calendar"></span> Действуют с  <cite title="Source Title">{{ advertisement.begin_date.day }}.{{ advertisement.begin_date.month }}.{{ advertisement.begin_date.year }}</cite> бессрочно</h5>
+                        <h5 class="mt0 mb5"><span class="glyphicon glyphicon-calendar"></span> Действуют с {{ advertisement.begin_date.day }}.{{ advertisement.begin_date.month }}.{{ advertisement.begin_date.year }} бессрочно</h5>
                     {% elif advertisement.begin_date == None and advertisement.end_date != None %}
-                        <h5 class="mt0 mb5"><span class="glyphicon glyphicon-calendar"></span> Действуют до  <cite title="Source Title">{{ advertisement.end_date.day }}.{{ advertisement.end_date.month }}.{{ advertisement.end_date.year }}</cite></h5>
+                        <h5 class="mt0 mb5"><span class="glyphicon glyphicon-calendar"></span> Действуют до {{ advertisement.end_date.day }}.{{ advertisement.end_date.month }}.{{ advertisement.end_date.year }}</h5>
                     {% else %}
                         <h5 class="mt0 mb5"><span class="glyphicon glyphicon-calendar"></span> Действуют бессрочно</h5>
                     {% endif %}
@@ -89,5 +89,11 @@
         </div>
     </div>
 </div>
+
+<script>
+    function goBack() {
+        window.history.back();
+    }
+</script>
 
 {% endblock %}

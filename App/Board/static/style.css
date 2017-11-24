@@ -131,3 +131,7 @@
 .ui-datepicker{
     z-index: 10 !important;
 }
+
+.noUnderline:hover{
+    text-decoration: none;
+}
