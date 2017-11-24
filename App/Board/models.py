@@ -21,7 +21,7 @@ class Category(models.Model):
 
 class Shop(models.Model):
     name = models.CharField(max_length=100, verbose_name=u'Название')
-    image = ResizedImageField(size=[473, 297], crop=['middle', 'center'], verbose_name=u'Фото', blank=True)
+    image = ResizedImageField(size=[473, 297], crop=['middle', 'center'], verbose_name=u'Фото')
 
     def __str__(self):
         return self.name

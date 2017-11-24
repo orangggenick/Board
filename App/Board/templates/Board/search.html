@@ -86,11 +86,11 @@
                             <h5><b>Не указана</b></h5>
                         {% endif %}
                         {% if advertisement.begin_date != None and advertisement.end_date != None %}
-                            <h5 class="mb5"><span class="glyphicon glyphicon-calendar"></span> с  <cite title="Source Title">{{ advertisement.begin_date.day }}.{{ advertisement.begin_date.month }}.{{ advertisement.begin_date.year }}</cite> по <cite title="Source Title">{{ advertisement.end_date.day }}.{{ advertisement.end_date.month }}.{{ advertisement.end_date.year }}</cite></h5>
+                            <h5 class="mb5"><span class="glyphicon glyphicon-calendar"></span> с {{ advertisement.begin_date.day }}.{{ advertisement.begin_date.month }}.{{ advertisement.begin_date.year }} по {{ advertisement.end_date.day }}.{{ advertisement.end_date.month }}.{{ advertisement.end_date.year }}</h5>
                         {% elif advertisement.begin_date != None and advertisement.end_date == None %}
-                            <h5 class="mb5"><span class="glyphicon glyphicon-calendar"></span> Действует с  <cite title="Source Title">{{ advertisement.begin_date.day }}.{{ advertisement.begin_date.month }}.{{ advertisement.begin_date.year }}</cite> бессрочно</h5>
+                            <h5 class="mb5"><span class="glyphicon glyphicon-calendar"></span> Действует с {{ advertisement.begin_date.day }}.{{ advertisement.begin_date.month }}.{{ advertisement.begin_date.year }} бессрочно</h5>
                         {% elif advertisement.begin_date == None and advertisement.end_date != None %}
-                            <h5 class="mb5"><span class="glyphicon glyphicon-calendar"></span> Действует до  <cite title="Source Title">{{ advertisement.end_date.day }}.{{ advertisement.end_date.month }}.{{ advertisement.end_date.year }}</cite></h5>
+                            <h5 class="mb5"><span class="glyphicon glyphicon-calendar"></span> Действует до {{ advertisement.end_date.day }}.{{ advertisement.end_date.month }}.{{ advertisement.end_date.year }}</h5>
                         {% else %}
                             <h5 class="mb5"><span class="glyphicon glyphicon-calendar"></span> Действует бессрочно</h5>
                         {% endif %}

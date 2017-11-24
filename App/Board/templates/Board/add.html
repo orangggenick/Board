@@ -68,7 +68,7 @@
                             {% endif %}
                         </div>
                         <div class="form-group" id="other_city" style="display:none;">
-                            <label for="other_city">Другой город *</label>
+                            <label for="other_city">Новый город *</label>
                             {% render_field form.other_city class="form-control" placeholder="Введите название города" %}
                             {% if form.other_city.errors %}
                                 <div class="errors">{{ form.other_city.errors }}</div>
@@ -89,7 +89,7 @@
                             {% endif %}
                         </div>
                         <div class="form-group" id="other_shop" style="display:none;">
-                            <label for="other_shop">Другой магазин *</label>
+                            <label for="other_shop">Новый магазин *</label>
                             {% render_field form.other_shop class="form-control" placeholder="Введите название магазина" %}
                             {% if form.other_shop.errors %}
                                 <div class="errors">{{ form.other_shop.errors }}</div>
@@ -133,37 +133,35 @@
 </div>
 
 <script type="text/javascript">
-function shopSelect(nameSelect)
-{
-    if(nameSelect){
-        if($('#shop option:selected').text() == "Другое"){
-            document.getElementById("other_shop").style.display = "block";
+    function shopSelect(nameSelect)
+    {
+        if(nameSelect){
+            if($('#shop option:selected').text() == "Другое"){
+                document.getElementById("other_shop").style.display = "block";
+            }
+            else{
+                document.getElementById("other_shop").style.display = "none";
+            }
         }
         else{
             document.getElementById("other_shop").style.display = "none";
         }
     }
-    else{
-        document.getElementById("other_shop").style.display = "none";
-    }
-}
 
-function citySelect(nameSelect)
-{
-    if(nameSelect){
-        if($('#city option:selected').text() == "Другое"){
-            document.getElementById("other_city").style.display = "block";
+    function citySelect(nameSelect)
+    {
+        if(nameSelect){
+            if($('#city option:selected').text() == "Другое"){
+                document.getElementById("other_city").style.display = "block";
+            }
+            else{
+                document.getElementById("other_city").style.display = "none";
+            }
         }
         else{
             document.getElementById("other_city").style.display = "none";
         }
     }
-    else{
-        document.getElementById("other_city").style.display = "none";
-    }
-}
-
-
 </script>
 
 

@@ -13,19 +13,19 @@
         </div>
     </div>
     <div class="row">
-    {% if user.id == request.user.id %}
-        <div class="col-md-12">
-    {% else %}
-        <div class="col-md-9">
-    {% endif %}
-            {% if user.id == request.user.id %}
-                <ul id="myTab" class="nav nav-tabs mt20">
-                    <li class="active"><a href="#active" data-toggle="tab">Активные <span class="badge">{{ active.count }}</span></a></li>
-                    <li class=""><a href="#end" data-toggle="tab">Завершенные <span class="badge">{{ end.count }}</span></a></li>
-                    <li class=""><a href="#waiting" data-toggle="tab">Ожидают модерации <span class="badge">{{ waiting.count }}</span></a></li>
-                    <li class=""><a href="#add" data-toggle="tab">Добавить</a></li>
-                </ul>
-            {% endif %}
+        {% if user.id == request.user.id %}
+            <div class="col-md-12">
+        {% else %}
+            <div class="col-md-9">
+        {% endif %}
+        {% if user.id == request.user.id %}
+            <ul id="myTab" class="nav nav-tabs mt20">
+                <li class="active"><a href="#active" data-toggle="tab">Активные <span class="badge">{{ active.count }}</span></a></li>
+                <li class=""><a href="#end" data-toggle="tab">Завершенные <span class="badge">{{ end.count }}</span></a></li>
+                <li class=""><a href="#waiting" data-toggle="tab">Ожидают модерации <span class="badge">{{ waiting.count }}</span></a></li>
+                <li class=""><a href="#add" data-toggle="tab">Добавить</a></li>
+            </ul>
+        {% endif %}
             <div class="row mt15">
                 <div id="myTabContent" class="tab-content">
                     <div class="tab-pane active in" id="active">
@@ -59,11 +59,11 @@
                                             <h5><b>Не указана</b></h5>
                                         {% endif %}
                                         {% if advertisement.begin_date != None and advertisement.end_date != None %}
-                                            <h5 class="mb5"><span class="glyphicon glyphicon-calendar"></span> с  <cite title="Source Title">{{ advertisement.begin_date.day }}.{{ advertisement.begin_date.month }}.{{ advertisement.begin_date.year }}</cite> по <cite title="Source Title">{{ advertisement.end_date.day }}.{{ advertisement.end_date.month }}.{{ advertisement.end_date.year }}</cite></h5>
+                                            <h5 class="mb5"><span class="glyphicon glyphicon-calendar"></span> с {{ advertisement.begin_date.day }}.{{ advertisement.begin_date.month }}.{{ advertisement.begin_date.year }} по {{ advertisement.end_date.day }}.{{ advertisement.end_date.month }}.{{ advertisement.end_date.year }}</h5>
                                         {% elif advertisement.begin_date != None and advertisement.end_date == None %}
-                                            <h5 class="mb5"><span class="glyphicon glyphicon-calendar"></span> Действует с  <cite title="Source Title">{{ advertisement.begin_date.day }}.{{ advertisement.begin_date.month }}.{{ advertisement.begin_date.year }}</cite> бессрочно</h5>
+                                            <h5 class="mb5"><span class="glyphicon glyphicon-calendar"></span> Действует с  {{ advertisement.begin_date.day }}.{{ advertisement.begin_date.month }}.{{ advertisement.begin_date.year }} бессрочно</h5>
                                         {% elif advertisement.begin_date == None and advertisement.end_date != None %}
-                                            <h5 class="mb5"><span class="glyphicon glyphicon-calendar"></span> Действует до  <cite title="Source Title">{{ advertisement.end_date.day }}.{{ advertisement.end_date.month }}.{{ advertisement.end_date.year }}</cite></h5>
+                                            <h5 class="mb5"><span class="glyphicon glyphicon-calendar"></span> Действует до  {{ advertisement.end_date.day }}.{{ advertisement.end_date.month }}.{{ advertisement.end_date.year }}</h5>
                                         {% else %}
                                             <h5 class="mb5"><span class="glyphicon glyphicon-calendar"></span> Действует бессрочно</h5>
                                         {% endif %}
@@ -156,11 +156,11 @@
                                                 <h5><b>Не указана</b></h5>
                                             {% endif %}
                                             {% if advertisement.begin_date != None and advertisement.end_date != None %}
-                                                <h5 class="mb5"><span class="glyphicon glyphicon-calendar"></span> с  <cite title="Source Title">{{ advertisement.begin_date.day }}.{{ advertisement.begin_date.month }}.{{ advertisement.begin_date.year }}</cite> по <cite title="Source Title">{{ advertisement.end_date.day }}.{{ advertisement.end_date.month }}.{{ advertisement.end_date.year }}</cite></h5>
+                                                <h5 class="mb5"><span class="glyphicon glyphicon-calendar"></span> с {{ advertisement.begin_date.day }}.{{ advertisement.begin_date.month }}.{{ advertisement.begin_date.year }} по {{ advertisement.end_date.day }}.{{ advertisement.end_date.month }}.{{ advertisement.end_date.year }}</h5>
                                             {% elif advertisement.begin_date != None and advertisement.end_date == None %}
-                                                <h5 class="mb5"><span class="glyphicon glyphicon-calendar"></span> Действует с  <cite title="Source Title">{{ advertisement.begin_date.day }}.{{ advertisement.begin_date.month }}.{{ advertisement.begin_date.year }}</cite> бессрочно</h5>
+                                                <h5 class="mb5"><span class="glyphicon glyphicon-calendar"></span> Действует с  {{ advertisement.begin_date.day }}.{{ advertisement.begin_date.month }}.{{ advertisement.begin_date.year }} бессрочно</h5>
                                             {% elif advertisement.begin_date == None and advertisement.end_date != None %}
-                                                <h5 class="mb5"><span class="glyphicon glyphicon-calendar"></span> Действует до  <cite title="Source Title">{{ advertisement.end_date.day }}.{{ advertisement.end_date.month }}.{{ advertisement.end_date.year }}</cite></h5>
+                                                <h5 class="mb5"><span class="glyphicon glyphicon-calendar"></span> Действует до  {{ advertisement.end_date.day }}.{{ advertisement.end_date.month }}.{{ advertisement.end_date.year }}</h5>
                                             {% else %}
                                                 <h5 class="mb5"><span class="glyphicon glyphicon-calendar"></span> Действует бессрочно</h5>
                                             {% endif %}
@@ -168,8 +168,20 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <h5 class="mt0 mb5"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> {{ advertisement.city }}</h5>
-                                            <h5 class="mt0"><span class="glyphicon glyphicon-shopping-cart"></span> {{ advertisement.shop.name }}</h5>
+                                            <h5 class="mt0 mb5"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
+                                                {% if advertisement.other_city %}
+                                                    {{ advertisement.other_city }}
+                                                {% else %}
+                                                    {{ advertisement.city }}
+                                                {% endif %}
+                                            </h5>
+                                            <h5 class="mt0"><span class="glyphicon glyphicon-shopping-cart"></span>
+                                                {% if advertisement.other_shop %}
+                                                    {{ advertisement.other_shop }}
+                                                {% else %}
+                                                    {{ advertisement.shop.name }}
+                                                {% endif %}
+                                            </h5>
                                             <a href="/advertisement/{{ advertisement.id }}"><button type="button" class="btn btn-primary btn-xs">Подробнее</button></a>
                                             {% if user.id == request.user.id %}
                                                 <a href="/advertisement/{{ advertisement.id }}/edit">

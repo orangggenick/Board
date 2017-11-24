@@ -18,7 +18,7 @@ def custom_404(request):
 
 
 def home(request):
-    advertisements = Advertisement.objects.filter(moderated=True).filter(Q(end_date__gte=datetime.datetime.now()) | Q(end_date=None)).order_by('public_date')
+    advertisements = Advertisement.objects.filter(moderated=True).filter(Q(end_date__gte=datetime.datetime.now()) | Q(end_date=None)).order_by('public_date').reverse()
     paginator = Paginator(advertisements, 24)
     page = request.GET.get('page')
     try:
@@ -40,10 +40,10 @@ def signup(request):
             user_form = UserCreationForm(request.POST)
             profile_form = ProfileForm(request.POST, request.FILES)
             if user_form.is_valid():
-                user_form.save()
-                user = auth.authenticate(username=user_form.cleaned_data['username'], password=user_form.cleaned_data['password2'])
-                auth.login(request, user)
                 if profile_form.is_valid():
+                    user_form.save()
+                    user = auth.authenticate(username=user_form.cleaned_data['username'], password=user_form.cleaned_data['password2'])
+                    auth.login(request, user)
                     buffer = profile_form.save(commit=False)
                     buffer.user = auth.get_user(request)
                     profile_form.save()
@@ -159,8 +159,10 @@ def edit(request, advertisement_id):
                     advertisement.boxes_count = buffer.boxes_count
                     advertisement.price = buffer.price
                     advertisement.city = buffer.city
+                    advertisement.other_city = buffer.other_city
                     advertisement.category = buffer.category
                     advertisement.shop = buffer.shop
+                    advertisement.other_shop = buffer.other_shop
                     if buffer.begin_date is not None and buffer.end_date is not None:
                         if buffer.begin_date < buffer.end_date:
                             advertisement.begin_date = buffer.begin_date

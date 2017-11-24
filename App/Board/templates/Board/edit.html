@@ -62,7 +62,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="city">Город *</label>
-                            <select name="city" placeholder="Выберите город" id="city" class="form-control" required="">
+                            <select name="city" placeholder="Выберите город" id="city" class="form-control" required="" onchange="citySelect(this);">
                                 {% for city in cities %}
                                     {% if city.id == advertisement.city.id %}
                                         <option value="{{ advertisement.city.id }}" selected="">{{ advertisement.city.name }}</option>
@@ -73,6 +73,13 @@
                             </select>
                             {% if form.city.errors %}
                                 <div class="errors">{{ form.city.errors }}</div>
+                            {% endif %}
+                        </div>
+                        <div class="form-group" id="other_city" style="display:none;">
+                            <label for="other_city">Новый город *</label>
+                            {% render_field form.other_city class="form-control" placeholder="Введите название города" %}
+                            {% if form.other_city.errors %}
+                                <div class="errors">{{ form.other_city.errors }}</div>
                             {% endif %}
                         </div>
                         <div class="form-group">
@@ -92,7 +99,7 @@
                         </div>
                         <div class="form-group">
                             <label for="shop">Магазин *</label>
-                            <select name="shop" placeholder="Выберите магазин" id="shop" class="form-control" required="">
+                            <select name="shop" placeholder="Выберите магазин" id="shop" class="form-control" required="" onchange="shopSelect(this);">
                                 {% for shop in shops %}
                                     {% if shop.id == advertisement.shop.id %}
                                         <option value="{{ advertisement.shop.id }}" selected="">{{ advertisement.shop.name }}</option>
@@ -103,6 +110,13 @@
                             </select>
                             {% if form.shop.errors %}
                                 <div class="errors">{{ form.shop.errors }}</div>
+                            {% endif %}
+                        </div>
+                        <div class="form-group" id="other_shop" style="display:none;">
+                            <label for="other_shop">Новый магазин *</label>
+                            {% render_field form.other_shop class="form-control" placeholder="Введите название магазина" %}
+                            {% if form.other_shop.errors %}
+                                <div class="errors">{{ form.other_shop.errors }}</div>
                             {% endif %}
                         </div>
                         <div class="form-group">
@@ -156,5 +170,37 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    function shopSelect(nameSelect)
+    {
+        if(nameSelect){
+            if($('#shop option:selected').text() == "Другое"){
+                document.getElementById("other_shop").style.display = "block";
+            }
+            else{
+                document.getElementById("other_shop").style.display = "none";
+            }
+        }
+        else{
+            document.getElementById("other_shop").style.display = "none";
+        }
+    }
+
+    function citySelect(nameSelect)
+    {
+        if(nameSelect){
+            if($('#city option:selected').text() == "Другое"){
+                document.getElementById("other_city").style.display = "block";
+            }
+            else{
+                document.getElementById("other_city").style.display = "none";
+            }
+        }
+        else{
+            document.getElementById("other_city").style.display = "none";
+        }
+    }
+</script>
 
 {% endblock %}
