@@ -10,7 +10,7 @@ from django.template.context_processors import csrf
 from django.db.models import Q
 
 from Board.forms import ProfileForm, AdvertisementForm, SearchForm
-from Board.models import Advertisement, City, Category, Shop
+from Board.models import Advertisement, City, Category, Shop, Profile
 
 
 def custom_404(request):
@@ -106,6 +106,26 @@ def profile(request, user_id):
             active = Advertisement.objects.filter(author_id=user_id).filter(moderated=True).filter(Q(end_date__gte=datetime.datetime.now()) | Q(end_date=None))
             return render(request, 'Board/profile.html', {'user': User.objects.get(id=user_id), 'active': active})
 
+
+def editProfile(request, user_id):
+    if auth.get_user(request).id is not None:
+        if int(auth.get_user(request).id) == int(user_id):
+            if request.POST:
+                profile = Profile.objects.get(user=User.objects.get(id=user_id))
+                form = ProfileForm(request.POST, request.FILES, instance=profile)
+                if form.is_valid():
+                    form.save()
+                    return redirect('/')
+                else:
+                    return render(request, 'Board/editProfile.html', {'form': form})
+            else:
+                profile = Profile.objects.get(user=User.objects.get(id=user_id))
+                form = ProfileForm(instance=profile)
+                return render(request, 'Board/editProfile.html', {'form': form})
+        else:
+            return redirect("/")
+    else:
+        return redirect("/")
 
 
 def add(request):

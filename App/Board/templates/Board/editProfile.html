@@ -1,0 +1,57 @@
+{% extends 'Board/main.html' %}
+{% load widget_tweaks %}
+{% block content %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Редактирвоание профиля</h2>
+            </div>
+        </div>
+        <div class="row mt15">
+            <div class="col-md-5">
+                <form role="form" action="/profile/{{ user.id }}/edit" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="email">Ваш e-mail *</label>
+                        {% render_field form.email class="form-control" id="email" placeholder="Введите Ваш e-mail" %}
+                        {% if form.email.errors %}
+                            <div class="errors">{{ form.email.errors }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        <label for="first_name">Ваше имя *</label>
+                        {% render_field form.first_name type="password" class="form-control" id="first_name" placeholder="Введите Ваше имя" %}
+                        {% if form.first_name.errors %}
+                            <div class="errors">{{ form.first_name.errors }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        <label for="city">Ваш город *</label>
+                        {% render_field form.city class="form-control" id="city" placeholder="Выберите город" %}
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Ваш телефон</label>
+                        {% render_field form.phone class="form-control" id="phone" placeholder="Введите Ваш телефон" %}
+                        {% if form.phone.errors %}
+                            <div class="errors">{{ form.phone.errors }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        <label for="avatar">Фото Вашего профиля</label>
+                        {% render_field form.avatar class="form-control-file" id="avatar" type="file" %}
+                        {% if form.avatar.errors %}
+                            <div class="errors">{{ form.avatar.errors }}</div>
+                        {% endif %}
+                    </div>
+                    <button type="submit" class="btn btn-primary">Сохранить</button>
+                </form>
+            </div>
+            <div class="col-md-4">
+                <h3>Внимание</h3>
+                <p>Поля, отмеченные * обязательны для заполнения</p>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
