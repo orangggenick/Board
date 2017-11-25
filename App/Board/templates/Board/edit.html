@@ -77,7 +77,7 @@
                         </div>
                         <div class="form-group" id="other_city" style="display:none;">
                             <label for="other_city">Новый город *</label>
-                            {% render_field form.other_city class="form-control" placeholder="Введите название города" %}
+                            {% render_field form.other_city class="form-control" value=advertisement.other_city placeholder="Введите название города" %}
                             {% if form.other_city.errors %}
                                 <div class="errors">{{ form.other_city.errors }}</div>
                             {% endif %}
@@ -114,7 +114,7 @@
                         </div>
                         <div class="form-group" id="other_shop" style="display:none;">
                             <label for="other_shop">Новый магазин *</label>
-                            {% render_field form.other_shop class="form-control" placeholder="Введите название магазина" %}
+                            {% render_field form.other_shop class="form-control" value=advertisement.other_shop placeholder="Введите название магазина" %}
                             {% if form.other_shop.errors %}
                                 <div class="errors">{{ form.other_shop.errors }}</div>
                             {% endif %}
@@ -172,6 +172,16 @@
 </div>
 
 <script type="text/javascript">
+    $(function() {
+        if($('#shop option:selected').text() == "Другое"){
+            document.getElementById("other_shop").style.display = "block";
+        }
+
+        if($('#city option:selected').text() == "Другое"){
+            document.getElementById("other_city").style.display = "block";
+        }
+    });
+
     function shopSelect(nameSelect)
     {
         if(nameSelect){

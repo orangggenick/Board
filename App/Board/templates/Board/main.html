@@ -9,6 +9,7 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/yeti/bootstrap.min.css" rel="stylesheet" integrity="sha384-HzUaiJdCTIY/RL2vDPRGdEQHHahjzwoJJzGUkYjHVzTwXFQ2QN/nVgX7tzoMW3Ov" crossorigin="anonymous">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link href={% static "style.css" %} rel="stylesheet" type="text/css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 </head>
 <body>
 
@@ -49,26 +50,25 @@
 
 {% block content %}{% endblock %}
 
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="https://jquery-ui.googlecode.com/svn-history/r3982/trunk/ui/i18n/jquery.ui.datepicker-ru.js"></script>
 <script src="{% static "datepicker-ru.js" %}"></script>
 <script>
     $.datepicker.setDefaults($.datepicker.regional['ru']);
     $(function() {
-        $("#search_date").datepicker({dateFormat: "yy-mm-dd"});
+        $("#search_date").datepicker({dateFormat: "dd.mm.yy"});
         $("#search_date_cal").click(function(){
             $("#search_date").datepicker("show");
         });
     });
     $(function() {
-        $("#end_date").datepicker({dateFormat: "yy-mm-dd"});
+        $("#end_date").datepicker({dateFormat: "dd.mm.yy"});
         $("#end_date_cal").click(function(){
             $("#end_date").datepicker("show");
         });
     });
     $(function() {
-        $("#begin_date").datepicker({dateFormat: "yy-mm-dd"});
+        $("#begin_date").datepicker({dateFormat: "dd.mm.yy"});
         $("#begin_date_cal").click(function(){
             $("#begin_date").datepicker("show");
         });

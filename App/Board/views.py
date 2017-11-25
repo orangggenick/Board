@@ -204,7 +204,7 @@ def search(request):
             if buffer.shop is not None:
                 advertisements = advertisements.filter(shop=buffer.shop)
             if buffer.date is not None:
-                similar = advertisements.filter((Q(end_date__gte=buffer.date + datetime.timedelta(days=5)) | Q(end_date=None)) & (Q(begin_date__lte=buffer.date + datetime.timedelta(days=5)) | Q(begin_date=None)))
+                similar = advertisements.filter((Q(end_date__gte=buffer.date + datetime.timedelta(days=5)) | Q(end_date=None)) & (Q(begin_date__lte=buffer.date + datetime.timedelta(days=5)) | Q(begin_date=None)) | (Q(end_date__gte=buffer.date - datetime.timedelta(days=5)) | Q(end_date=None)) & (Q(begin_date__lte=buffer.date - datetime.timedelta(days=5)) | Q(begin_date=None)))
                 advertisements = advertisements.filter((Q(end_date__gte=buffer.date) | Q(end_date=None)) & (Q(begin_date__lte=buffer.date) | Q(begin_date=None)))
                 similar = similar.exclude((Q(end_date__gte=buffer.date) | Q(end_date=None)) & (Q(begin_date__lte=buffer.date) | Q(begin_date=None)))
             return render(request, 'Board/search.html', {'advertisements': advertisements,  'similar': similar, 'form': form})
