@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'Board.apps.BoardConfig',
     'widget_tweaks',
+    'snowpenguin.django.recaptcha2',
 ]
 
 MIDDLEWARE = [
@@ -128,3 +129,6 @@ STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static")
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "media_cdn")
+
+RECAPTCHA_PRIVATE_KEY = '6LejHzsUAAAAALWmf2GcT8LUD-2a5hbZ-U86TU8y'
+RECAPTCHA_PUBLIC_KEY = '6LejHzsUAAAAAC7ywMJobCdRKoxSVF6pw_sJdEKq'

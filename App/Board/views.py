@@ -9,7 +9,7 @@ from django.shortcuts import render, redirect, render_to_response
 from django.template.context_processors import csrf
 from django.db.models import Q
 
-from Board.forms import ProfileForm, AdvertisementForm, SearchForm
+from Board.forms import ProfileForm, AdvertisementForm, SearchForm, FeedbackForm, CaptchaForm
 from Board.models import Advertisement, City, Category, Shop, Profile
 
 
@@ -242,3 +242,20 @@ def end(request, advertisement_id):
         else:
             return redirect('/')
     return redirect('/')
+
+
+def feedback(request):
+    if request.POST:
+        form = FeedbackForm(request.POST, request.FILES)
+        captcha = CaptchaForm(request.POST)
+        if captcha.is_valid():
+            if form.is_valid():
+                form.save()
+            else:
+                return render(request, 'Board/feedback.html', {'form': form, 'captcha': captcha})
+        else:
+            return render(request, 'Board/feedback.html', {'form':form, 'captcha':captcha})
+    else:
+        form = FeedbackForm()
+        captcha = CaptchaForm()
+        return render(request, 'Board/feedback.html', {'form':form, 'captcha':captcha})

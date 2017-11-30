@@ -67,3 +67,12 @@ class Search(models.Model):
     city = models.ForeignKey(City, verbose_name=u'Город', blank=True, null=True)
     shop = models.ForeignKey(Shop, verbose_name=u'Магазин', blank=True, null=True)
     date = models.DateField(verbose_name=u'Дата', blank=True, null=True)
+
+
+class Feedback(models.Model):
+    header = models.CharField(max_length=200, verbose_name=u'Заголовок')
+    name = models.CharField(max_length=100, verbose_name=u'Имя')
+    email = models.EmailField(max_length=100, verbose_name=u'E-mail')
+    phone = models.CharField(max_length=20, verbose_name=u'Телефон', blank=True, null=True)
+    message = models.TextField(verbose_name=u'Сообщение')
+    screenshot = models.ImageField(verbose_name=u'Скриншот', blank=True, null=True)

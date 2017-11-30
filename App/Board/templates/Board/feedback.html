@@ -1,0 +1,73 @@
+{% extends 'Board/main.html' %}
+{% load widget_tweaks %}
+{% block content %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h3>Обратная связь</h3>
+            </div>
+        </div>
+        <div class="row mt15 mb20">
+            <div class="col-md-5">
+                <form role="form" action="/feedback" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="header">Заголовок *</label>
+                        {% render_field form.header class="form-control" id="header" placeholder="Введите заголовок" %}
+                        {% if form.header.errors %}
+                            <div class="errors">{{ form.header.errors }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Имя *</label>
+                        {% render_field form.name class="form-control" id="name" placeholder="Введите Ваше имя" %}
+                        {% if form.name.errors %}
+                            <div class="errors">{{ form.name.errors }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        <label for="email">E-mail *</label>
+                        {% render_field form.email class="form-control" id="email" placeholder="Введите Ваш e-mail" %}
+                        {% if form.email.errors %}
+                            <div class="errors">{{ form.email.errors }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Телефон</label>
+                        {% render_field form.phone class="form-control" id="phone" placeholder="Введите Ваш телефон" %}
+                        {% if form.phone.errors %}
+                            <div class="errors">{{ form.phone.errors }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Сообщение *</label>
+                        {% render_field form.message class="form-control" id="message" placeholder="Введите сообщение" %}
+                        {% if form.message.errors %}
+                            <div class="errors">{{ form.message.errors }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        <label for="screenshot">Скриншот</label>
+                        {% render_field form.screenshot class="form-control-file" id="screenshot" type="file" %}
+                        {% if form.screenshot.errors %}
+                            <div class="errors">{{ form.screenshot.errors }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {% render_field captcha.captcha class="form-control" id="captcha"%}
+                        {% if captcha.captcha.errors %}
+                            <div class="errors">{{ captcha.captcha.errors }}</div>
+                        {% endif %}
+                    </div>
+                    <button type="submit" class="btn btn-primary mt10">Отправить</button>
+                </form>
+            </div>
+            <div class="col-md-4">
+                <h3>Внимание</h3>
+                <p>Поля, отмеченные * обязательны для заполнения</p>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

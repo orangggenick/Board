@@ -1,7 +1,9 @@
 from django.contrib.auth.models import User
-from django.forms import ModelForm
+from django.forms import ModelForm, forms
+from snowpenguin.django.recaptcha2.fields import ReCaptchaField
+from snowpenguin.django.recaptcha2.widgets import ReCaptchaWidget
 
-from Board.models import Profile, Advertisement, Search
+from Board.models import Profile, Advertisement, Search, Feedback
 
 
 class UserForm(ModelForm):
@@ -26,3 +28,13 @@ class SearchForm(ModelForm):
     class Meta:
         model = Search
         fields = '__all__'
+
+
+class FeedbackForm(ModelForm):
+    class Meta:
+        model = Feedback
+        fields = '__all__'
+
+
+class CaptchaForm(forms.Form):
+    captcha = ReCaptchaField(widget=ReCaptchaWidget())
