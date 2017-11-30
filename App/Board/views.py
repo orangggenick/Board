@@ -230,3 +230,15 @@ def search(request):
             return render(request, 'Board/search.html', {'advertisements': advertisements,  'similar': similar, 'form': form})
         return redirect('/')
     return redirect('/')
+
+
+def end(request, advertisement_id):
+    if auth.get_user(request).id is not None:
+        advertisement = Advertisement.objects.get(id=advertisement_id)
+        if advertisement.author_id == auth.get_user(request).id:
+            advertisement.end_date = datetime.datetime.now() - datetime.timedelta(days=1)
+            advertisement.save()
+            return redirect('/profile/' + str(auth.get_user(request).id))
+        else:
+            return redirect('/')
+    return redirect('/')

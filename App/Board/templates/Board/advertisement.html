@@ -74,11 +74,10 @@
                         <h5 class="mt0 mb5"><span class="glyphicon glyphicon-calendar"></span> Действуют бессрочно</h5>
                     {% endif %}
                     <h5 class="mt0 mb5"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> {{ advertisement.city }}</h5>
-                    <h5 class="mt0"><span class="glyphicon glyphicon-shopping-cart"></span> {{ advertisement.shop.name }}</h5>
                 </div>
                 <div class="col-sm-4">
-                    <h5 class="mt0 mb5"><span class="glyphicon glyphicon-credit-card"></span> Карточек: {{ advertisement.boxes_count }}</h5>
-                    <h5 class="mt0 mb5"><span class="glyphicon glyphicon-gift"></span> Бонусов: {{ advertisement.objects_in_box }}</h5>
+                    <h5 class="mt0"><span class="glyphicon glyphicon-shopping-cart"></span> {{ advertisement.shop.name }}</h5>
+                    <h5 class="mt0 mb5"><span class="glyphicon glyphicon-gift"></span> {{ advertisement.category.units }}: {{ advertisement.objects_in_box }}</h5>
                 </div>
             </div>
             <div class="row mt10">
