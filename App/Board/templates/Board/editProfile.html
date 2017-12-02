@@ -2,6 +2,25 @@
 {% load widget_tweaks %}
 {% block content %}
 
+    <!-- Modal -->
+    <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">Удаление профиля</h4>
+                </div>
+                <div class="modal-body">
+                    Удаление профиля повлечет за собой удаление всех Ваших объявлений. Восстановить профиль будет невозможно. Вы хотите продолжить?
+                </div>
+                <div class="modal-footer">
+                    <a href="/profile/{{ user.id }}/delete"><button type="button" class="btn btn-danger btn-sm">Удалить профиль</button></a>
+                    <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Закрыть</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -50,6 +69,7 @@
             <div class="col-md-4">
                 <h3>Внимание</h3>
                 <p>Поля, отмеченные * обязательны для заполнения</p>
+                <p>Также Вы можете <a data-toggle="modal" data-target="#delete">удалить</a> свой профиль</p>
             </div>
         </div>
     </div>

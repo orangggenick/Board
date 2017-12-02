@@ -30,11 +30,14 @@ class Shop(models.Model):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    first_name = models.CharField(max_length=30, verbose_name=u'Имя')
+    first_name = models.CharField(max_length=13, verbose_name=u'Имя')
     avatar = ResizedImageField(size=[360, 360], crop=['middle', 'center'], verbose_name=u'Аватар', blank=True)
     city = models.ForeignKey(City, verbose_name=u'Город')
     phone = models.CharField(max_length=20, verbose_name=u'Телефон', blank=True, null=True, unique=True)
     email = models.EmailField(max_length=100, verbose_name=u'E-mail', unique=True)
+    lastLogin = models.DateTimeField(verbose_name=u'Последний вход', blank=True, null=True)
+    lastIP = models.GenericIPAddressField(verbose_name=u'Последний IP входа', blank=True, null=True)
+    currentIP = models.GenericIPAddressField(verbose_name=u'Текущий IP входа', blank=True, null=True)
 
     def __str__(self):
         return self.user.username
@@ -55,7 +58,7 @@ class Advertisement(models.Model):
     public_date = models.DateField(auto_now=True, verbose_name=u'Дата публикации')
     begin_date = models.DateField(verbose_name=u'Дата начала действия', blank=True, null=True)
     end_date = models.DateField(verbose_name=u'Дата окончания действия', blank=True, null=True)
-    active = models.BooleanField(default=True, verbose_name=u'Активное объявление')
+    views = models.IntegerField(verbose_name=u'Просмотры', default=0)
     moderated = models.BooleanField(default=False, verbose_name=u'Прошел модерацию')
 
     def __str__(self):

@@ -67,7 +67,11 @@
                         </div>
                         <div class="form-group" id="other_city" style="display:none;">
                             <label for="other_city">Новый город *</label>
-                            {% render_field form.other_city class="form-control" value=advertisement.other_city placeholder="Введите название города" %}
+                            {% if advertisement.other_shop != None %}
+                                {% render_field form.other_city class="form-control" value=advertisement.other_city placeholder="Введите название города" %}
+                            {% else %}
+                                {% render_field form.other_city class="form-control" placeholder="Введите название города" %}
+                            {% endif %}
                             {% if form.other_city.errors %}
                                 <div class="errors">{{ form.other_city.errors }}</div>
                             {% endif %}
@@ -104,7 +108,11 @@
                         </div>
                         <div class="form-group" id="other_shop" style="display:none;">
                             <label for="other_shop">Новый магазин *</label>
-                            {% render_field form.other_shop class="form-control" value=advertisement.other_shop placeholder="Введите название магазина" %}
+                            {% if advertisement.other_shop != None %}
+                                {% render_field form.other_shop class="form-control" value=advertisement.other_shop placeholder="Введите название магазина" %}
+                            {% else %}
+                                {% render_field form.other_shop class="form-control" placeholder="Введите название магазина" %}
+                            {% endif %}
                             {% if form.other_shop.errors %}
                                 <div class="errors">{{ form.other_shop.errors }}</div>
                             {% endif %}
@@ -129,7 +137,7 @@
                         </div>
                         <div class="form-group">
                             <label for="end_date">Дата окончания действия</label>
-                            {% if advertisement.end_date != Null %}
+                            {% if advertisement.end_date != None %}
                                 <div class="input-group">
                                     {% render_field form.end_date class="form-control" id="end_date" aria-describedby="end_dateHelp" placeholder="Укажите дату окончания" value=advertisement.end_date %}
                                     <div class="input-group-addon" id="end_date_cal"><span class="glyphicon glyphicon-calendar"></span></div>

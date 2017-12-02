@@ -107,6 +107,8 @@ DATETIME_INPUT_FORMATS = [
     '%d.%m.%Y',
 ]
 
+DATE_FORMAT = 'd.m.Y'
+
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
 
@@ -130,5 +132,5 @@ STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static")
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "media_cdn")
 
-RECAPTCHA_PRIVATE_KEY = '6LejHzsUAAAAALWmf2GcT8LUD-2a5hbZ-U86TU8y'
-RECAPTCHA_PUBLIC_KEY = '6LejHzsUAAAAAC7ywMJobCdRKoxSVF6pw_sJdEKq'
+RECAPTCHA_PRIVATE_KEY = '6LejHzsUAAAAAC7ywMJobCdRKoxSVF6pw_sJdEKq'
+RECAPTCHA_PUBLIC_KEY = '6LejHzsUAAAAALWmf2GcT8LUD-2a5hbZ-U86TU8y'

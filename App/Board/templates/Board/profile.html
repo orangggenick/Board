@@ -7,6 +7,8 @@
         <div class="col-sm-12">
             {% if user.id == request.user.id %}
                 <h3>Мои объявления</h3>
+                <h6><b>Последний вход:</b> {{ user.profile.lastLogin.day }}.{{ user.profile.lastLogin.month }}.{{ user.profile.lastLogin.year }} в {{ user.profile.lastLogin.time }} по {{ user.profile.lastLogin.tzinfo }}</h6>
+                <h6><b>IP:</b> {{ user.profile.lastIP }}</h6>
             {% else %}
                 <h3>Объявления пользователя {{ user.username }}</h3>
             {% endif %}
@@ -225,15 +227,38 @@
                                          <div class="col-md-6">
                                              <div class="form-group">
                                                  <label for="category">Город *</label>
-                                                 {% render_field form.city class="form-control" id="city" placeholder="Выберите город" %}
+                                                 {% render_field form.city class="form-control" id="city" placeholder="Выберите город" onchange="citySelect(this);" %}
+                                                 {% if form.city.errors %}
+                                                     <div class="errors">{{ form.city.errors }}</div>
+                                                 {% endif %}
+                                             </div>
+                                             <div class="form-group" id="other_city" style="display:none;">
+                                                 <label for="other_city">Новый город *</label>
+                                                 {% render_field form.other_city class="form-control" placeholder="Введите название города" %}
+                                                 {% if form.other_city.errors %}
+                                                     <div class="errors">{{ form.other_city.errors }}</div>
+                                                 {% endif %}
                                              </div>
                                              <div class="form-group">
                                                  <label for="category">Тип карты *</label>
                                                  {% render_field form.category class="form-control" id="category" placeholder="Выберите категорию" %}
+                                                 {% if form.category.errors %}
+                                                     <div class="errors">{{ form.shop.errors }}</div>
+                                                 {% endif %}
                                              </div>
                                              <div class="form-group">
                                                  <label for="category">Магазин *</label>
-                                                 {% render_field form.shop class="form-control" id="shop" placeholder="Выберите магазин" %}
+                                                 {% render_field form.shop class="form-control" id="shop" placeholder="Выберите магазин" onchange="shopSelect(this);" %}
+                                                 {% if form.shop.errors %}
+                                                     <div class="errors">{{ form.shop.errors }}</div>
+                                                 {% endif %}
+                                             </div>
+                                             <div class="form-group" id="other_shop" style="display:none;">
+                                                 <label for="other_shop">Новый магазин *</label>
+                                                 {% render_field form.other_shop class="form-control" placeholder="Введите название магазина" %}
+                                                 {% if form.other_shop.errors %}
+                                                     <div class="errors">{{ form.other_shop.errors }}</div>
+                                                 {% endif %}
                                              </div>
                                              <div class="form-group">
                                                  <label for="begin_date">Дата начала действия</label>
@@ -299,5 +324,37 @@
         {% endif %}
     </div>
 </div>
+
+<script type="text/javascript">
+function shopSelect(nameSelect)
+{
+    if(nameSelect){
+        if($('#shop option:selected').text() == "Новый магазин"){
+            document.getElementById("other_shop").style.display = "block";
+        }
+        else{
+            document.getElementById("other_shop").style.display = "none";
+        }
+    }
+    else{
+        document.getElementById("other_shop").style.display = "none";
+    }
+}
+
+function citySelect(nameSelect)
+{
+    if(nameSelect){
+        if($('#city option:selected').text() == "Новый город"){
+            document.getElementById("other_city").style.display = "block";
+        }
+        else{
+            document.getElementById("other_city").style.display = "none";
+        }
+    }
+    else{
+        document.getElementById("other_city").style.display = "none";
+    }
+}
+</script>
 
 {% endblock %}

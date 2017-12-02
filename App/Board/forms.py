@@ -21,7 +21,7 @@ class ProfileForm(ModelForm):
 class AdvertisementForm(ModelForm):
     class Meta:
         model = Advertisement
-        exclude = ['author_id', 'public_date', 'active', 'moderated']
+        exclude = ['author_id', 'public_date', 'moderated', 'views']
 
 
 class SearchForm(ModelForm):

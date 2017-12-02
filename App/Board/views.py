@@ -8,6 +8,8 @@ from django.http import Http404
 from django.shortcuts import render, redirect, render_to_response
 from django.template.context_processors import csrf
 from django.db.models import Q
+from django.conf import settings
+from django.utils import dateformat
 
 from Board.forms import ProfileForm, AdvertisementForm, SearchForm, FeedbackForm, CaptchaForm
 from Board.models import Advertisement, City, Category, Shop, Profile
@@ -15,6 +17,15 @@ from Board.models import Advertisement, City, Category, Shop, Profile
 
 def custom_404(request):
   return render(request, "Board/404.html")
+
+
+def get_client_ip(request):
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+    return ip
 
 
 def home(request):
@@ -46,6 +57,8 @@ def signup(request):
                     auth.login(request, user)
                     buffer = profile_form.save(commit=False)
                     buffer.user = auth.get_user(request)
+                    buffer.lastIP = get_client_ip(request)
+                    buffer.currentIP = get_client_ip(request)
                     profile_form.save()
                     return redirect('/')
                 else:
@@ -65,9 +78,15 @@ def login(request):
         if request.POST:
             username = request.POST.get('username', '')
             password = request.POST.get('password', '')
+            lastLogin = User.objects.get(username=username).last_login
             user = auth.authenticate(username=username, password=password)
             if user is not None:
                 auth.login(request, user)
+                profile = Profile.objects.get(user=user)
+                profile.lastLogin = lastLogin
+                profile.lastIP = profile.currentIP
+                profile.currentIP = get_client_ip(request)
+                profile.save()
                 return redirect('/profile/' + str(auth.get_user(request).id))
             else:
                 args['login_error'] = "Пользователь не найден!"
@@ -123,9 +142,9 @@ def editProfile(request, user_id):
                 form = ProfileForm(instance=profile)
                 return render(request, 'Board/editProfile.html', {'form': form})
         else:
-            return redirect("/")
+            raise PermissionDenied
     else:
-        return redirect("/")
+        raise PermissionDenied
 
 
 def add(request):
@@ -158,6 +177,8 @@ def add(request):
 
 def advertisement(request, advertisement_id):
     advertisement = Advertisement.objects.get(id=advertisement_id)
+    advertisement.views += 1
+    advertisement.save()
     user =  User.objects.get(id=advertisement.author_id)
     return render(request, 'Board/advertisement.html', {'advertisement': advertisement, 'user': user})
 
@@ -176,7 +197,6 @@ def edit(request, advertisement_id):
                     advertisement.header = buffer.header
                     advertisement.description = buffer.description
                     advertisement.objects_in_box = buffer.objects_in_box
-                    advertisement.boxes_count = buffer.boxes_count
                     advertisement.price = buffer.price
                     advertisement.city = buffer.city
                     advertisement.other_city = buffer.other_city
@@ -202,6 +222,10 @@ def edit(request, advertisement_id):
                     return render(request, 'Board/edit.html',{'advertisement': advertisement, 'categories': categories, 'cities': cities, 'shops': shops, 'form': form})
             else:
                 form = AdvertisementForm()
+                if advertisement.begin_date is not None:
+                    advertisement.begin_date = dateformat.format(advertisement.begin_date, settings.DATE_FORMAT)
+                if advertisement.end_date is not  None:
+                    advertisement.end_date = dateformat.format(advertisement.end_date, settings.DATE_FORMAT)
                 return render(request, 'Board/edit.html', {'advertisement': advertisement, 'categories': categories, 'cities': cities, 'shops': shops, 'form': form})
         else:
             raise PermissionDenied
@@ -240,8 +264,8 @@ def end(request, advertisement_id):
             advertisement.save()
             return redirect('/profile/' + str(auth.get_user(request).id))
         else:
-            return redirect('/')
-    return redirect('/')
+            raise PermissionDenied
+    raise PermissionDenied
 
 
 def feedback(request):
@@ -251,6 +275,7 @@ def feedback(request):
         if captcha.is_valid():
             if form.is_valid():
                 form.save()
+                return render(request, 'Board/success.html')
             else:
                 return render(request, 'Board/feedback.html', {'form': form, 'captcha': captcha})
         else:
@@ -259,3 +284,16 @@ def feedback(request):
         form = FeedbackForm()
         captcha = CaptchaForm()
         return render(request, 'Board/feedback.html', {'form':form, 'captcha':captcha})
+
+
+def deleteProfile(request, user_id):
+    if auth.get_user(request).id is not None:
+        if int(auth.get_user(request).id) == int(user_id):
+            logout(request)
+            User.objects.get(id=user_id).delete()
+            Advertisement.objects.filter(author_id=user_id).delete()
+            return render(request, 'Board/successDelete.html')
+        else:
+            raise PermissionDenied
+    else:
+        raise PermissionDenied
