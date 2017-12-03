@@ -2,7 +2,7 @@
 {% load widget_tweaks %}
 {% block content %}
 
-<div class="container">
+<div class="container pb20">
     <div class="row">
         <div class="col-md-12">
             <h3>Редактировать объявление "{{ advertisement.header }}"</h3>
@@ -78,7 +78,7 @@
                         </div>
                         <div class="form-group">
                             <label for="category">Тип карты *</label>
-                            <select name="category" placeholder="Выберите город" id="city" class="form-control" required="">
+                            <select name="category" placeholder="Выберите категорию" id="category" class="form-control" required="">
                                 {% for category in categories %}
                                     {% if category.id == advertisement.category.id %}
                                         <option value="{{ advertisement.category.id }}" selected="">{{ advertisement.category.name }}</option>
@@ -89,6 +89,17 @@
                             </select>
                             {% if form.category.errors %}
                                 <div class="errors">{{ form.category.errors }}</div>
+                            {% endif %}
+                        </div>
+                        <div class="form-group" id="other_category" style="display:none;">
+                            <label for="other_category">Новый тип карты *</label>
+                            {% if advertisement.other_category != None %}
+                                {% render_field form.other_category class="form-control" value=advertisement.other_category placeholder="Введите тип карты" %}
+                            {% else %}
+                                {% render_field form.other_category class="form-control" placeholder="Введите тип карты" %}
+                            {% endif %}
+                            {% if form.other_city.errors %}
+                                <div class="errors">{{ form.other_city.errors }}</div>
                             {% endif %}
                         </div>
                         <div class="form-group">
@@ -183,6 +194,10 @@
         if($('#city option:selected').text() == "Новый город"){
             document.getElementById("other_city").style.display = "block";
         }
+
+        if($('#category option:selected').text() == "Новая категория"){
+            document.getElementById("other_category").style.display = "block";
+        }
     });
 
     function shopSelect(nameSelect)
@@ -212,6 +227,21 @@
         }
         else{
             document.getElementById("other_city").style.display = "none";
+        }
+    }
+
+    function categorySelect(nameSelect)
+    {
+        if(nameSelect){
+            if($('#category option:selected').text() == "Новая категория"){
+                document.getElementById("other_category").style.display = "block";
+            }
+            else{
+                document.getElementById("other_category").style.display = "none";
+            }
+        }
+        else{
+            document.getElementById("other_category").style.display = "none";
         }
     }
 </script>

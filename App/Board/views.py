@@ -105,15 +105,15 @@ def logout(request):
 
 def profile(request, user_id):
     try:
-        User.objects.get(id = user_id)
+        User.objects.get(id=user_id)
     except User.DoesNotExist:
         raise Http404
-    if User.objects.get(id = user_id) is not None:
+    if User.objects.get(id=user_id) is not None:
         if auth.get_user(request).id is not None:
             if int(user_id) == int(request.user.id):
                 advertisements = Advertisement.objects.filter(author_id=user_id)
                 active = advertisements.filter(moderated=True).filter(Q(end_date__gte=datetime.datetime.now()) | Q(end_date=None))
-                end = advertisements.filter(end_date__lt = datetime.datetime.now())
+                end = advertisements.filter(end_date__lt=datetime.datetime.now())
                 waiting = advertisements.filter(moderated=False)
                 categories = Category.objects.all()
                 form = AdvertisementForm()
@@ -224,7 +224,7 @@ def edit(request, advertisement_id):
                 form = AdvertisementForm()
                 if advertisement.begin_date is not None:
                     advertisement.begin_date = dateformat.format(advertisement.begin_date, settings.DATE_FORMAT)
-                if advertisement.end_date is not  None:
+                if advertisement.end_date is not None:
                     advertisement.end_date = dateformat.format(advertisement.end_date, settings.DATE_FORMAT)
                 return render(request, 'Board/edit.html', {'advertisement': advertisement, 'categories': categories, 'cities': cities, 'shops': shops, 'form': form})
         else:

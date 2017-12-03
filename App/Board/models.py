@@ -51,6 +51,7 @@ class Advertisement(models.Model):
     description = models.TextField(verbose_name=u'Описание')
     objects_in_box = models.IntegerField(verbose_name=u'Колиество бонусов')
     category = models.ForeignKey(Category, verbose_name=u'Категория')
+    other_category = models.CharField(max_length=40, verbose_name=u'Другая категория', blank=True, null=True)
     city = models.ForeignKey(City, verbose_name=u'Город')
     other_city = models.CharField(max_length=40, verbose_name=u'Другой город', blank=True, null=True)
     shop = models.ForeignKey(Shop, verbose_name=u'Магазин')

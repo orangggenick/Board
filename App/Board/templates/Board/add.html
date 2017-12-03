@@ -2,7 +2,7 @@
 {% load widget_tweaks %}
 {% block content %}
 
-<div class="container">
+<div class="container pb20">
     <div class="row">
         <div class="col-md-12">
             <h3>Добавить объявление</h3>
@@ -66,9 +66,16 @@
                         </div>
                         <div class="form-group">
                             <label for="category">Тип карты *</label>
-                            {% render_field form.category class="form-control" id="category" placeholder="Выберите категорию" %}
+                            {% render_field form.category class="form-control" id="category" placeholder="Выберите тип карты" onchange="categorySelect(this);" %}
                             {% if form.category.errors %}
                                 <div class="errors">{{ form.shop.errors }}</div>
+                            {% endif %}
+                        </div>
+                        <div class="form-group" id="other_category" style="display:none;">
+                            <label for="other_category">Новый тип карты *</label>
+                            {% render_field form.other_category class="form-control" placeholder="Введите тип карты" %}
+                            {% if form.other_category.errors %}
+                                <div class="errors">{{ form.other_category.errors }}</div>
                             {% endif %}
                         </div>
                         <div class="form-group">
@@ -154,6 +161,21 @@
         }
         else{
             document.getElementById("other_city").style.display = "none";
+        }
+    }
+
+    function categorySelect(nameSelect)
+    {
+        if(nameSelect){
+            if($('#category option:selected').text() == "Новая категория"){
+                document.getElementById("other_category").style.display = "block";
+            }
+            else{
+                document.getElementById("other_category").style.display = "none";
+            }
+        }
+        else{
+            document.getElementById("other_category").style.display = "none";
         }
     }
 </script>

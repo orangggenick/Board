@@ -2,13 +2,13 @@
 {% load widget_tweaks %}
 {% block content %}
 
-<div class="container">
+<div class="container pb20">
     <div class="row">
         <div class="col-sm-12">
             {% if user.id == request.user.id %}
                 <h3>Мои объявления</h3>
-                <h6><b>Последний вход:</b> {{ user.profile.lastLogin.day }}.{{ user.profile.lastLogin.month }}.{{ user.profile.lastLogin.year }} в {{ user.profile.lastLogin.time }} по {{ user.profile.lastLogin.tzinfo }}</h6>
-                <h6><b>IP:</b> {{ user.profile.lastIP }}</h6>
+                <h6><b>Последний вход:</b>&nbsp; {{ user.profile.lastLogin.day }}.{{ user.profile.lastLogin.month }}.{{ user.profile.lastLogin.year }} в {{ user.profile.lastLogin.time }} по {{ user.profile.lastLogin.tzinfo }}</h6>
+                <h6><b>IP:</b>&nbsp; {{ user.profile.lastIP }}</h6>
             {% else %}
                 <h3>Объявления пользователя {{ user.username }}</h3>
             {% endif %}
@@ -38,8 +38,8 @@
                                 <div class="col-sm-4 mb15">
                             {% endif %}
                                 <div class="row">
-                                    <div class="col-xs-12">
-                                       <h4><b>{{ advertisement.header|slice:":22" }}{% if advertisement.header|length > 22 %}...{% endif %}</b></h4>
+                                    <div class="col-xs-12 {% if advertisement.header|length > 22 %} shadow {% endif %}">
+                                       <h4 class="text"><b>{{ advertisement.header|slice:":22" }}{% if advertisement.header|length > 22 %}...{% endif %}</b></h4>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -91,8 +91,8 @@
                             {% for advertisement in end reversed %}
                                 <div class="col-sm-3 mb15">
                                     <div class="row">
-                                        <div class="col-xs-12">
-                                            <h4><b>{{ advertisement.header|slice:":22" }}{% if advertisement.header|length > 22 %}...{% endif %}</b></h4>
+                                        <div class="col-xs-12 {% if advertisement.header|length > 22 %} shadow {% endif %}">
+                                            <h4 class="text"><b>{{ advertisement.header|slice:":22" }}{% if advertisement.header|length > 22 %}...{% endif %}</b></h4>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -135,8 +135,8 @@
                             {% for advertisement in waiting reversed %}
                                 <div class="col-sm-3 mb15">
                                     <div class="row">
-                                        <div class="col-xs-12">
-                                            <h4><b>{{ advertisement.header|slice:":22" }}{% if advertisement.header|length > 22 %}...{% endif %}</b></h4>
+                                        <div class="col-xs-12 {% if advertisement.header|length > 22 %} shadow {% endif %}">
+                                            <h4 class="text"><b>{{ advertisement.header|slice:":22" }}{% if advertisement.header|length > 22 %}...{% endif %}</b></h4>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -196,99 +196,106 @@
                             {% endfor %}
                         </div>
                         <div class="tab-pane fade" id="add">
-                             <div class="col-md-12">
-                                 <form role="form" action="/add" method="post" enctype="multipart/form-data">
-                                     {% csrf_token %}
-                                     <div class="row">
-                                         <div class="col-md-6">
-                                             <div class="form-group">
-                                                 <label for="header">Заголовок *</label>
-                                                 {% render_field form.header class="form-control" id="header" placeholder="Введите заголовок" %}
-                                             </div>
-                                             <div class="form-group">
-                                                 <label for="description">Описание *</label>
-                                                 {% render_field form.description class="form-control" id="description" placeholder="Введите описание" %}
-                                             </div>
-                                             <div class="form-group">
-                                                 <label for="objects_in_box">Баланс карты *</label>
-                                                 <div class="input-group">
-                                                     {% render_field form.objects_in_box class="form-control" id="objects_in_box" placeholder="Введите количество бонусов" %}
-                                                     <div class="input-group-addon">единиц</div>
-                                                 </div>
-                                             </div>
-                                             <div class="form-group">
-                                                 <label for="price">Цена</label>
-                                                 <div class="input-group">
-                                                     {% render_field form.price class="form-control" id="price" placeholder="Введите цену" %}
-                                                     <div class="input-group-addon">₽</div>
-                                                </div>
-                                             </div>
-                                         </div>
-                                         <div class="col-md-6">
-                                             <div class="form-group">
-                                                 <label for="category">Город *</label>
-                                                 {% render_field form.city class="form-control" id="city" placeholder="Выберите город" onchange="citySelect(this);" %}
-                                                 {% if form.city.errors %}
-                                                     <div class="errors">{{ form.city.errors }}</div>
-                                                 {% endif %}
-                                             </div>
-                                             <div class="form-group" id="other_city" style="display:none;">
-                                                 <label for="other_city">Новый город *</label>
-                                                 {% render_field form.other_city class="form-control" placeholder="Введите название города" %}
-                                                 {% if form.other_city.errors %}
-                                                     <div class="errors">{{ form.other_city.errors }}</div>
-                                                 {% endif %}
-                                             </div>
-                                             <div class="form-group">
-                                                 <label for="category">Тип карты *</label>
-                                                 {% render_field form.category class="form-control" id="category" placeholder="Выберите категорию" %}
-                                                 {% if form.category.errors %}
-                                                     <div class="errors">{{ form.shop.errors }}</div>
-                                                 {% endif %}
-                                             </div>
-                                             <div class="form-group">
-                                                 <label for="category">Магазин *</label>
-                                                 {% render_field form.shop class="form-control" id="shop" placeholder="Выберите магазин" onchange="shopSelect(this);" %}
-                                                 {% if form.shop.errors %}
-                                                     <div class="errors">{{ form.shop.errors }}</div>
-                                                 {% endif %}
-                                             </div>
-                                             <div class="form-group" id="other_shop" style="display:none;">
-                                                 <label for="other_shop">Новый магазин *</label>
-                                                 {% render_field form.other_shop class="form-control" placeholder="Введите название магазина" %}
-                                                 {% if form.other_shop.errors %}
-                                                     <div class="errors">{{ form.other_shop.errors }}</div>
-                                                 {% endif %}
-                                             </div>
-                                             <div class="form-group">
-                                                 <label for="begin_date">Дата начала действия</label>
-                                                 <div class="input-group">
-                                                     {% render_field form.begin_date class="form-control" id="begin_date" aria-describedby="begin_dateHelp" placeholder="Укажите дату начала" %}
-                                                     <div class="input-group-addon" id="begin_date_cal"><span class="glyphicon glyphicon-calendar"></span></div>
-                                                 </div>
-                                                 <small id="begin_dateHelp" class="form-text text-muted">Если срок действия бонусов не ограничен, оставьте это поле пустым</small>
+                            <div class="col-md-12">
+                                <form role="form" action="/add" method="post" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="header">Заголовок *</label>
+                                                {% render_field form.header class="form-control" id="header" placeholder="Введите заголовок" %}
                                             </div>
-                                             <div class="form-group">
-                                                 <label for="end_date">Дата окончания действия</label>
-                                                 <div class="input-group">
+                                            <div class="form-group">
+                                                <label for="description">Описание *</label>
+                                                {% render_field form.description class="form-control" id="description" placeholder="Введите описание" %}
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="objects_in_box">Баланс карты *</label>
+                                                <div class="input-group">
+                                                    {% render_field form.objects_in_box class="form-control" id="objects_in_box" placeholder="Введите количество бонусов" %}
+                                                    <div class="input-group-addon">единиц</div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="price">Цена</label>
+                                                <div class="input-group">
+                                                    {% render_field form.price class="form-control" id="price" placeholder="Введите цену" %}
+                                                    <div class="input-group-addon">₽</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="category">Город *</label>
+                                                {% render_field form.city class="form-control" id="city" placeholder="Выберите город" onchange="citySelect(this);" %}
+                                                {% if form.city.errors %}
+                                                    <div class="errors">{{ form.city.errors }}</div>
+                                                {% endif %}
+                                            </div>
+                                            <div class="form-group" id="other_city" style="display:none;">
+                                                <label for="other_city">Новый город *</label>
+                                                {% render_field form.other_city class="form-control" placeholder="Введите название города" %}
+                                                {% if form.other_city.errors %}
+                                                    <div class="errors">{{ form.other_city.errors }}</div>
+                                                {% endif %}
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="category">Тип карты *</label>
+                                                {% render_field form.category class="form-control" id="category" placeholder="Выберите тип карты" onchange="categorySelect(this);" %}
+                                                {% if form.category.errors %}
+                                                    <div class="errors">{{ form.shop.errors }}</div>
+                                                {% endif %}
+                                            </div>
+                                            <div class="form-group" id="other_category" style="display:none;">
+                                                <label for="other_category">Новый тип карты *</label>
+                                                {% render_field form.other_category class="form-control" placeholder="Введите тип карты" %}
+                                                {% if form.other_category.errors %}
+                                                    <div class="errors">{{ form.other_category.errors }}</div>
+                                                {% endif %}
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="category">Магазин *</label>
+                                                {% render_field form.shop class="form-control" id="shop" placeholder="Выберите магазин" onchange="shopSelect(this);" %}
+                                                {% if form.shop.errors %}
+                                                    <div class="errors">{{ form.shop.errors }}</div>
+                                                {% endif %}
+                                            </div>
+                                            <div class="form-group" id="other_shop" style="display:none;">
+                                                <label for="other_shop">Новый магазин *</label>
+                                                {% render_field form.other_shop class="form-control" placeholder="Введите название магазина" %}
+                                                {% if form.other_shop.errors %}
+                                                    <div class="errors">{{ form.other_shop.errors }}</div>
+                                                {% endif %}
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="begin_date">Дата начала действия</label>
+                                                <div class="input-group">
+                                                    {% render_field form.begin_date class="form-control" id="begin_date" aria-describedby="begin_dateHelp" placeholder="Укажите дату начала" %}
+                                                    <div class="input-group-addon" id="begin_date_cal"><span class="glyphicon glyphicon-calendar"></span></div>
+                                                </div>
+                                                <small id="begin_dateHelp" class="form-text text-muted">Если срок действия бонусов не ограничен, оставьте это поле пустым</small>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="end_date">Дата окончания действия</label>
+                                                <div class="input-group">
                                                     {% render_field form.end_date class="form-control" id="end_date" aria-describedby="end_dateHelp" placeholder="Укажите дату окончания" %}
                                                     <div class="input-group-addon" id="end_date_cal"><span class="glyphicon glyphicon-calendar"></span></div>
-                                                 </div>
-                                                 <small id="end_dateHelp" class="form-text text-muted">Если срок действия бонусов не ограничен, оставьте это поле пустым</small>
-                                             </div>
-                                             <div class="form-group">
-                                                 <label for="photo">Фото</label>
-                                                 {% render_field form.photo class="form-control-file" id="photo" %}
-                                             </div>
-                                         </div>
-                                     </div>
-                                     <div class="row mt10">
-                                         <div class="col-md-12 text-right">
-                                             <button type="submit" class="btn btn-primary">Добавить</button>
-                                         </div>
-                                     </div>
-                                 </form>
-                             </div>
+                                                </div>
+                                                <small id="end_dateHelp" class="form-text text-muted">Если срок действия бонусов не ограничен, оставьте это поле пустым</small>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="photo">Фото</label>
+                                                {% render_field form.photo class="form-control-file" id="photo" %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mt10">
+                                        <div class="col-md-12 text-right">
+                                            <button type="submit" class="btn btn-primary">Добавить</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     {% endif %}
                 </div>
@@ -353,6 +360,21 @@ function citySelect(nameSelect)
     }
     else{
         document.getElementById("other_city").style.display = "none";
+    }
+}
+
+function categorySelect(nameSelect)
+{
+    if(nameSelect){
+        if($('#category option:selected').text() == "Новая категория"){
+            document.getElementById("other_category").style.display = "block";
+        }
+        else{
+            document.getElementById("other_category").style.display = "none";
+        }
+    }
+    else{
+        document.getElementById("other_category").style.display = "none";
     }
 }
 </script>
