@@ -9,6 +9,7 @@
     <title>Bonus Profi</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/yeti/bootstrap.min.css" rel="stylesheet" integrity="sha384-HzUaiJdCTIY/RL2vDPRGdEQHHahjzwoJJzGUkYjHVzTwXFQ2QN/nVgX7tzoMW3Ov" crossorigin="anonymous">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link href={% static "sticky-footer-navbar.css" %} rel="stylesheet" type="text/css">
     <link href={% static "style.css" %} rel="stylesheet" type="text/css">
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     {% recaptcha_init %}
@@ -52,6 +53,14 @@
 </div>
 
 {% block content %}{% endblock %}
+
+<div id="footer">
+    <div class="container text-center">
+        <p class="text-muted mt0 mb5"><a href="/feedback">Обратная связь</a></p>
+        <p class="text-muted mt0 mb5">Copyright © 2017 Bonus Profi</p>
+        <p class="text-muted mt0">Разработка <a href="https://vk.com/isakovnikita" target="_blank">Никита Исаков</a></p>
+    </div>
+</div>
 
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="https://jquery-ui.googlecode.com/svn-history/r3982/trunk/ui/i18n/jquery.ui.datepicker-ru.js"></script>
