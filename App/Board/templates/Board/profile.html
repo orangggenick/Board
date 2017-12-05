@@ -212,7 +212,7 @@
                                             <div class="form-group">
                                                 <label for="objects_in_box">Баланс карты *</label>
                                                 <div class="input-group">
-                                                    {% render_field form.objects_in_box class="form-control" id="objects_in_box" placeholder="Введите количество бонусов" %}
+                                                    {% render_field form.objects_in_box class="form-control" id="objects_in_box" placeholder="Количество" %}
                                                     <div class="input-group-addon">единиц</div>
                                                 </div>
                                             </div>
@@ -234,7 +234,7 @@
                                             </div>
                                             <div class="form-group" id="other_city" style="display:none;">
                                                 <label for="other_city">Новый город *</label>
-                                                {% render_field form.other_city class="form-control" placeholder="Введите название города" %}
+                                                {% render_field form.other_city class="form-control" placeholder="Введите город" %}
                                                 {% if form.other_city.errors %}
                                                     <div class="errors">{{ form.other_city.errors }}</div>
                                                 {% endif %}
@@ -248,7 +248,7 @@
                                             </div>
                                             <div class="form-group" id="other_category" style="display:none;">
                                                 <label for="other_category">Новый тип карты *</label>
-                                                {% render_field form.other_category class="form-control" placeholder="Введите тип карты" %}
+                                                {% render_field form.other_category class="form-control" placeholder="Введите категорию" %}
                                                 {% if form.other_category.errors %}
                                                     <div class="errors">{{ form.other_category.errors }}</div>
                                                 {% endif %}

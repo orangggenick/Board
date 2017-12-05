@@ -31,7 +31,7 @@
                         <div class="form-group">
                             <label for="objects_in_box">Баланс карты *</label>
                             <div class="input-group">
-                                {% render_field form.objects_in_box class="form-control" id="objects_in_box" placeholder="Введите количество бонусов" value=advertisement.objects_in_box %}
+                                {% render_field form.objects_in_box class="form-control" id="objects_in_box" placeholder="Количество" value=advertisement.objects_in_box %}
                                 <div class="input-group-addon">единиц</div>
                             </div>
                             {% if form.objects_in_box.errors %}
@@ -68,9 +68,9 @@
                         <div class="form-group" id="other_city" style="display:none;">
                             <label for="other_city">Новый город *</label>
                             {% if advertisement.other_shop != None %}
-                                {% render_field form.other_city class="form-control" value=advertisement.other_city placeholder="Введите название города" %}
+                                {% render_field form.other_city class="form-control" value=advertisement.other_city placeholder="Введите город" %}
                             {% else %}
-                                {% render_field form.other_city class="form-control" placeholder="Введите название города" %}
+                                {% render_field form.other_city class="form-control" placeholder="Введите город" %}
                             {% endif %}
                             {% if form.other_city.errors %}
                                 <div class="errors">{{ form.other_city.errors }}</div>
@@ -78,7 +78,7 @@
                         </div>
                         <div class="form-group">
                             <label for="category">Тип карты *</label>
-                            <select name="category" placeholder="Выберите категорию" id="category" class="form-control" required="">
+                            <select name="category" placeholder="Выберите категорию" id="category" class="form-control" required="" onchange="categorySelect(this);">
                                 {% for category in categories %}
                                     {% if category.id == advertisement.category.id %}
                                         <option value="{{ advertisement.category.id }}" selected="">{{ advertisement.category.name }}</option>
@@ -94,9 +94,9 @@
                         <div class="form-group" id="other_category" style="display:none;">
                             <label for="other_category">Новый тип карты *</label>
                             {% if advertisement.other_category != None %}
-                                {% render_field form.other_category class="form-control" value=advertisement.other_category placeholder="Введите тип карты" %}
+                                {% render_field form.other_category class="form-control" value=advertisement.other_category placeholder="Введите категорию" %}
                             {% else %}
-                                {% render_field form.other_category class="form-control" placeholder="Введите тип карты" %}
+                                {% render_field form.other_category class="form-control" placeholder="Введите категорию" %}
                             {% endif %}
                             {% if form.other_city.errors %}
                                 <div class="errors">{{ form.other_city.errors }}</div>

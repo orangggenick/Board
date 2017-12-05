@@ -78,7 +78,11 @@ def login(request):
         if request.POST:
             username = request.POST.get('username', '')
             password = request.POST.get('password', '')
-            lastLogin = User.objects.get(username=username).last_login
+            try:
+                lastLogin = User.objects.get(username=username).last_login
+            except User.DoesNotExist:
+                args['login_error'] = "Пользователь не найден!"
+                return render_to_response('Board/login.html', args)
             user = auth.authenticate(username=username, password=password)
             if user is not None:
                 auth.login(request, user)
@@ -89,7 +93,7 @@ def login(request):
                 profile.save()
                 return redirect('/profile/' + str(auth.get_user(request).id))
             else:
-                args['login_error'] = "Пользователь не найден!"
+                args['login_error'] = "Пароль не верен!"
                 return render_to_response('Board/login.html', args)
         else:
             return render_to_response('Board/login.html', args)

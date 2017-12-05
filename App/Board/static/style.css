@@ -165,3 +165,11 @@ small{
     position:relative;
     z-index:-1;
 }
+
+blockquote{
+    border-left: none;
+}
+
+.width-fixed{
+    width: 100% !important;
+}

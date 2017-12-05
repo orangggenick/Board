@@ -13,38 +13,45 @@
             <div class="col-md-12 mb20">
                 <form role="form" action="/search" method="post" class="form-inline">
                     {% csrf_token %}
-                        <div class="form-group mr15">
-                            <label for="category" class="mr5">Город</label>
-                            {% render_field form.city class="form-control" id="city" placeholder="Выберите город" %}
-                            {% if form.city.errors %}
-                                <div class="errors">{{ form.city.category }}</div>
-                            {% endif %}
-                        </div>
-                        <div class="form-group mr15">
-                            <label for="category" class="mr5">Катерогия</label>
-                            {% render_field form.category class="form-control" id="category" placeholder="Выберите категорию" %}
-                            {% if form.category.errors %}
-                                <div class="errors">{{ form.shop.category }}</div>
-                            {% endif %}
-                        </div>
-                        <div class="form-group mr15">
-                            <label for="category" class="mr5">Магазин</label>
-                            {% render_field form.shop class="form-control" id="shop" placeholder="Выберите магазин" %}
-                            {% if form.shop.errors %}
-                                <div class="errors">{{ form.shop.errors }}</div>
-                            {% endif %}
-                        </div>
-                        <div class="form-group mr15">
-                            <label for="category" class="mr5">Дата</label>
-                            <div class="input-group">
-                                {% render_field form.date class="form-control" placeholder="Выберите дату" id="search_date" %}
-                                <div class="input-group-addon" id="search_date_cal"><span class="glyphicon glyphicon-calendar"></span></div>
+                        <div class="row">
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label for="city">Город</label>
+                                {% render_field form.city class="form-control width-fixed" id="city" placeholder="Выберите город" %}
                             </div>
-                            {% if form.date.errors %}
-                                <div class="errors">{{ form.date.errors }}</div>
-                            {% endif %}
                         </div>
-                        <button type="submit" class="btn btn-primary">Поиск</button>
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label for="category">Катерогия</label>
+                                {% render_field form.category class="form-control width-fixed" id="category" placeholder="Выберите категорию" %}
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label for="shop">Магазин</label>
+                                {% render_field form.shop class="form-control width-fixed" id="shop" placeholder="Выберите магазин" %}
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label for="category" class="mr5">Дата</label>
+                                <div class="input-group">
+                                    {% render_field form.date class="form-control width-fixed" placeholder="Выберите дату" id="search_date" %}
+                                    <div class="input-group-addon" id="search_date_cal"><span class="glyphicon glyphicon-calendar"></span></div>
+                                </div>
+                                {% if form.date.errors %}
+                                    <div class="errors">{{ form.date.errors }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label for="submit">&nbsp;</label>
+                                <br>
+                                <button type="submit" class="btn btn-primary form-control">Поиск</button>
+                            </div>
+                        </div>
+                    </div>
                  </form>
             </div>
         </div>
@@ -106,6 +113,7 @@
             </div>
         {% endfor %}
         </div>
+        {% if similar.count %}
         <div class="row mt15">
             <div class="col-md-12">
                 <h3>Похожие объявления</h3>
@@ -159,6 +167,7 @@
                 </div>
             {% endfor %}
         </div>
+        {% endif %}
     </div>
 </div>
 

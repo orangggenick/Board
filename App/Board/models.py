@@ -49,14 +49,14 @@ class Advertisement(models.Model):
     price = models.PositiveIntegerField(verbose_name=u'Цена', blank=True, null=True)
     photo = ResizedImageField(size=[473, 297], crop=['middle', 'center'], verbose_name=u'Фото', blank=True)
     description = models.TextField(verbose_name=u'Описание')
-    objects_in_box = models.IntegerField(verbose_name=u'Колиество бонусов')
+    objects_in_box = models.IntegerField(verbose_name=u'Количество бонусов')
     category = models.ForeignKey(Category, verbose_name=u'Категория')
     other_category = models.CharField(max_length=40, verbose_name=u'Другая категория', blank=True, null=True)
     city = models.ForeignKey(City, verbose_name=u'Город')
     other_city = models.CharField(max_length=40, verbose_name=u'Другой город', blank=True, null=True)
     shop = models.ForeignKey(Shop, verbose_name=u'Магазин')
     other_shop = models.CharField(max_length=40, verbose_name=u'Другой магазин', blank=True, null=True)
-    public_date = models.DateField(auto_now=True, verbose_name=u'Дата публикации')
+    public_date = models.DateTimeField(auto_now=True, verbose_name=u'Дата публикации')
     begin_date = models.DateField(verbose_name=u'Дата начала действия', blank=True, null=True)
     end_date = models.DateField(verbose_name=u'Дата окончания действия', blank=True, null=True)
     views = models.IntegerField(verbose_name=u'Просмотры', default=0)
@@ -80,3 +80,6 @@ class Feedback(models.Model):
     phone = models.CharField(max_length=20, verbose_name=u'Телефон', blank=True, null=True)
     message = models.TextField(verbose_name=u'Сообщение')
     screenshot = models.ImageField(verbose_name=u'Скриншот', blank=True, null=True)
+
+    def __str__(self):
+        return self.header
