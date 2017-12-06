@@ -161,6 +161,7 @@ def add(request):
                 if buffer.begin_date is not None and buffer.end_date is not None:
                     if buffer.begin_date < buffer.end_date:
                         buffer.author_id = auth.get_user(request).id
+                        buffer.public_date = datetime.datetime.now()
                         form.save()
                         return redirect('/profile/'+str(auth.get_user(request).id))
                     else:
@@ -168,6 +169,7 @@ def add(request):
                         return render(request, 'Board/add.html', {'form': form, 'categories': Category.objects.all()})
                 else:
                     buffer = form.save(commit=False)
+                    buffer.public_date = datetime.datetime.now()
                     buffer.author_id = auth.get_user(request).id
                     form.save()
                     return redirect('/profile/' + str(auth.get_user(request).id))

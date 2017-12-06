@@ -1,8 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
-from django.db.models.signals import post_save
-from django.dispatch import receiver
 from django_resized import ResizedImageField
+import datetime
 
 
 class City(models.Model):
@@ -56,7 +55,7 @@ class Advertisement(models.Model):
     other_city = models.CharField(max_length=40, verbose_name=u'Другой город', blank=True, null=True)
     shop = models.ForeignKey(Shop, verbose_name=u'Магазин')
     other_shop = models.CharField(max_length=40, verbose_name=u'Другой магазин', blank=True, null=True)
-    public_date = models.DateTimeField(auto_now=True, verbose_name=u'Дата публикации')
+    public_date = models.DateTimeField(verbose_name=u'Дата публикации')
     begin_date = models.DateField(verbose_name=u'Дата начала действия', blank=True, null=True)
     end_date = models.DateField(verbose_name=u'Дата окончания действия', blank=True, null=True)
     views = models.IntegerField(verbose_name=u'Просмотры', default=0)
