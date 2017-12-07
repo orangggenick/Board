@@ -240,14 +240,14 @@
                                                 {% endif %}
                                             </div>
                                             <div class="form-group">
-                                                <label for="category">Тип карты *</label>
-                                                {% render_field form.category class="form-control" id="category" placeholder="Выберите тип карты" onchange="categorySelect(this);" %}
+                                                <label for="category">Категория *</label>
+                                                {% render_field form.category class="form-control" id="category" placeholder="Выберите категорию" onchange="categorySelect(this);" %}
                                                 {% if form.category.errors %}
                                                     <div class="errors">{{ form.shop.errors }}</div>
                                                 {% endif %}
                                             </div>
                                             <div class="form-group" id="other_category" style="display:none;">
-                                                <label for="other_category">Новый тип карты *</label>
+                                                <label for="other_category">Новая категория *</label>
                                                 {% render_field form.other_category class="form-control" placeholder="Введите категорию" %}
                                                 {% if form.other_category.errors %}
                                                     <div class="errors">{{ form.other_category.errors }}</div>

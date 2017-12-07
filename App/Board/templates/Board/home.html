@@ -4,12 +4,12 @@
 
 <div class="container pb20">
     <div class="graybg">
-        <div class="row mb10 ml20">
+        <div class="row mb10 ml20 mr20">
             <div class="col-md-12">
                 <h3>Поиск по объявлениям</h3>
             </div>
         </div>
-        <div class="row mb10 ml20">
+        <div class="row mb10 ml20 mr20">
             <div class="col-md-12 mb20">
                 <form role="form" action="/search" method="post" class="form-inline">
                     {% csrf_token %}
@@ -22,7 +22,7 @@
                         </div>
                         <div class="col-sm-2">
                             <div class="form-group">
-                                <label for="category">Катерогия</label>
+                                <label for="category">Категория</label>
                                 {% render_field form.category class="form-control width-fixed" id="category" placeholder="Выберите категорию" %}
                             </div>
                         </div>

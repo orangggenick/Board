@@ -15,24 +15,24 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-8">
+                <div class="col-sm-8">
                      {% if advertisement.photo %}
                         <img src="{{ advertisement.photo.url }}" class="img-responsive rounded mt15 border">
                      {% else %}
                          <img src="{{ advertisement.shop.image.url }}" class="img-responsive rounded mt15 border">
                      {% endif %}
                 </div>
-                <div class="col-md-4 mt15">
+                <div class="col-sm-4 mt15 hidden-xs">
                     <div class="card border-primary">
                         <div class="card-body">
                             <blockquote class="card-blockquote">
                                 <h4 class="card-header mt15">Информация о продавце</h4>
                                 <div class="row">
-                                    <div class="col-sm-7">
+                                    <div class="col-xs-7">
                                         <h5 class="mt20 mb10">{{ user.profile.first_name }}</h5>
                                     </div>
                                     {% if user.profile.avatar %}
-                                        <div class="col-sm-5">
+                                        <div class="col-xs-5">
                                             <img src="{{ user.profile.avatar.url }}" class="img-responsive img-circle">
                                         </div>
                                     {% endif %}
@@ -84,6 +84,37 @@
             <div class="row mt10">
                 <div class="col-md-12 mb20">
                     {{ advertisement.description }}
+                </div>
+            </div>
+            <div class="row visible-xs">
+                <div class="col-xs-12 mt15">
+                    <div class="card border-primary">
+                        <div class="card-body">
+                            <blockquote class="card-blockquote">
+                                <h4 class="card-header mt15">Информация о продавце</h4>
+                                <div class="row">
+                                    <div class="col-xs-7">
+                                        <h5 class="mt20 mb10">{{ user.profile.first_name }}</h5>
+                                    </div>
+                                    {% if user.profile.avatar %}
+                                        <div class="col-xs-5">
+                                            <img src="{{ user.profile.avatar.url }}" class="img-responsive img-circle">
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                {% if user.profile.phone %}
+                                    <h6 class="mt0 mb5 text-muted"><span class="glyphicon glyphicon-earphone"></span> {{ user.profile.phone }}</h6>
+                                {% else %}
+                                   <h6 class="mt0 mb5 text-muted"><span class="glyphicon glyphicon-earphone"></span> Не указан</h6>
+                                {% endif %}
+                                <h6 class="mt0 mb5 text-muted"><span class="glyphicon glyphicon-envelope"></span> {{ user.profile.email }}</h6>
+                                <h6 class="mt0 mb5 text-muted"><span class="glyphicon glyphicon-plus-sign"></span> {{ user.date_joined.date }}</h6>
+                                <a href="/profile/{{ user.id }}">
+                                    <button type="button" class="btn btn-primary btn-xs mt10">Другие объявления</button>
+                                </a>
+                            </blockquote>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
