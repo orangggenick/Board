@@ -1,0 +1,16 @@
+{% extends 'Board/main.html' %}
+{% load staticfiles %}
+
+{% block content %}
+
+    <div class="container pb20">
+        <div class="jumbotron">
+            <h1 class="display-3">403 Доступ запрещен</h1>
+            <p>Вы пытаетесь сделать то, что Вам делать не положено. Если Вы не согласны с этим, пожалуйста, <a href="/feedback">напишите нам</a> о проблеме.</p>
+            <img src={% static "angry_cat.png" %}>
+            <p><a class="btn btn-primary mt10" href="/">Вернуться на главную</a></p>
+        </div>
+    </div>
+
+
+{% endblock %}

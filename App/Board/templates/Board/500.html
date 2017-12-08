@@ -1,0 +1,16 @@
+{% extends 'Board/main.html' %}
+{% load staticfiles %}
+
+{% block content %}
+
+    <div class="container pb20">
+        <div class="jumbotron">
+            <h1 class="display-3">500 Ошибка Сервера</h1>
+            <p>Произошло что-то сташное, приносим свои извинения. Пожалуйста, <a href="/feedback">напишите нам</a> о проблеме.</p>
+            <img src={% static "sad_cat.png" %}>
+            <p><a class="btn btn-primary" href="/">Вернуться на главную</a></p>
+        </div>
+    </div>
+
+
+{% endblock %}

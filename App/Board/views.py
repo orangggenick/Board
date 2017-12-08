@@ -16,7 +16,15 @@ from Board.models import Advertisement, City, Category, Shop, Profile
 
 
 def custom_404(request):
-  return render(request, "Board/404.html")
+    return render(request, "Board/404.html")
+
+
+def custom_500(request):
+    return render(request, "Board/500.html")
+
+
+def custom_403(request):
+    return render(request, "Board/403.html")
 
 
 def get_client_ip(request):
@@ -29,7 +37,8 @@ def get_client_ip(request):
 
 
 def home(request):
-    advertisements = Advertisement.objects.filter(moderated=True).filter(Q(end_date__gte=datetime.datetime.now()) | Q(end_date=None)).order_by('public_date').reverse()
+    advertisements = Advertisement.objects.filter(moderated=True).filter(
+        Q(end_date__gte=datetime.datetime.now()) | Q(end_date=None)).order_by('public_date').reverse()
     paginator = Paginator(advertisements, 24)
     page = request.GET.get('page')
     try:
@@ -53,7 +62,8 @@ def signup(request):
             if user_form.is_valid():
                 if profile_form.is_valid():
                     user_form.save()
-                    user = auth.authenticate(username=user_form.cleaned_data['username'], password=user_form.cleaned_data['password2'])
+                    user = auth.authenticate(username=user_form.cleaned_data['username'],
+                                             password=user_form.cleaned_data['password2'])
                     auth.login(request, user)
                     buffer = profile_form.save(commit=False)
                     buffer.user = auth.get_user(request)
@@ -64,9 +74,11 @@ def signup(request):
                 else:
                     return render(request, 'Board/signup.html', {'user_form': user_form, 'profile_form': profile_form})
             else:
-                return render(request, 'Board/signup.html', {'user_form': user_form, 'profile_form': profile_form, 'cities':City.objects.all()})
+                return render(request, 'Board/signup.html',
+                              {'user_form': user_form, 'profile_form': profile_form, 'cities': City.objects.all()})
         else:
-            return render(request, 'Board/signup.html', {'user_form': user_form, 'profile_form': profile_form, 'cities':City.objects.all()})
+            return render(request, 'Board/signup.html',
+                          {'user_form': user_form, 'profile_form': profile_form, 'cities': City.objects.all()})
 
 
 def login(request):
@@ -116,17 +128,22 @@ def profile(request, user_id):
         if auth.get_user(request).id is not None:
             if int(user_id) == int(request.user.id):
                 advertisements = Advertisement.objects.filter(author_id=user_id)
-                active = advertisements.filter(moderated=True).filter(Q(end_date__gte=datetime.datetime.now()) | Q(end_date=None))
+                active = advertisements.filter(moderated=True).filter(
+                    Q(end_date__gte=datetime.datetime.now()) | Q(end_date=None))
                 end = advertisements.filter(end_date__lt=datetime.datetime.now())
                 waiting = advertisements.filter(moderated=False)
                 categories = Category.objects.all()
                 form = AdvertisementForm()
-                return render(request, 'Board/profile.html', {'user': User.objects.get(id=user_id), 'active': active, 'end': end, 'waiting': waiting, 'form': form, 'categories': categories})
+                return render(request, 'Board/profile.html',
+                              {'user': User.objects.get(id=user_id), 'active': active, 'end': end, 'waiting': waiting,
+                               'form': form, 'categories': categories})
             else:
-                active = Advertisement.objects.filter(author_id=user_id).filter(moderated=True).filter(Q(end_date__gte=datetime.datetime.now()) | Q(end_date=None))
+                active = Advertisement.objects.filter(author_id=user_id).filter(moderated=True).filter(
+                    Q(end_date__gte=datetime.datetime.now()) | Q(end_date=None))
                 return render(request, 'Board/profile.html', {'user': User.objects.get(id=user_id), 'active': active})
         else:
-            active = Advertisement.objects.filter(author_id=user_id).filter(moderated=True).filter(Q(end_date__gte=datetime.datetime.now()) | Q(end_date=None))
+            active = Advertisement.objects.filter(author_id=user_id).filter(moderated=True).filter(
+                Q(end_date__gte=datetime.datetime.now()) | Q(end_date=None))
             return render(request, 'Board/profile.html', {'user': User.objects.get(id=user_id), 'active': active})
 
 
@@ -163,7 +180,7 @@ def add(request):
                         buffer.author_id = auth.get_user(request).id
                         buffer.public_date = datetime.datetime.now()
                         form.save()
-                        return redirect('/profile/'+str(auth.get_user(request).id))
+                        return redirect('/profile/' + str(auth.get_user(request).id))
                     else:
                         form.add_error('end_date', 'Некорректная дата окончания')
                         return render(request, 'Board/add.html', {'form': form, 'categories': Category.objects.all()})
@@ -182,11 +199,14 @@ def add(request):
 
 
 def advertisement(request, advertisement_id):
-    advertisement = Advertisement.objects.get(id=advertisement_id)
-    advertisement.views += 1
-    advertisement.save()
-    user =  User.objects.get(id=advertisement.author_id)
-    return render(request, 'Board/advertisement.html', {'advertisement': advertisement, 'user': user})
+    try:
+        advertisement = Advertisement.objects.get(id=advertisement_id)
+        advertisement.views += 1
+        advertisement.save()
+        user = User.objects.get(id=advertisement.author_id)
+        return render(request, 'Board/advertisement.html', {'advertisement': advertisement, 'user': user})
+    except Advertisement.DoesNotExist:
+        raise Http404
 
 
 def edit(request, advertisement_id):
@@ -215,7 +235,9 @@ def edit(request, advertisement_id):
                             advertisement.end_date = buffer.end_date
                         else:
                             form.add_error('end_date', 'Некорректная дата окончания')
-                            return render(request, 'Board/edit.html', {'form': form, 'categories': categories, 'cities': cities, 'shops': shops, 'advertisement': advertisement})
+                            return render(request, 'Board/edit.html',
+                                          {'form': form, 'categories': categories, 'cities': cities, 'shops': shops,
+                                           'advertisement': advertisement})
                     else:
                         advertisement.begin_date = buffer.begin_date
                         advertisement.end_date = buffer.end_date
@@ -225,14 +247,18 @@ def edit(request, advertisement_id):
                     advertisement.save()
                     return redirect('/profile/' + str(auth.get_user(request).id))
                 else:
-                    return render(request, 'Board/edit.html',{'advertisement': advertisement, 'categories': categories, 'cities': cities, 'shops': shops, 'form': form})
+                    return render(request, 'Board/edit.html',
+                                  {'advertisement': advertisement, 'categories': categories, 'cities': cities,
+                                   'shops': shops, 'form': form})
             else:
                 form = AdvertisementForm()
                 if advertisement.begin_date is not None:
                     advertisement.begin_date = dateformat.format(advertisement.begin_date, settings.DATE_FORMAT)
                 if advertisement.end_date is not None:
                     advertisement.end_date = dateformat.format(advertisement.end_date, settings.DATE_FORMAT)
-                return render(request, 'Board/edit.html', {'advertisement': advertisement, 'categories': categories, 'cities': cities, 'shops': shops, 'form': form})
+                return render(request, 'Board/edit.html',
+                              {'advertisement': advertisement, 'categories': categories, 'cities': cities,
+                               'shops': shops, 'form': form})
         else:
             raise PermissionDenied
     else:
@@ -245,7 +271,8 @@ def search(request):
         if form.is_valid():
             buffer = form.save(commit=False)
             print(buffer.city)
-            advertisements = Advertisement.objects.filter(moderated=True).filter(Q(end_date__gt=datetime.datetime.now()) | Q(end_date=None))
+            advertisements = Advertisement.objects.filter(moderated=True).filter(
+                Q(end_date__gt=datetime.datetime.now()) | Q(end_date=None))
             similar = None
             if buffer.city is not None:
                 advertisements = advertisements.filter(city=buffer.city)
@@ -254,10 +281,17 @@ def search(request):
             if buffer.shop is not None:
                 advertisements = advertisements.filter(shop=buffer.shop)
             if buffer.date is not None:
-                similar = advertisements.filter((Q(end_date__gte=buffer.date + datetime.timedelta(days=5)) | Q(end_date=None)) & (Q(begin_date__lte=buffer.date + datetime.timedelta(days=5)) | Q(begin_date=None)) | (Q(end_date__gte=buffer.date - datetime.timedelta(days=5)) | Q(end_date=None)) & (Q(begin_date__lte=buffer.date - datetime.timedelta(days=5)) | Q(begin_date=None)))
-                advertisements = advertisements.filter((Q(end_date__gte=buffer.date) | Q(end_date=None)) & (Q(begin_date__lte=buffer.date) | Q(begin_date=None)))
-                similar = similar.exclude((Q(end_date__gte=buffer.date) | Q(end_date=None)) & (Q(begin_date__lte=buffer.date) | Q(begin_date=None)))
-            return render(request, 'Board/search.html', {'advertisements': advertisements,  'similar': similar, 'form': form})
+                similar = advertisements.filter(
+                    (Q(end_date__gte=buffer.date + datetime.timedelta(days=5)) | Q(end_date=None)) & (
+                    Q(begin_date__lte=buffer.date + datetime.timedelta(days=5)) | Q(begin_date=None)) | (
+                    Q(end_date__gte=buffer.date - datetime.timedelta(days=5)) | Q(end_date=None)) & (
+                    Q(begin_date__lte=buffer.date - datetime.timedelta(days=5)) | Q(begin_date=None)))
+                advertisements = advertisements.filter((Q(end_date__gte=buffer.date) | Q(end_date=None)) & (
+                Q(begin_date__lte=buffer.date) | Q(begin_date=None)))
+                similar = similar.exclude((Q(end_date__gte=buffer.date) | Q(end_date=None)) & (
+                Q(begin_date__lte=buffer.date) | Q(begin_date=None)))
+            return render(request, 'Board/search.html',
+                          {'advertisements': advertisements, 'similar': similar, 'form': form})
         return redirect('/')
     return redirect('/')
 
@@ -285,11 +319,11 @@ def feedback(request):
             else:
                 return render(request, 'Board/feedback.html', {'form': form, 'captcha': captcha})
         else:
-            return render(request, 'Board/feedback.html', {'form':form, 'captcha':captcha})
+            return render(request, 'Board/feedback.html', {'form': form, 'captcha': captcha})
     else:
         form = FeedbackForm()
         captcha = CaptchaForm()
-        return render(request, 'Board/feedback.html', {'form':form, 'captcha':captcha})
+        return render(request, 'Board/feedback.html', {'form': form, 'captcha': captcha})
 
 
 def deleteProfile(request, user_id):

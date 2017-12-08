@@ -1,12 +1,14 @@
 {% extends 'Board/main.html' %}
+{% load staticfiles %}
 
 {% block content %}
 
     <div class="container pb20">
         <div class="jumbotron">
-          <h1 class="display-3">404 не найдено</h1>
-          <p>Запрашиваемая Вами страница не существует</p>
-          <p><a class="btn btn-primary" href="/">Вернуться на главную</a></p>
+            <h1 class="display-3">404 не найдено</h1>
+            <p>Запрашиваемая Вами страница не существует</p>
+            <img src={% static "misunderstanding_cat.png" %}>
+            <p><a class="btn btn-primary" href="/">Вернуться на главную</a></p>
         </div>
     </div>
 
