@@ -15,18 +15,6 @@ from Board.forms import ProfileForm, AdvertisementForm, SearchForm, FeedbackForm
 from Board.models import Advertisement, City, Category, Shop, Profile
 
 
-def custom_404(request):
-    return render(request, "Board/404.html")
-
-
-def custom_500(request):
-    return render(request, "Board/500.html")
-
-
-def custom_403(request):
-    return render(request, "Board/403.html")
-
-
 def get_client_ip(request):
     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
     if x_forwarded_for:

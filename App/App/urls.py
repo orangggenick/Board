@@ -19,10 +19,6 @@ from django.conf.urls.static import static
 from django.conf import settings
 
 
-handler404 = 'Board.views.custom_404',
-handler500 = 'Board.views.custom_500',
-handler403 = 'Board.views.custom_403',
-
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^', include('Board.urls')),

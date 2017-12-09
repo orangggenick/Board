@@ -58,6 +58,42 @@
     margin-right: 20px;
 }
 
+.ml0{
+    margin-left: 0;
+}
+
+.ml5{
+    margin-left: 5px;
+}
+
+.ml10{
+    margin-left: 10px;
+}
+
+.ml15{
+    margin-left: 15px;
+}
+
+.ml20{
+    margin-left: 20px;
+}
+
+.pb5{
+    padding-bottom: 5px;
+}
+
+.pb10{
+    padding-bottom: 10px;
+}
+
+.pb15{
+    padding-bottom: 15px;
+}
+
+.pb20{
+    padding-bottom: 20px;
+}
+
 .text-left{
     text-align: left !important;
 }
@@ -75,11 +111,28 @@
 }
 
 .border{
-    border: solid 2px #111;
+    border: solid 2px #e7e7e7;
 }
 
 .errors{
     color: #F04124;
+}
+
+.graybg{
+    background-color: #e7e7e7;
+}
+
+.img-responsive{
+    width: 100%;
+}
+
+.border-primary{
+    border: solid 1px;
+    border-color: #008cba !important;
+}
+
+.pointer{
+    cursor: pointer;
 }
 
 @media (min-width: 768px) {
@@ -93,4 +146,30 @@
 
 .ui-datepicker{
     z-index: 10 !important;
+}
+
+.noUnderline:hover{
+    text-decoration: none;
+}
+
+small{
+    color: #6f6f6f;
+}
+
+.shadow{
+    cursor:text;
+    box-shadow:inset -100px 0 80px -20px #ffffff
+}
+
+.text{
+    position:relative;
+    z-index:-1;
+}
+
+blockquote{
+    border-left: none;
+}
+
+.width-fixed{
+    width: 100% !important;
 }
