@@ -177,16 +177,36 @@ blockquote{
 .hint{
     background-color: #ffffff;
     padding: 20px;
-    width: 300px;
-    position: absolute;
-    display: none;
     z-index: 1000;
-    box-shadow: 0 0 50px rgba(0,0,0,0.5);
-    top: 45px;
-    color: #222222;
-    font-size: 14px;
+    box-shadow: 0 20px 65px rgba(0,0,0,0.6);
+    top: 65px;
+    margin-top: 20px;
+    width: 500px;
+    position: absolute;
+    opacity: 0;
+    visibility: hidden;
+    -webkit-transition: opacity 0.3s, margin-top 0.3s, visibility 0s linear 0.3s;
+    -moz-transition: opacity 0.3s, margin-top 0.3s, visibility 0s linear 0.3s;
+    -o-transition: opacity 0.3s, margin-top 0.3s, visibility 0s linear 0.3s;
+    transition: opacity 0.3s, margin-top 0.3s, visibility 0s linear 0.3s;
+    pointer-events: none;
 }
 
-.navbar-brand:hover .hint{
-    display: block !important;
+.hint::before {
+    content: '';
+    position: absolute; /* Абсолютное позиционирование */
+    left: 0; top: -40px; /* Положение треугольника */
+    border: 20px solid transparent;	border-bottom: 20px solid #ffffff;
+
+   }
+
+.navbar-header:hover .hint{
+    margin-top: 0;
+    opacity: 1;
+    visibility: visible;
+    -webkit-transition-delay: 0s;
+    -moz-transition-delay: 0s;
+    -o-transition-delay: 0s;
+    transition-delay: 0s;
+    pointer-events: auto;
 }
