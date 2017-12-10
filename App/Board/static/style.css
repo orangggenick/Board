@@ -173,3 +173,20 @@ blockquote{
 .width-fixed{
     width: 100% !important;
 }
+
+.hint{
+    background-color: #ffffff;
+    padding: 20px;
+    width: 300px;
+    position: absolute;
+    display: none;
+    z-index: 1000;
+    box-shadow: 0 0 50px rgba(0,0,0,0.5);
+    top: 45px;
+    color: #222222;
+    font-size: 14px;
+}
+
+.navbar-brand:hover .hint{
+    display: block !important;
+}
