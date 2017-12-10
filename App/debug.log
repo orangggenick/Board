@@ -9420,3 +9420,33 @@ Traceback (most recent call last):
   File "/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/django/urls/utils.py", line 23, in get_callable
     raise ViewDoesNotExist("'%s' is not a callable or a dot-notation path" % lookup_view)
 django.core.exceptions.ViewDoesNotExist: 'Board.views.custom_404' is not a callable or a dot-notation path
+Internal Server Error: /advertisement/3/edit
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/django/core/handlers/exception.py", line 41, in inner
+    response = get_response(request)
+  File "/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/django/core/handlers/base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/isakov/Работа/Board/App/Board/views.py", line 202, in edit
+    advertisement = Advertisement.objects.get(id=advertisement_id)
+  File "/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/django/db/models/manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/django/db/models/query.py", line 380, in get
+    self.model._meta.object_name
+Board.models.DoesNotExist: Advertisement matching query does not exist.
+Internal Server Error: /advertisement/3/edit
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/django/core/handlers/exception.py", line 41, in inner
+    response = get_response(request)
+  File "/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/django/core/handlers/base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/isakov/Работа/Board/App/Board/views.py", line 202, in edit
+    advertisement = Advertisement.objects.get(id=advertisement_id)
+  File "/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/django/db/models/manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/django/db/models/query.py", line 380, in get
+    self.model._meta.object_name
+Board.models.DoesNotExist: Advertisement matching query does not exist.
