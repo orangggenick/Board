@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.http import Http404
-from django.shortcuts import render, redirect, render_to_response
+from django.shortcuts import render, redirect, render_to_response, get_object_or_404
 from django.template.context_processors import csrf
 from django.db.models import Q
 from django.conf import settings
@@ -199,7 +199,7 @@ def advertisement(request, advertisement_id):
 
 def edit(request, advertisement_id):
     if auth.get_user(request).id is not None:
-        advertisement = Advertisement.objects.get(id=advertisement_id)
+        advertisement = get_object_or_404(Advertisement, id=advertisement_id)
         categories = Category.objects.all()
         cities = City.objects.all()
         shops = Shop.objects.all()
@@ -286,7 +286,7 @@ def search(request):
 
 def end(request, advertisement_id):
     if auth.get_user(request).id is not None:
-        advertisement = Advertisement.objects.get(id=advertisement_id)
+        advertisement = get_object_or_404(Advertisement, id=advertisement_id)
         if advertisement.author_id == auth.get_user(request).id:
             advertisement.end_date = datetime.datetime.now() - datetime.timedelta(days=1)
             advertisement.save()
