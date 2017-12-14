@@ -61,9 +61,6 @@ class Advertisement(models.Model):
     views = models.IntegerField(verbose_name=u'Просмотры', default=0)
     moderated = models.BooleanField(default=False, verbose_name=u'Прошел модерацию')
 
-    def __str__(self):
-        return self.header
-
 
 class Search(models.Model):
     category = models.ForeignKey(Category, verbose_name=u'Категория', blank=True, null=True)
