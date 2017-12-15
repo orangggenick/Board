@@ -29,10 +29,10 @@
                             {% endif %}
                         </div>
                         <div class="form-group">
-                            <label for="objects_in_box">Баланс карты *</label>
+                            <label for="objects_in_box">Количество *</label>
                             <div class="input-group">
-                                {% render_field form.objects_in_box class="form-control" id="objects_in_box" placeholder="Количество" %}
-                                <div class="input-group-addon">единиц</div>
+                                {% render_field form.objects_in_box class="form-control" id="objects_in_box" placeholder="Введите количество" %}
+                                <div class="input-group-addon">шт</div>
                             </div>
                             {% if form.objects_in_box.errors %}
                                 <div class="errors">{{ form.objects_in_box.errors }}</div>

@@ -176,7 +176,7 @@ blockquote{
 
 .hint{
     background-color: #ffffff;
-    padding: 20px;
+    padding: 20px 20px 10px;
     z-index: 1000;
     box-shadow: 0 20px 65px rgba(0,0,0,0.6);
     top: 65px;
