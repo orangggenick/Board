@@ -1,6 +1,6 @@
 certifi==2017.11.5
 chardet==3.0.4
-Django==1.11.5
+Django==1.11.28
 django-recaptcha2==1.0.3
 django-resized==0.3.7
 django-widget-tweaks==1.4.1
