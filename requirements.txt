@@ -7,7 +7,7 @@ django-widget-tweaks==1.4.1
 django-wysiwyg-redactor==0.5.1
 idna==2.6
 olefile==0.44
-Pillow==4.2.1
+Pillow==9.0.1
 pytz==2017.2
 requests==2.18.4
 urllib3==1.22
